@@ -13,7 +13,9 @@ export type AnalyticsEvent =
   | 'join_rewards'
   | 'referral_copy'
   | 'reorder'
-  | 'view_note';
+  | 'view_note'
+  | 'cancel_order'
+  | 'add_cycle_log';
 
 export function trackEvent(event: AnalyticsEvent, payload?: Record<string, any>) {
   if (import.meta.env.DEV) {

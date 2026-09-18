@@ -21,6 +21,7 @@ interface AppContextType {
   orders: Order[];
   rewards: RewardsAccount;
   addOrder: (order: Order) => void;
+  cancelOrder: (orderId: string) => Promise<boolean>;
   waitlistEmail: string | null;
   submitWaitlist: (email: string) => Promise<{ success: boolean; message: string; already_registered?: boolean }>;
   resetDemoState: () => Promise<void>;
@@ -35,7 +36,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [product, setProduct] = useState<Product>(defaultProductData);
   const [cart, setCart] = useState<CartItem[]>(() => {
     const saved = localStorage.getItem('nix_cart');
-    return saved ? JSON.parse(saved) : [{ product_id: 'nix-rescue-stick-01', quantity: 1 }];
+    return saved ? JSON.parse(saved) : [];
   });
   const [orders, setOrders] = useState<Order[]>(() => {
     const saved = localStorage.getItem('nix_orders');
@@ -80,9 +81,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     api
       .getProduct()
       .then(setProduct)
-      .catch(() => {
-        // Fallback to local default data
-      });
+      .catch(() => {});
 
     api
       .getRewards()
@@ -120,8 +119,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity < 1) return;
-    setCart((prev) => prev.map((item) => (item.product_id === productId ? { ...item, quantity } : item)));
+    if (quantity <= 0) {
+      removeFromCart(productId);
+    } else {
+      setCart((prev) => prev.map((item) => (item.product_id === productId ? { ...item, quantity } : item)));
+    }
   };
 
   const clearCart = () => {
@@ -150,6 +152,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     trackEvent('purchase', { order_id: order.id, total: order.total });
   };
 
+  const cancelOrder = async (orderId: string): Promise<boolean> => {
+    const timestampStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) + ', ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    try {
+      await api.cancelOrder(orderId);
+    } catch {}
+
+    setOrders((prev) =>
+      prev.map((ord) => {
+        if (ord.id.toUpperCase() === orderId.toUpperCase()) {
+          return {
+            ...ord,
+            status: 'Cancelled',
+            timeline: [
+              ...ord.timeline,
+              { label: 'Order Cancelled', completed: true, timestamp: timestampStr },
+            ],
+          };
+        }
+        return ord;
+      })
+    );
+
+    showToast(`Order #${orderId} has been cancelled.`);
+    trackEvent('cancel_order', { order_id: orderId });
+    return true;
+  };
+
   const submitWaitlist = async (email: string) => {
     try {
       const res = await api.joinWaitlist(email);
@@ -158,7 +187,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       trackEvent('join_waitlist', { email });
       return res;
     } catch {
-      // Local fallback
       localStorage.setItem('nix_waitlist_email', email);
       setWaitlistEmail(email);
       trackEvent('join_waitlist', { email });
@@ -177,7 +205,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('nix_orders');
     localStorage.removeItem('nix_rewards');
     localStorage.removeItem('nix_waitlist_email');
-    setCart([{ product_id: 'nix-rescue-stick-01', quantity: 1 }]);
+    localStorage.removeItem('nix_demo_user_profile');
+    setCart([]);
     setOrders([]);
     setRewards({
       points: 0,
@@ -203,6 +232,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         orders,
         rewards,
         addOrder,
+        cancelOrder,
         waitlistEmail,
         submitWaitlist,
         resetDemoState,

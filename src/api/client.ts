@@ -1,7 +1,7 @@
 import axios from 'axios';
-import type { Product, Order, OrderCreate, RewardsAccount, WaitlistResponse, Article } from './types';
+import type { Product, Order, RewardsAccount, WaitlistResponse, Article, DemoResetResponse } from './types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -11,48 +11,55 @@ export const apiClient = axios.create({
 });
 
 export const api = {
+  // Product endpoints
   getProduct: async (): Promise<Product> => {
-    const res = await apiClient.get<Product>('/product');
-    return res.data;
+    const response = await apiClient.get<Product>('/product');
+    return response.data;
   },
 
-  createOrder: async (data: OrderCreate): Promise<Order> => {
-    const res = await apiClient.post<Order>('/orders', data);
-    return res.data;
+  // Orders endpoints
+  createOrder: async (payload: { items: any[]; address: any }): Promise<Order> => {
+    const response = await apiClient.post<Order>('/orders', payload);
+    return response.data;
   },
-
   getOrders: async (): Promise<Order[]> => {
-    const res = await apiClient.get<Order[]>('/orders');
-    return res.data;
+    const response = await apiClient.get<Order[]>('/orders');
+    return response.data;
   },
-
   getOrderById: async (id: string): Promise<Order> => {
-    const res = await apiClient.get<Order>(`/orders/${id}`);
-    return res.data;
+    const response = await apiClient.get<Order>(`/orders/${id}`);
+    return response.data;
+  },
+  cancelOrder: async (id: string): Promise<Order> => {
+    const response = await apiClient.post<Order>(`/orders/${id}/cancel`);
+    return response.data;
   },
 
+  // Rewards endpoints
   getRewards: async (): Promise<RewardsAccount> => {
-    const res = await apiClient.get<RewardsAccount>('/rewards');
-    return res.data;
+    const response = await apiClient.get<RewardsAccount>('/rewards');
+    return response.data;
+  },
+  redeemReward: async (rewardId: string): Promise<{ success: boolean; message: string }> => {
+    const response = await apiClient.post<{ success: boolean; message: string }>(`/rewards/redeem/${rewardId}`);
+    return response.data;
   },
 
-  redeemReward: async (rewardId: string) => {
-    const res = await apiClient.post('/rewards/redeem', { reward_id: rewardId });
-    return res.data;
-  },
-
+  // Waitlist endpoint
   joinWaitlist: async (email: string): Promise<WaitlistResponse> => {
-    const res = await apiClient.post<WaitlistResponse>('/waitlist', { email });
-    return res.data;
+    const response = await apiClient.post<WaitlistResponse>('/waitlist', { email });
+    return response.data;
   },
 
+  // Notes endpoints
   getNotes: async (): Promise<Article[]> => {
-    const res = await apiClient.get<Article[]>('/notes');
-    return res.data;
+    const response = await apiClient.get<Article[]>('/notes');
+    return response.data;
   },
 
-  resetDemo: async () => {
-    const res = await apiClient.post('/demo/reset');
-    return res.data;
+  // Demo reset endpoint
+  resetDemo: async (): Promise<DemoResetResponse> => {
+    const response = await apiClient.post<DemoResetResponse>('/demo/reset');
+    return response.data;
   },
 };

@@ -8,7 +8,7 @@ export interface BundleOption {
   name: string;
   description: string;
   price?: number | null;
-  available: bool;
+  available: boolean;
 }
 
 export interface Product {
@@ -89,4 +89,9 @@ export interface Article {
   category: string;
   read_time: string;
   featured?: boolean;
+}
+
+export interface DemoResetResponse {
+  success: boolean;
+  message: string;
 }

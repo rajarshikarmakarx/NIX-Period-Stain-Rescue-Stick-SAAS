@@ -1,4 +1,4 @@
-"""Orders router for creating demo orders and fetching order tracking timeline."""
+"""Orders router for creating demo orders, fetching tracking timeline, and cancelling orders."""
 
 import uuid
 from datetime import datetime, timedelta
@@ -14,13 +14,13 @@ router = APIRouter(prefix="/orders", tags=["Orders"])
 def create_order(order_data: OrderCreate):
     """Create a new demo order and earn rewards points."""
     settings = get_settings()
-    
+
     order_id = f"NIX-{uuid.uuid4().hex[:6].upper()}"
     now = datetime.now()
     delivery_date = (now + timedelta(days=3)).strftime("%b %d, %Y")
-    
+
     total = sum(item.quantity * settings.default_product_price for item in order_data.items)
-    
+
     timeline = [
         OrderTimelineStep(label="Order Confirmed", completed=True, timestamp=now.strftime("%I:%M %p, %b %d")),
         OrderTimelineStep(label="Packed & Prepared", completed=True, timestamp=(now + timedelta(hours=2)).strftime("%I:%M %p, %b %d")),
@@ -28,7 +28,7 @@ def create_order(order_data: OrderCreate):
         OrderTimelineStep(label="Out for Delivery", completed=False, timestamp=None),
         OrderTimelineStep(label="Delivered", completed=False, timestamp=delivery_date),
     ]
-    
+
     order = {
         "id": order_id,
         "items": [item.model_dump() for item in order_data.items],
@@ -40,9 +40,9 @@ def create_order(order_data: OrderCreate):
         "timeline": [t.model_dump() for t in timeline],
         "created_at": now.isoformat(),
     }
-    
+
     demo_store.orders.insert(0, order)
-    
+
     # Award rewards points for purchase
     points_earned = settings.points_per_purchase
     demo_store.rewards["points"] += points_earned
@@ -54,7 +54,7 @@ def create_order(order_data: OrderCreate):
             "timestamp": now.strftime("%b %d, %Y"),
         },
     )
-    
+
     return order
 
 
@@ -70,4 +70,26 @@ def get_order_by_id(order_id: str):
     for order in demo_store.orders:
         if order["id"].upper() == order_id.upper():
             return order
+    raise HTTPException(status_code=404, detail="Order not found")
+
+
+@router.post("/{order_id}/cancel", response_model=OrderResponse)
+def cancel_order(order_id: str):
+    """Cancel an active order."""
+    now = datetime.now().strftime("%I:%M %p, %b %d")
+    for order in demo_store.orders:
+        if order["id"].upper() == order_id.upper():
+            if order["status"] == "Cancelled":
+                raise HTTPException(status_code=400, detail="Order is already cancelled")
+            if order["status"] == "Delivered":
+                raise HTTPException(status_code=400, detail="Delivered orders cannot be cancelled")
+
+            order["status"] = "Cancelled"
+            order["timeline"].append({
+                "label": "Order Cancelled",
+                "completed": True,
+                "timestamp": now
+            })
+            return order
+
     raise HTTPException(status_code=404, detail="Order not found")

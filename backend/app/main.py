@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
-from app.routers import product, orders, rewards, waitlist, notes, demo
+from app.routers import product, orders, rewards, waitlist, notes, demo, cycle
 
 settings = get_settings()
 
@@ -31,6 +31,7 @@ app.include_router(rewards.router, prefix=prefix)
 app.include_router(waitlist.router, prefix=prefix)
 app.include_router(notes.router, prefix=prefix)
 app.include_router(demo.router, prefix=prefix)
+app.include_router(cycle.router, prefix=prefix)
 
 
 @app.get("/health", tags=["Health"])

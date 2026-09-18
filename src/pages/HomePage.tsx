@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Zap, HeartHandshake, CheckCircle2, Clock, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, HeartHandshake, CheckCircle2, Clock, Sparkles, Calendar } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { ProductImage } from '../components/product/ProductImage';
 import { AddToCartButton } from '../components/product/AddToCartButton';
+import { WhatsInsideSection } from '../components/product/WhatsInsideSection';
 import { useApp } from '../context/AppContext';
 
 export const HomePage: React.FC = () => {
@@ -209,6 +210,84 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* --------------------------------------------------------------------
+          SECTION 3.5 — CYCLE PREDICTOR BANNER
+          -------------------------------------------------------------------- */}
+      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: '4rem 0', borderTop: '1px solid var(--color-cocoa-light)', borderBottom: '1px solid var(--color-cocoa-light)' }}>
+        <div className="container">
+          <div
+            style={{
+              backgroundColor: 'var(--color-warm-cream)',
+              borderRadius: 'var(--radius-xl)',
+              padding: '3rem 2.5rem',
+              border: '2px solid var(--color-deep-cherry)',
+              boxShadow: 'var(--shadow-card)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '2.5rem',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <span className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Calendar size={14} color="var(--color-deep-cherry)" /> NEW FEATURE &bull; NIX CYCLE INTELLIGENCE
+              </span>
+              <h2 style={{ marginBottom: '1rem' }}>Know your peak stain risk days in advance.</h2>
+              <p style={{ fontSize: '1.05rem', opacity: 0.9, marginBottom: '1.5rem' }}>
+                Use our built-in Cycle & Stain Preparedness Predictor to calculate your upcoming flow phases, set period reminders, and make sure your NIX Rescue Stick is packed before emergency strikes.
+              </p>
+              <Link to="/cycle-predictor">
+                <Button variant="primary" size="md">
+                  TRY CYCLE PREDICTOR <ArrowRight size={18} />
+                </Button>
+              </Link>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: 'var(--color-cream-card)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '1.75rem',
+                border: '1px solid var(--color-cocoa-light)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: '#fff', padding: '0.5rem', borderRadius: '50%', display: 'flex' }}>
+                  <Calendar size={20} />
+                </div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Dynamic Interactive Calendar</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Color-coded period & ovulation predictions</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ backgroundColor: 'var(--color-blush-soft)', color: 'var(--color-deep-cherry)', padding: '0.5rem', borderRadius: '50%', display: 'flex' }}>
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Smart Stain Risk Index</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Phase-by-phase clothing care advisories</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ backgroundColor: 'var(--color-warm-cream)', border: '1px solid var(--color-cocoa-light)', padding: '0.5rem', borderRadius: '50%', display: 'flex' }}>
+                  <Clock size={20} color="var(--color-deep-cherry)" />
+                </div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Incident & Flow Logging</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Track moments NIX saved your favorite outfits</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------
           SECTION 4 — HOW IT WORKS PREVIEW (§12)
           -------------------------------------------------------------------- */}
       <section>
@@ -268,6 +347,11 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* --------------------------------------------------------------------
+          SECTION 4.5 — WHAT'S INSIDE: FORMULATED TO BE GENTLE WHERE IT MATTERS
+          -------------------------------------------------------------------- */}
+      <WhatsInsideSection />
 
       {/* --------------------------------------------------------------------
           SECTION 5 — WHY A STICK? (§13)

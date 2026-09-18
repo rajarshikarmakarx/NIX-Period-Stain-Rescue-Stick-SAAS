@@ -1,37 +1,32 @@
-from pydantic_settings import BaseSettings
-from functools import lru_cache
-
+import os
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    """Application settings loaded from environment variables."""
-
-    # Supabase
-    supabase_url: str = ""
-    supabase_key: str = ""
-
-    # App
-    app_name: str = "NIX & CO. API"
+    PROJECT_NAME: str = "NIX & CO. D2C API"
+    app_name: str = "NIX & CO. D2C API"
     debug: bool = True
-    cors_origins: list[str] = [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-    ]
+    cors_origins: list[str] = ["*"]
+    API_V1_STR: str = "/api/v1"
 
-    # Product defaults
+    # Store settings
     default_product_price: int = 349
-    currency: str = "INR"
     currency_symbol: str = "₹"
-
-    # Rewards
     points_per_purchase: int = 100
-    points_per_referral: int = 50
-    points_per_profile: int = 25
-    points_per_note_read: int = 25
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    # Supabase Credentials
+    SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
+    SUPABASE_PUBLIC_KEY: str = os.getenv("SUPABASE_PUBLIC_KEY", os.getenv("SUPABASE_ANON_KEY", ""))
+    SUPABASE_SERVICE_ROLE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY", "")
+    SUPABASE_JWT_SECRET: str = os.getenv("SUPABASE_JWT_SECRET", "super-secret-jwt-key")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "")
 
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
 
-@lru_cache
+settings = Settings()
+
 def get_settings() -> Settings:
-    return Settings()
+    return settings

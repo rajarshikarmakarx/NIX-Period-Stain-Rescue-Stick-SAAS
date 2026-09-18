@@ -8,6 +8,7 @@ import { Button } from '../components/common/Button';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { useApp } from '../context/AppContext';
 import { ShieldCheck, Truck, RotateCcw } from 'lucide-react';
+import { WhatsInsideSection } from '../components/product/WhatsInsideSection';
 
 export const ShopPage: React.FC = () => {
   const { product, addToCart } = useApp();
@@ -95,6 +96,11 @@ export const ShopPage: React.FC = () => {
             <Accordion items={product.details} />
           </div>
         </div>
+
+        {/* --------------------------------------------------------------------
+            WHAT'S INSIDE — FORMULATED TO BE GENTLE WHERE IT MATTERS
+            -------------------------------------------------------------------- */}
+        <WhatsInsideSection style={{ margin: '4rem 0' }} />
 
         {/* --------------------------------------------------------------------
             PRODUCT BUNDLES (§16)

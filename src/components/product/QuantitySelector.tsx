@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Trash2 } from 'lucide-react';
 
 interface QuantitySelectorProps {
   quantity: number;
@@ -11,7 +11,7 @@ interface QuantitySelectorProps {
 export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   quantity,
   onChange,
-  min = 1,
+  min = 0,
   max = 99,
 }) => {
   const handleDecrement = () => {
@@ -47,8 +47,9 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           cursor: quantity <= min ? 'not-allowed' : 'pointer',
         }}
         aria-label="Decrease quantity"
+        title={quantity === 1 ? 'Remove item from bag' : 'Decrease quantity'}
       >
-        <Minus size={16} />
+        {quantity === 1 ? <Trash2 size={15} color="var(--color-cherry-red)" /> : <Minus size={16} />}
       </button>
 
       <span

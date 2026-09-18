@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common/Button';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { api } from '../../api/client';
 import type { AddressInfo } from '../../api/types';
 
 export const CheckoutForm: React.FC = () => {
   const { cart, addOrder, product, showToast } = useApp();
+  const { profile } = useAuth();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
 
   const [form, setForm] = useState<AddressInfo>({
-    name: 'Ananya Sharma',
-    email: 'ananya@example.com',
-    phone: '+91 98765 43210',
+    name: profile?.full_name || 'Ananya Sharma',
+    email: profile?.email || 'ananya@example.com',
+    phone: profile?.phone_number || '+91 98765 43210',
     address: 'Flat 402, Sunset Heights, North Campus',
     city: 'New Delhi',
     state: 'Delhi',
     pincode: '110007',
   });
+
+  useEffect(() => {
+    if (profile) {
+      setForm((prev) => ({
+        ...prev,
+        name: profile.full_name || prev.name,
+        email: profile.email || prev.email,
+        phone: profile.phone_number || prev.phone,
+      }));
+    }
+  }, [profile]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });

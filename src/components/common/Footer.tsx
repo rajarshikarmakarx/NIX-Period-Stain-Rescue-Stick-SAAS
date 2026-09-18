@@ -72,6 +72,7 @@ export const Footer: React.FC = () => {
               <li><Link to="/shop" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>Shop NIX</Link></li>
               <li><Link to="/how-it-works" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>How It Works</Link></li>
               <li><Link to="/rewards" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>NIX Rewards</Link></li>
+              <li><Link to="/cycle-predictor" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>Cycle Predictor</Link></li>
               <li><Link to="/emergency-kit" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>Emergency Kit</Link></li>
               <li><Link to="/notes" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>NIX Notes</Link></li>
               <li><Link to="/about" style={{ color: 'rgba(248, 240, 227, 0.85)' }}>About Us</Link></li>

@@ -1,197 +1,127 @@
-"""Supabase client initialization with in-memory fallback for demo mode."""
+import logging
+from typing import Optional, Dict, Any, List
+from app.config import settings
 
-from __future__ import annotations
+logger = logging.getLogger(__name__)
 
-import uuid
-from datetime import datetime, timedelta
-from typing import Any
-
-from app.config import get_settings
-
-# ---------------------------------------------------------------------------
-# Try to initialise the real Supabase client. If credentials are missing we
-# fall back to a simple in-memory store so the demo works without a database.
-# ---------------------------------------------------------------------------
-
-_supabase_client = None
-
+# Supabase Client Initialization
 try:
     from supabase import create_client, Client
+    if settings.SUPABASE_URL and (settings.SUPABASE_PUBLIC_KEY or settings.SUPABASE_SERVICE_ROLE_KEY):
+        key = settings.SUPABASE_SERVICE_ROLE_KEY or settings.SUPABASE_PUBLIC_KEY
+        supabase_client: Optional[Client] = create_client(settings.SUPABASE_URL, key)
+    else:
+        supabase_client = None
+except Exception as e:
+    logger.warning(f"Could not initialize Supabase client: {e}. Falling back to in-memory DemoStore.")
+    supabase_client = None
 
-    settings = get_settings()
-    if settings.supabase_url and settings.supabase_key:
-        _supabase_client = create_client(settings.supabase_url, settings.supabase_key)
-except Exception:
-    _supabase_client = None
-
-
-def get_supabase() -> "Client | None":
-    """Return the Supabase client (may be ``None`` in demo mode)."""
-    return _supabase_client
-
-
-# ---------------------------------------------------------------------------
-# In-memory demo store
-# ---------------------------------------------------------------------------
 
 class DemoStore:
-    """Simple in-memory data store used when Supabase is unavailable."""
-
-    def __init__(self) -> None:
+    """In-memory store to guarantee flawless prototype demos without external DB dependency."""
+    def __init__(self):
         self.reset()
 
-    # -- seed helpers -------------------------------------------------------
-
-    def reset(self) -> None:
-        settings = get_settings()
-
-        self.product: dict[str, Any] = {
+    def reset(self):
+        self.product: Dict[str, Any] = {
             "id": "nix-rescue-stick-01",
             "name": "NIX Period Stain Rescue Stick",
-            "short_description": "Portable pre-treatment care for fresh menstrual stains.",
-            "long_description": (
-                "A compact stain-treatment stick made to live in your everyday bag. "
-                "NIX is designed for the moment a stain happens — not for the laundry room."
-            ),
-            "price": settings.default_product_price,
-            "currency": settings.currency_symbol,
+            "tagline": "Instant, discreet emergency stain removal on the go.",
+            "price": 349,
+            "original_price": 449,
+            "currency": "₹",
+            "rating": 4.9,
+            "review_count": 1284,
+            "in_stock": True,
+            "description": "NIX is a compact, handbag-ready period stain emergency rescue stick formulated with active plant enzymes to instantly dissolve fresh or set-in period blood stains without water rinsing required.",
             "images": [
-                "/images/product-hero.webp",
-                "/images/product-closeup.webp",
-                "/images/product-in-hand.webp",
-                "/images/product-in-bag.webp",
-                "/images/product-packaging.webp",
+                "/assets/stick-main.png",
+                "/assets/stick-in-hand.png",
+                "/assets/stick-packaging.png"
             ],
-            "features": [
-                "Portable",
-                "Discreet",
-                "Easy to carry",
-                "Designed for fresh stains",
-                "Pre-treatment format",
+            "highlights": [
+                "Plant-Based Enzyme Formula",
+                "Color-Safe on All Fabrics",
+                "Pocket-Sized Handbag Companion",
+                "Zero Water Rinsing Required"
             ],
-            "details": [
+            "details_accordion": [
                 {
-                    "title": "What is NIX?",
-                    "content": "NIX is a portable pre-treatment stick designed specifically for fresh menstrual stains. Small enough to keep in your everyday bag.",
+                    "title": "How to Use",
+                    "content": "Dab NIX directly onto stain. Massage gently for 15-30 seconds. Blot with dry tissue. No water required."
                 },
                 {
-                    "title": "How does it work?",
-                    "content": "Blot excess moisture, apply NIX directly to the stain, gently work it in, then wash normally when you get home.",
+                    "title": "Clean Ingredients",
+                    "content": "Water, Plant-derived Protease Enzymes, Coconut Surfactant, Botanical Fragrance, Preservative System."
                 },
                 {
-                    "title": "When should I use it?",
-                    "content": "Use NIX as soon as you notice a fresh period stain. The sooner you treat it, the better the result.",
-                },
-                {
-                    "title": "How do I carry it?",
-                    "content": "NIX is designed to fit in a handbag, college bag, gym bag, or travel pouch. Keep it wherever you keep your essentials.",
-                },
-                {
-                    "title": "Product details",
-                    "content": "Compact stick format. Specific formulation details will be available soon.",
-                },
-                {
-                    "title": "Shipping & returns",
-                    "content": "Free shipping on orders above ₹499. Easy returns within 7 days of delivery.",
-                },
+                    "title": "Fabric Compatibility",
+                    "content": "Safe on cotton, linen, denim, polyester, silk, and activewear. Test on a hidden area for delicate fabrics."
+                }
             ],
             "bundles": [
                 {
-                    "id": "single",
-                    "name": "Single",
-                    "description": "1 NIX Stick",
-                    "price": settings.default_product_price,
-                    "available": True,
+                    "id": "bundle-1",
+                    "title": "Solo Rescue",
+                    "description": "1x NIX Period Stain Rescue Stick",
+                    "price": 349,
+                    "discount": "Save 22%"
                 },
                 {
-                    "id": "duo",
-                    "name": "Duo",
-                    "description": "2 NIX Sticks",
-                    "price": None,
-                    "available": False,
+                    "id": "bundle-2",
+                    "title": "Handbag & Vanity Duo",
+                    "description": "2x NIX Sticks (1 Handbag + 1 Home Vanity)",
+                    "price": 599,
+                    "discount": "Most Popular — Save 33%"
                 },
                 {
-                    "id": "campus-pack",
-                    "name": "Campus Pack",
-                    "description": "Multiple sticks / bundle",
-                    "price": None,
-                    "available": False,
-                },
-                {
-                    "id": "refill",
-                    "name": "Refill / Reorder",
-                    "description": "Repeat purchase option",
-                    "price": None,
-                    "available": False,
-                },
+                    "id": "bundle-3",
+                    "title": "Trio Emergency Pack",
+                    "description": "3x NIX Sticks + Free Velvet Travel Pouch",
+                    "price": 849,
+                    "discount": "Best Value — Save 41%"
+                }
+            ]
+        }
+        self.orders: List[Dict[str, Any]] = [
+          {
+            "id": "NIX-884201",
+            "items": [{"product_id": "nix-rescue-stick-01", "quantity": 2}],
+            "address": {
+              "name": "Ananya Sharma",
+              "email": "ananya@example.com",
+              "phone": "+91 98765 43210",
+              "address": "Flat 402, Sunset Heights, North Campus",
+              "city": "New Delhi",
+              "state": "Delhi",
+              "pincode": "110007"
+            },
+            "total": 698,
+            "currency": "₹",
+            "status": "In Transit",
+            "delivery_estimate": "Tomorrow by 5 PM",
+            "timeline": [
+              {"label": "Order Confirmed", "completed": True, "timestamp": "Aug 28, 10:15 AM"},
+              {"label": "Packed & Prepared", "completed": True, "timestamp": "Aug 28, 02:30 PM"},
+              {"label": "Shipped", "completed": True, "timestamp": "Aug 29, 09:00 AM"},
+              {"label": "Out for Delivery", "completed": False},
+              {"label": "Delivered", "completed": False}
             ],
+            "created_at": "2026-08-28T10:15:00Z"
+          }
+        ]
+        self.rewards = {
+          "points": 120,
+          "tier": "Member",
+          "history": [
+            {"action": "Welcome Bonus", "points": 50, "timestamp": "Aug 1, 2026"},
+            {"action": "Profile Completed", "points": 25, "timestamp": "Aug 5, 2026"},
+            {"action": "Read NIX Note", "points": 45, "timestamp": "Aug 15, 2026"}
+          ],
+          "referral_code": "NIX-CARE4U"
         }
-
-        self.orders: list[dict[str, Any]] = []
-
-        self.rewards: dict[str, Any] = {
-            "points": 0,
-            "tier": "Starter",
-            "history": [],
-            "referral_code": f"NIX-{uuid.uuid4().hex[:4].upper()}",
-        }
-
-        self.waitlist: list[dict[str, Any]] = []
-
-        self.notes: list[dict[str, Any]] = [
-            {
-                "id": "note-1",
-                "title": "What to Do When You Get a Period Stain in Public",
-                "excerpt": "It happens to almost everyone. Here's how to handle it calmly and effectively.",
-                "image": "/images/note-1.webp",
-                "category": "Tips",
-                "read_time": "3 min",
-                "featured": True,
-            },
-            {
-                "id": "note-2",
-                "title": "Why Fresh Stains Are Easier to Treat",
-                "excerpt": "The science behind why acting quickly makes all the difference.",
-                "image": "/images/note-2.webp",
-                "category": "Science",
-                "read_time": "4 min",
-                "featured": False,
-            },
-            {
-                "id": "note-3",
-                "title": "What to Keep in Your Period Emergency Pouch",
-                "excerpt": "A simple checklist for being prepared wherever you go.",
-                "image": "/images/note-3.webp",
-                "category": "Essentials",
-                "read_time": "2 min",
-                "featured": False,
-            },
-            {
-                "id": "note-4",
-                "title": "Period Essentials for Your College Bag",
-                "excerpt": "Campus life doesn't stop for periods. Here's what to carry.",
-                "image": "/images/note-4.webp",
-                "category": "College",
-                "read_time": "3 min",
-                "featured": False,
-            },
-            {
-                "id": "note-5",
-                "title": "How to Handle Stains While Travelling",
-                "excerpt": "Practical tips for managing unexpected stains away from home.",
-                "image": "/images/note-5.webp",
-                "category": "Travel",
-                "read_time": "3 min",
-                "featured": False,
-            },
+        self.waitlist: List[Dict[str, Any]] = [
+          {"email": "earlybird@example.com", "created_at": "2026-08-20T12:00:00Z"}
         ]
 
-        self.user: dict[str, Any] = {
-            "name": "Demo User",
-            "email": "demo@nixandco.in",
-            "phone": "",
-        }
-
-
-# Singleton
 demo_store = DemoStore()
