@@ -58,7 +58,15 @@ export const ShopPage: React.FC = () => {
         >
           {/* Left Column — Image Gallery */}
           <div style={{ minWidth: 0, width: '100%' }}>
-            <ProductGallery images={product.images} productName={product.name} />
+            <ProductGallery
+              images={product.images}
+              productName={product.name}
+              selectedVariantId={selectedVariant.id}
+              onSelectVariant={(variantId) => {
+                const found = variants.find((v) => v.id === variantId);
+                if (found) setSelectedVariant(found);
+              }}
+            />
           </div>
 
           {/* Right Column — Product Purchase Info */}

@@ -3,6 +3,8 @@ import type { CartItem, Order, RewardsAccount, AddressInfo, Product, ProductVari
 import { api } from '../api/client';
 import { defaultProductData } from '../data/product';
 import { trackEvent } from '../hooks/useAnalytics';
+import { useAuth } from './AuthContext';
+import { supabase } from '@/lib/supabase';
 
 interface ToastState {
   message: string;
@@ -33,6 +35,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user, profile } = useAuth();
   const [product, setProduct] = useState<Product>(defaultProductData);
   const [cart, setCart] = useState<CartItem[]>(() => {
     const saved = localStorage.getItem('nix_cart');
@@ -75,6 +78,51 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('nix_rewards', JSON.stringify(rewards));
   }, [rewards]);
+
+  // Sync orders with Supabase database whenever user auth changes
+  useEffect(() => {
+    if (!user && !profile) return;
+
+    const syncUserOrders = async () => {
+      try {
+        const filters: string[] = [];
+        if (user?.id) filters.push(`user_id.eq.${user.id}`);
+        if (user?.email) filters.push(`user_email.eq.${user.email}`);
+        if (profile?.email && profile.email !== user?.email) {
+          filters.push(`user_email.eq.${profile.email}`);
+        }
+
+        if (filters.length === 0) return;
+
+        const { data, error } = await supabase
+          .from('orders')
+          .select('*')
+          .or(filters.join(','))
+          .order('created_at', { ascending: false });
+
+        if (data && !error && data.length > 0) {
+          setOrders((prev) => {
+            const map = new Map<string, Order>();
+            data.forEach((ord: any) => map.set(ord.id.toUpperCase(), ord as Order));
+            prev.forEach((ord) => {
+              if (!map.has(ord.id.toUpperCase())) {
+                map.set(ord.id.toUpperCase(), ord);
+              }
+            });
+            const merged = Array.from(map.values()).sort(
+              (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            );
+            localStorage.setItem('nix_orders', JSON.stringify(merged));
+            return merged;
+          });
+        }
+      } catch (err) {
+        console.warn('Could not sync orders from Supabase:', err);
+      }
+    };
+
+    syncUserOrders();
+  }, [user, profile]);
 
   // Fetch product & rewards from backend if online
   useEffect(() => {
@@ -163,8 +211,39 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartSubtotal = cart.reduce((sum, item) => sum + item.quantity * (item.price ?? product.price), 0);
 
-  const addOrder = (order: Order) => {
-    setOrders((prev) => [order, ...prev]);
+  const addOrder = async (order: Order) => {
+    const enrichedOrder: Order = {
+      ...order,
+      user_id: user?.id || order.user_id,
+      user_email: user?.email || profile?.email || order.address?.email || order.user_email,
+    };
+
+    setOrders((prev) => {
+      const updated = [enrichedOrder, ...prev.filter((o) => o.id.toUpperCase() !== enrichedOrder.id.toUpperCase())];
+      localStorage.setItem('nix_orders', JSON.stringify(updated));
+      return updated;
+    });
+
+    // Persist to Supabase orders table
+    try {
+      await supabase.from('orders').upsert({
+        id: enrichedOrder.id,
+        user_id: enrichedOrder.user_id || null,
+        user_email: enrichedOrder.user_email || null,
+        items: enrichedOrder.items,
+        address: enrichedOrder.address,
+        total: enrichedOrder.total,
+        currency: enrichedOrder.currency,
+        status: enrichedOrder.status,
+        delivery_estimate: enrichedOrder.delivery_estimate,
+        timeline: enrichedOrder.timeline,
+        created_at: enrichedOrder.created_at,
+        updated_at: new Date().toISOString(),
+      });
+    } catch (err) {
+      console.warn('Could not persist order to Supabase:', err);
+    }
+
     // Award 100 reward points
     setRewards((prev) => ({
       ...prev,
@@ -183,10 +262,38 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const cancelOrder = async (orderId: string): Promise<boolean> => {
-    const timestampStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) + ', ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const timestampStr =
+      new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) +
+      ', ' +
+      new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
+
     try {
       await api.cancelOrder(orderId);
     } catch {}
+
+    // Update cancellation in Supabase
+    try {
+      const { data: existing } = await supabase
+        .from('orders')
+        .select('timeline')
+        .ilike('id', orderId)
+        .maybeSingle();
+
+      const updatedTimeline = existing?.timeline
+        ? [...existing.timeline, { label: 'Order Cancelled', completed: true, timestamp: timestampStr }]
+        : undefined;
+
+      await supabase
+        .from('orders')
+        .update({
+          status: 'Cancelled',
+          ...(updatedTimeline ? { timeline: updatedTimeline } : {}),
+          updated_at: new Date().toISOString(),
+        })
+        .ilike('id', orderId);
+    } catch (err) {
+      console.warn('Could not update order cancellation in Supabase:', err);
+    }
 
     setOrders((prev) =>
       prev.map((ord) => {

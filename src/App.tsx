@@ -45,7 +45,14 @@ export const App: React.FC = () => {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="/account/orders/:id" element={<OrderTrackingPage />} />
+                <Route
+                  path="/account/orders/:id"
+                  element={
+                    <ProtectedRoute>
+                      <OrderTrackingPage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/rewards" element={<RewardsPage />} />
                 <Route path="/emergency-kit" element={<EmergencyKitPage />} />
                 <Route path="/notes" element={<NotesPage />} />

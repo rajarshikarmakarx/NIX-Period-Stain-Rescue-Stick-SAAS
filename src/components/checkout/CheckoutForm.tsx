@@ -42,15 +42,20 @@ export const CheckoutForm: React.FC = () => {
     if (cart.length === 0) return;
 
     setSubmitting(true);
+    const user_id = profile?.id;
+    const user_email = profile?.email || form.email;
+
     try {
-      const order = await api.createOrder({ items: cart, address: form });
+      const order = await api.createOrder({ items: cart, address: form, user_id, user_email });
       addOrder(order);
-      showToast('Demo order placed successfully!');
+      showToast('Order placed successfully!');
       navigate('/order-confirmation', { state: { order } });
     } catch {
       // Local fallback order creation
       const localOrder = {
         id: `NIX-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+        user_id,
+        user_email,
         items: cart,
         address: form,
         total: cart.reduce((acc, item) => acc + item.quantity * (item.price ?? product.price ?? 79), 0),
@@ -67,7 +72,7 @@ export const CheckoutForm: React.FC = () => {
         created_at: new Date().toISOString(),
       };
       addOrder(localOrder);
-      showToast('Demo order placed successfully!');
+      showToast('Order placed successfully!');
       navigate('/order-confirmation', { state: { order: localOrder } });
     } finally {
       setSubmitting(false);

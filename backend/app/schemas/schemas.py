@@ -19,6 +19,8 @@ class ProductVariant(BaseModel):
     price: int
     original_price: Optional[int] = None
     in_stock: bool = True
+    image: Optional[str] = None
+    packaging_image: Optional[str] = None
 
 
 class ProductDetail(BaseModel):
@@ -73,6 +75,8 @@ class AddressInfo(BaseModel):
 class OrderCreate(BaseModel):
     items: list[CartItem]
     address: AddressInfo
+    user_id: Optional[str] = None
+    user_email: Optional[str] = None
 
 
 class OrderTimelineStep(BaseModel):
@@ -83,6 +87,8 @@ class OrderTimelineStep(BaseModel):
 
 class OrderResponse(BaseModel):
     id: str
+    user_id: Optional[str] = None
+    user_email: Optional[str] = None
     items: list[CartItem]
     address: AddressInfo
     total: int

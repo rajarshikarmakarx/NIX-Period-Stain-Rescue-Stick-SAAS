@@ -1,11 +1,14 @@
 """Orders router for creating demo orders, fetching tracking timeline, and cancelling orders."""
 
 import uuid
+import logging
 from datetime import datetime, timedelta
 from fastapi import APIRouter, HTTPException
-from app.db.supabase import demo_store
+from app.db.supabase import demo_store, supabase_client
 from app.schemas.schemas import OrderCreate, OrderResponse, OrderTimelineStep
 from app.config import get_settings
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
@@ -31,6 +34,8 @@ def create_order(order_data: OrderCreate):
 
     order = {
         "id": order_id,
+        "user_id": order_data.user_id,
+        "user_email": order_data.user_email or order_data.address.email,
         "items": [item.model_dump() for item in order_data.items],
         "address": order_data.address.model_dump(),
         "total": total,
@@ -41,7 +46,28 @@ def create_order(order_data: OrderCreate):
         "created_at": now.isoformat(),
     }
 
+    # Save to in-memory store
     demo_store.orders.insert(0, order)
+
+    # Save to Supabase table if available
+    if supabase_client:
+        try:
+            supabase_client.table("orders").upsert({
+                "id": order["id"],
+                "user_id": order["user_id"],
+                "user_email": order["user_email"],
+                "items": order["items"],
+                "address": order["address"],
+                "total": order["total"],
+                "currency": order["currency"],
+                "status": order["status"],
+                "delivery_estimate": order["delivery_estimate"],
+                "timeline": order["timeline"],
+                "created_at": order["created_at"],
+                "updated_at": now.isoformat(),
+            }).execute()
+        except Exception as e:
+            logger.warning(f"Could not persist order {order_id} to Supabase orders table: {e}")
 
     # Award rewards points for purchase
     points_earned = settings.points_per_purchase
@@ -61,12 +87,27 @@ def create_order(order_data: OrderCreate):
 @router.get("", response_model=list[OrderResponse])
 def get_orders():
     """Get all past orders for the demo user."""
+    if supabase_client:
+        try:
+            res = supabase_client.table("orders").select("*").order("created_at", desc=True).execute()
+            if res.data and len(res.data) > 0:
+                return res.data
+        except Exception as e:
+            logger.warning(f"Could not query orders from Supabase: {e}")
     return demo_store.orders
 
 
 @router.get("/{order_id}", response_model=OrderResponse)
 def get_order_by_id(order_id: str):
     """Get order status and tracking timeline by ID."""
+    if supabase_client:
+        try:
+            res = supabase_client.table("orders").select("*").ilike("id", order_id).execute()
+            if res.data and len(res.data) > 0:
+                return res.data[0]
+        except Exception as e:
+            logger.warning(f"Could not query order {order_id} from Supabase: {e}")
+
     for order in demo_store.orders:
         if order["id"].upper() == order_id.upper():
             return order
@@ -77,6 +118,39 @@ def get_order_by_id(order_id: str):
 def cancel_order(order_id: str):
     """Cancel an active order."""
     now = datetime.now().strftime("%I:%M %p, %b %d")
+    now_iso = datetime.now().isoformat()
+
+    # Cancel in Supabase
+    if supabase_client:
+        try:
+            res = supabase_client.table("orders").select("*").ilike("id", order_id).execute()
+            if res.data and len(res.data) > 0:
+                existing = res.data[0]
+                if existing["status"] == "Cancelled":
+                    raise HTTPException(status_code=400, detail="Order is already cancelled")
+                if existing["status"] == "Delivered":
+                    raise HTTPException(status_code=400, detail="Delivered orders cannot be cancelled")
+
+                updated_timeline = list(existing.get("timeline", []))
+                updated_timeline.append({
+                    "label": "Order Cancelled",
+                    "completed": True,
+                    "timestamp": now
+                })
+
+                up_res = supabase_client.table("orders").update({
+                    "status": "Cancelled",
+                    "timeline": updated_timeline,
+                    "updated_at": now_iso
+                }).ilike("id", order_id).execute()
+
+                if up_res.data and len(up_res.data) > 0:
+                    return up_res.data[0]
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.warning(f"Could not cancel order {order_id} in Supabase: {e}")
+
     for order in demo_store.orders:
         if order["id"].upper() == order_id.upper():
             if order["status"] == "Cancelled":
@@ -93,3 +167,4 @@ def cancel_order(order_id: str):
             return order
 
     raise HTTPException(status_code=404, detail="Order not found")
+

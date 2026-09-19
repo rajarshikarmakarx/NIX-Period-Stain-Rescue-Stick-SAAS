@@ -49,18 +49,27 @@ export const CheckoutPage: React.FC = () => {
                 const itemPrice = item.price ?? product.price ?? 79;
                 return (
                   <div key={item.product_id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.95rem' }}>
-                    <div>
-                      <div style={{ fontWeight: 600 }}>{product.name}</div>
-                      {item.variant_name && (
-                        <div style={{ fontSize: '0.8rem', color: 'var(--color-deep-cherry)', fontWeight: 600 }}>
-                          {item.variant_name} × {item.quantity}
-                        </div>
-                      )}
-                      {!item.variant_name && (
-                        <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-                          Qty: {item.quantity}
-                        </div>
-                      )}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div style={{ width: '42px', height: '42px', borderRadius: 'var(--radius-md)', overflow: 'hidden', flexShrink: 0, border: '1px solid var(--color-cocoa-light)' }}>
+                        <img
+                          src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.jpg' : '/images/10ml-without-packaging.jpg'}
+                          alt={product.name}
+                          style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: 'var(--color-warm-cream)' }}
+                        />
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600 }}>{product.name}</div>
+                        {item.variant_name && (
+                          <div style={{ fontSize: '0.8rem', color: 'var(--color-deep-cherry)', fontWeight: 600 }}>
+                            {item.variant_name} × {item.quantity}
+                          </div>
+                        )}
+                        {!item.variant_name && (
+                          <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+                            Qty: {item.quantity}
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <span style={{ fontWeight: 600 }}>{product.currency}{item.quantity * itemPrice}</span>
                   </div>

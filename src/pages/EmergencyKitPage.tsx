@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { WaitlistForm } from '../components/content/WaitlistForm';
 import { ProductImage } from '../components/product/ProductImage';
-import { Sparkles, Shield, Heart, Package } from 'lucide-react';
+import { Sparkles, Shield, Heart, Package, Check } from 'lucide-react';
 
 export const EmergencyKitPage: React.FC = () => {
+  const [selectedKitImage, setSelectedKitImage] = useState<number>(0);
+
+  const kitImages = [
+    {
+      src: '/images/20ml-with-packaging.jpg',
+      label: '20ml Value Stick with Packaging Box',
+      badge: 'Core Hero Essential',
+    },
+    {
+      src: '/images/10ml-without-packaging.jpg',
+      label: '10ml Pocket Companion Stick',
+      badge: 'Discreet Carry',
+    },
+    {
+      src: '/images/20ml-without-packaging.jpg',
+      label: '20ml Pre-Treatment Formulation Stick',
+      badge: 'High Capacity',
+    },
+    {
+      src: '/images/10ml-with-packaging.jpg',
+      label: '10ml Starter Stick in Custom Retail Box',
+      badge: 'Starter Pack',
+    },
+  ];
+
   return (
     <div style={{ padding: '3rem 0 5rem 0' }}>
       <div className="container">
@@ -15,7 +40,8 @@ export const EmergencyKitPage: React.FC = () => {
           </span>
           <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>The NIX Emergency Kit.</h1>
           <p style={{ fontSize: '1.2rem', opacity: 0.9 }}>
-            Because sometimes one stain stick isn't enough. We're building the ultimate portable period emergency ecosystem.
+            Because sometimes one stain stick isn't enough. We're building the ultimate portable
+            period emergency ecosystem.
           </p>
         </div>
 
@@ -30,19 +56,85 @@ export const EmergencyKitPage: React.FC = () => {
           }}
         >
           <div style={{ minWidth: 0, width: '100%' }}>
-            <ProductImage alt="NIX Emergency Kit Teaser" label="Emergency Kit Conceptual Prototype" />
+            <ProductImage
+              src={kitImages[selectedKitImage].src}
+              alt="NIX Emergency Kit Visual Showcase"
+              label={kitImages[selectedKitImage].label}
+              badge={kitImages[selectedKitImage].badge}
+              aspectRatio="3 / 4"
+              objectFit="contain"
+              style={{ maxHeight: '460px', margin: '0 auto' }}
+            />
+
+            {/* Thumbnail selector */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '0.5rem',
+                marginTop: '1rem',
+              }}
+            >
+              {kitImages.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedKitImage(idx)}
+                  style={{
+                    borderRadius: 'var(--radius-md)',
+                    border:
+                      selectedKitImage === idx
+                        ? '2px solid var(--color-deep-cherry)'
+                        : '1px solid var(--color-cocoa-light)',
+                    padding: '2px',
+                    backgroundColor: 'var(--color-cream-card)',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    aspectRatio: '1 / 1',
+                    opacity: selectedKitImage === idx ? 1 : 0.7,
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.label}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '4px' }}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
 
           <div style={{ minWidth: 0, width: '100%' }}>
             <span className="eyebrow">WHAT'S INSIDE THE KIT</span>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', marginBottom: '1.5rem' }}>Complete emergency care on-the-go.</h2>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', marginBottom: '1.5rem' }}>
+              Complete emergency care on-the-go.
+            </h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.25rem',
+                marginBottom: '2.5rem',
+              }}
+            >
               {[
-                { title: 'NIX Stain Rescue Stick', desc: '10ml & 20ml pre-treatment sticks for immediate stain care.' },
-                { title: 'Biodegradable Disposal Bags', desc: 'Discreet, opaque disposal pouches for emergencies.' },
-                { title: 'Intimate Care Cleansing Wipes', desc: 'Gentle, pH-balanced individually wrapped wipes.' },
-                { title: 'Emergency Backup Essentials', desc: 'Emergency period pads + compact carry pouch.' },
+                {
+                  title: 'NIX Stain Rescue Sticks (10ml & 20ml)',
+                  desc: 'Pocket & standard pre-treatment sticks for immediate spot rescue.',
+                },
+                {
+                  title: 'Biodegradable Disposal Pouches',
+                  desc: 'Discreet, opaque sealed disposal bags for emergencies.',
+                },
+                {
+                  title: 'Intimate Care Cleansing Wipes',
+                  desc: 'Gentle, pH-balanced individually wrapped wipes.',
+                },
+                {
+                  title: 'Emergency Backup Essentials',
+                  desc: 'Organic cotton emergency pads in a compact water-resistant pouch.',
+                },
               ].map((item, idx) => (
                 <div key={idx} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                   <div
@@ -79,7 +171,9 @@ export const EmergencyKitPage: React.FC = () => {
                 border: '1px solid var(--color-cocoa-light)',
               }}
             >
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Be the first to get the Kit.</h3>
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
+                Be the first to get the Kit.
+              </h3>
               <p style={{ fontSize: '0.9rem', opacity: 0.85, marginBottom: '1.25rem' }}>
                 Join 1,200+ people on the early-access waitlist and get 20% off at launch.
               </p>

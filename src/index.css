@@ -144,6 +144,13 @@ button {
   }
 }
 
+/* Hide hero product image on mobile screens above the Real-Life Moments section */
+@media (max-width: 768px) {
+  .hero-image-desktop-only {
+    display: none !important;
+  }
+}
+
 .bg-cherry {
   background-color: var(--color-deep-cherry);
   color: var(--color-warm-cream);

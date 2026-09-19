@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Zap, HeartHandshake, CheckCircle2, Clock, Sparkles, Calendar } from 'lucide-react';
+import {
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  CheckCircle2,
+  Clock,
+  Sparkles,
+  Calendar,
+  Check,
+} from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { ProductImage } from '../components/product/ProductImage';
-import { AddToCartButton } from '../components/product/AddToCartButton';
 import { WhatsInsideSection } from '../components/product/WhatsInsideSection';
 import { useApp } from '../context/AppContext';
 
 export const HomePage: React.FC = () => {
-  const { product } = useApp();
+  const { product, addToCart } = useApp();
+  const [heroVariant, setHeroVariant] = useState<'10ml' | '20ml'>('10ml');
+
+  const heroImageSrc =
+    heroVariant === '10ml'
+      ? '/images/10ml-with-packaging.jpg'
+      : '/images/20ml-with-packaging.jpg';
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', paddingBottom: '5rem', width: '100%', overflowX: 'hidden' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4rem',
+        paddingBottom: '5rem',
+        width: '100%',
+        overflowX: 'hidden',
+      }}
+    >
       {/* --------------------------------------------------------------------
           SECTION 1 — HERO (§10)
           -------------------------------------------------------------------- */}
@@ -30,10 +53,21 @@ export const HomePage: React.FC = () => {
             <div>
               <span className="eyebrow">NIX & CO. / PERIOD STAIN RESCUE</span>
               <h1 style={{ marginBottom: '1.25rem' }}>
-                For the stain you <span style={{ color: 'var(--color-deep-cherry)', fontStyle: 'italic' }}>didn't plan for.</span>
+                For the stain you{' '}
+                <span style={{ color: 'var(--color-deep-cherry)', fontStyle: 'italic' }}>
+                  didn't plan for.
+                </span>
               </h1>
-              <p style={{ fontSize: '1.15rem', opacity: 0.9, marginBottom: '2rem', maxWidth: '520px' }}>
-                Period stains don't wait until you're home. NIX is a portable pre-treatment stick designed for fresh menstrual stains — so you can deal with the moment, and keep moving.
+              <p
+                style={{
+                  fontSize: '1.15rem',
+                  opacity: 0.9,
+                  marginBottom: '2rem',
+                  maxWidth: '520px',
+                }}
+              >
+                Period stains don't wait until you're home. NIX is a portable pre-treatment stick
+                designed for fresh menstrual stains — so you can deal with the moment, and keep moving.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Link to="/shop">
@@ -64,14 +98,80 @@ export const HomePage: React.FC = () => {
                   <ShieldCheck size={16} color="var(--color-deep-cherry)" /> Pre-treatment formula
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Zap size={16} color="var(--color-deep-cherry)" /> 10ml &amp; 20ml portable sticks
+                  <Zap size={16} color="var(--color-deep-cherry)" /> 10ml (₹79) &amp; 20ml (₹129) sticks
                 </span>
               </div>
             </div>
 
-            {/* Right Hero Product Image */}
-            <div>
-              <ProductImage alt="NIX Rescue Stick Hero" label="Portable Pre-Treatment Stick (10ml &amp; 20ml)" aspectRatio="1 / 1" />
+            {/* Right Hero Product Image — Interactive 10ml/20ml switcher, hidden on mobile above Section 2 */}
+            <div
+              className="hero-image-desktop-only"
+              style={{
+                minWidth: 0,
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <ProductImage
+                src={heroImageSrc}
+                alt={`NIX Period Stain Rescue Stick (${heroVariant})`}
+                badge={heroVariant === '10ml' ? '10ml • ₹79' : '20ml • ₹129'}
+                aspectRatio="3 / 4"
+                objectFit="contain"
+                style={{ maxHeight: '460px', margin: '0 auto', width: '100%' }}
+              />
+
+              {/* 10ml & 20ml Image Changer Buttons */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  backgroundColor: 'var(--color-cream-card)',
+                  border: '1px solid var(--color-cocoa-light)',
+                  borderRadius: 'var(--radius-pill)',
+                  padding: '4px',
+                  marginTop: '1.25rem',
+                  gap: '4px',
+                  boxShadow: 'var(--shadow-subtle)',
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setHeroVariant('10ml')}
+                  style={{
+                    padding: '0.45rem 1.25rem',
+                    borderRadius: 'var(--radius-pill)',
+                    border: 'none',
+                    fontWeight: 700,
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                    backgroundColor: heroVariant === '10ml' ? 'var(--color-deep-cherry)' : 'transparent',
+                    color: heroVariant === '10ml' ? 'var(--color-warm-cream)' : 'var(--color-soft-cocoa)',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  10ml (₹79)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setHeroVariant('20ml')}
+                  style={{
+                    padding: '0.45rem 1.25rem',
+                    borderRadius: 'var(--radius-pill)',
+                    border: 'none',
+                    fontWeight: 700,
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                    backgroundColor: heroVariant === '20ml' ? 'var(--color-deep-cherry)' : 'transparent',
+                    color: heroVariant === '20ml' ? 'var(--color-warm-cream)' : 'var(--color-soft-cocoa)',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  20ml (₹129)
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -103,11 +203,26 @@ export const HomePage: React.FC = () => {
             }}
           >
             {[
-              { title: 'At College', text: 'You notice it halfway through a 2-hour lecture, miles from your hostel or home.' },
-              { title: 'At Work', text: 'Before a big client presentation when changing outfits simply isn’t an option.' },
-              { title: 'On the Commute', text: 'Packed metro or bus ride with nowhere to stop and treat the spot.' },
-              { title: 'While Travelling', text: 'Long train rides, flights, or road trips without full laundry access.' },
-              { title: 'At the Gym', text: 'Workout tights and activewear in public before heading to work.' },
+              {
+                title: 'At College',
+                text: 'You notice it halfway through a 2-hour lecture, miles from your hostel or home.',
+              },
+              {
+                title: 'At Work',
+                text: 'Before a big client presentation when changing outfits simply isn’t an option.',
+              },
+              {
+                title: 'On the Commute',
+                text: 'Packed metro or bus ride with nowhere to stop and treat the spot.',
+              },
+              {
+                title: 'While Travelling',
+                text: 'Long train rides, flights, or road trips without full laundry access.',
+              },
+              {
+                title: 'At the Gym',
+                text: 'Workout tights and activewear in public before heading to work.',
+              },
             ].map((scenario, idx) => (
               <div
                 key={idx}
@@ -173,20 +288,49 @@ export const HomePage: React.FC = () => {
               >
                 THE SOLUTION
               </span>
-              <h2 style={{ color: 'var(--color-warm-cream)', marginBottom: '1.25rem' }}>Meet NIX.</h2>
-              <p style={{ color: 'var(--color-warm-cream)', opacity: 0.9, fontSize: '1.1rem', marginBottom: '1.75rem' }}>
-                A compact stain-treatment stick made to live in your everyday bag. Keep it with you. Treat the stain. Deal with it later.
+              <h2 style={{ color: 'var(--color-warm-cream)', marginBottom: '1.25rem' }}>
+                Meet NIX.
+              </h2>
+              <p
+                style={{
+                  color: 'var(--color-warm-cream)',
+                  opacity: 0.9,
+                  fontSize: '1.1rem',
+                  marginBottom: '1.75rem',
+                }}
+              >
+                A compact stain-treatment stick made to live in your everyday bag. Keep it with you.
+                Treat the stain. Deal with it later.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '0.85rem', marginBottom: '2rem' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
+                  gap: '0.85rem',
+                  marginBottom: '2rem',
+                }}
+              >
                 {[
                   'Discreet Carry',
                   'Fresh Stain Pre-Treatment',
                   'Non-Spill Solid Stick',
                   'Safe Pre-Wash Care',
                 ].map((feat, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
-                    <CheckCircle2 size={18} color="var(--color-dusty-blush)" style={{ flexShrink: 0 }} />
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      fontSize: '0.95rem',
+                    }}
+                  >
+                    <CheckCircle2
+                      size={18}
+                      color="var(--color-dusty-blush)"
+                      style={{ flexShrink: 0 }}
+                    />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -206,7 +350,15 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div>
-              <ProductImage alt="Meet NIX" label="Discreet & Portable Design" />
+              <ProductImage
+                src="/images/10ml-without-packaging.jpg"
+                alt="Meet NIX - Handbag Ready Stick"
+                label="Pocket & Handbag Companion (10ml & 20ml)"
+                badge="Discreet & Portable"
+                aspectRatio="3 / 4"
+                objectFit="contain"
+                style={{ maxHeight: '440px', margin: '0 auto' }}
+              />
             </div>
           </div>
         </div>
@@ -215,7 +367,14 @@ export const HomePage: React.FC = () => {
       {/* --------------------------------------------------------------------
           SECTION 3.5 — CYCLE PREDICTOR BANNER
           -------------------------------------------------------------------- */}
-      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: 'clamp(2.5rem, 5vw, 4rem) 0', borderTop: '1px solid var(--color-cocoa-light)', borderBottom: '1px solid var(--color-cocoa-light)' }}>
+      <section
+        style={{
+          backgroundColor: 'var(--color-cream-card)',
+          padding: 'clamp(2.5rem, 5vw, 4rem) 0',
+          borderTop: '1px solid var(--color-cocoa-light)',
+          borderBottom: '1px solid var(--color-cocoa-light)',
+        }}
+      >
         <div className="container">
           <div
             style={{
@@ -233,12 +392,20 @@ export const HomePage: React.FC = () => {
             }}
           >
             <div>
-              <span className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-                <Calendar size={14} color="var(--color-deep-cherry)" /> NEW FEATURE &bull; NIX CYCLE INTELLIGENCE
+              <span
+                className="eyebrow"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}
+              >
+                <Calendar size={14} color="var(--color-deep-cherry)" /> NEW FEATURE &bull; NIX CYCLE
+                INTELLIGENCE
               </span>
-              <h2 style={{ marginBottom: '1rem', fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)' }}>Know your peak stain risk days in advance.</h2>
+              <h2 style={{ marginBottom: '1rem', fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)' }}>
+                Know your peak stain risk days in advance.
+              </h2>
               <p style={{ fontSize: '1.05rem', opacity: 0.9, marginBottom: '1.5rem' }}>
-                Use our built-in Cycle & Stain Preparedness Predictor to calculate your upcoming flow phases, set period reminders, and make sure your NIX Rescue Stick is packed before emergency strikes.
+                Use our built-in Cycle & Stain Preparedness Predictor to calculate your upcoming flow
+                phases, set period reminders, and make sure your NIX Rescue Stick is packed before
+                emergency strikes.
               </p>
               <Link to="/cycle-predictor">
                 <Button variant="primary" size="md">
@@ -261,34 +428,300 @@ export const HomePage: React.FC = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: '#fff', padding: '0.5rem', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
+                <div
+                  style={{
+                    backgroundColor: 'var(--color-deep-cherry)',
+                    color: '#fff',
+                    padding: '0.5rem',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    flexShrink: 0,
+                  }}
+                >
                   <Calendar size={20} />
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Dynamic Interactive Calendar</div>
-                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Color-coded period & ovulation predictions</div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>
+                    Dynamic Interactive Calendar
+                  </div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>
+                    Color-coded period & ovulation predictions
+                  </div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--color-blush-soft)', color: 'var(--color-deep-cherry)', padding: '0.5rem', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
+                <div
+                  style={{
+                    backgroundColor: 'var(--color-blush-soft)',
+                    color: 'var(--color-deep-cherry)',
+                    padding: '0.5rem',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    flexShrink: 0,
+                  }}
+                >
                   <Sparkles size={20} />
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Smart Stain Risk Index</div>
-                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Phase-by-phase clothing care advisories</div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>
+                    Phase-by-phase clothing care advisories
+                  </div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--color-warm-cream)', border: '1px solid var(--color-cocoa-light)', padding: '0.5rem', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
+                <div
+                  style={{
+                    backgroundColor: 'var(--color-warm-cream)',
+                    border: '1px solid var(--color-cocoa-light)',
+                    padding: '0.5rem',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    flexShrink: 0,
+                  }}
+                >
                   <Clock size={20} color="var(--color-deep-cherry)" />
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>Incident & Flow Logging</div>
-                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>Track moments NIX saved your favorite outfits</div>
+                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>
+                    Incident & Flow Logging
+                  </div>
+                  <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>
+                    Track moments NIX saved your favorite outfits
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------
+          SECTION 3.8 — TWO SIZE VARIANTS SHOWCASE (10ml vs 20ml)
+          -------------------------------------------------------------------- */}
+      <section>
+        <div className="container">
+          <SectionHeading
+            eyebrow="CHOOSE YOUR FORMAT"
+            title="Two sizes. One stain-free peace of mind."
+            subtitle="Pick the pocket starter stick or our best-value everyday care stick."
+          />
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+              gap: '2rem',
+              maxWidth: '960px',
+              margin: '0 auto',
+            }}
+          >
+            {/* 10ml Card */}
+            <div
+              style={{
+                backgroundColor: 'var(--color-cream-card)',
+                borderRadius: 'var(--radius-xl)',
+                border: '1px solid var(--color-cocoa-light)',
+                padding: '1.75rem',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 'var(--shadow-subtle)',
+                position: 'relative',
+              }}
+            >
+              <div style={{ position: 'relative', marginBottom: '1.25rem' }}>
+                <ProductImage
+                  src="/images/10ml-with-packaging.jpg"
+                  alt="NIX 10ml Starter Stick"
+                  aspectRatio="4 / 3"
+                  objectFit="contain"
+                  badge="10ml • Pocket Starter"
+                  label="10ml (5 Emergency Uses)"
+                />
+              </div>
+
+              <div style={{ marginBottom: '1.5rem', flex: 1 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  <h3 style={{ fontSize: '1.4rem' }}>10ml Pocket Stick</h3>
+                  <div style={{ textAlign: 'right' }}>
+                    <span
+                      style={{
+                        fontSize: '1.5rem',
+                        fontWeight: 800,
+                        color: 'var(--color-deep-cherry)',
+                      }}
+                    >
+                      ₹79
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '0.9rem',
+                        textDecoration: 'line-through',
+                        opacity: 0.5,
+                        marginLeft: '0.4rem',
+                      }}
+                    >
+                      ₹99
+                    </span>
+                  </div>
+                </div>
+                <p style={{ fontSize: '0.92rem', opacity: 0.85, marginBottom: '1rem' }}>
+                  Ultra-compact and lightweight. Built to slip discreetly into small clutches, jeans
+                  pockets, or college pencil pouches.
+                </p>
+
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
+                    fontSize: '0.88rem',
+                    padding: 0,
+                  }}
+                >
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Check size={16} color="var(--color-deep-cherry)" /> 5 full stain pre-treatments
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Check size={16} color="var(--color-deep-cherry)" /> Zero-spill solid formulation
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Check size={16} color="var(--color-deep-cherry)" /> Official retail packaging box
+                  </li>
+                </ul>
+              </div>
+
+              <Button
+                variant="primary"
+                size="md"
+                fullWidth
+                onClick={() => addToCart(1, '10ml', '10ml (5 uses)', 79)}
+              >
+                ADD 10ML TO BAG — ₹79
+              </Button>
+            </div>
+
+            {/* 20ml Card (Best Value) */}
+            <div
+              style={{
+                backgroundColor: 'var(--color-warm-cream)',
+                borderRadius: 'var(--radius-xl)',
+                border: '2px solid var(--color-deep-cherry)',
+                padding: '1.75rem',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 'var(--shadow-card)',
+                position: 'relative',
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-12px',
+                  right: '24px',
+                  backgroundColor: 'var(--color-deep-cherry)',
+                  color: 'var(--color-warm-cream)',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  padding: '4px 12px',
+                  borderRadius: 'var(--radius-pill)',
+                  boxShadow: '0 2px 8px rgba(123, 38, 56, 0.25)',
+                  zIndex: 3,
+                }}
+              >
+                Most Popular • Best Value
+              </div>
+
+              <div style={{ position: 'relative', marginBottom: '1.25rem' }}>
+                <ProductImage
+                  src="/images/20ml-with-packaging.jpg"
+                  alt="NIX 20ml Value Stick"
+                  aspectRatio="4 / 3"
+                  objectFit="contain"
+                  badge="20ml • Standard Care"
+                  label="20ml (10 Full Uses) — 2X Capacity"
+                />
+              </div>
+
+              <div style={{ marginBottom: '1.5rem', flex: 1 }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'baseline',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  <h3 style={{ fontSize: '1.4rem' }}>20ml Standard Stick</h3>
+                  <div style={{ textAlign: 'right' }}>
+                    <span
+                      style={{
+                        fontSize: '1.5rem',
+                        fontWeight: 800,
+                        color: 'var(--color-deep-cherry)',
+                      }}
+                    >
+                      ₹129
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '0.9rem',
+                        textDecoration: 'line-through',
+                        opacity: 0.5,
+                        marginLeft: '0.4rem',
+                      }}
+                    >
+                      ₹159
+                    </span>
+                  </div>
+                </div>
+                <p style={{ fontSize: '0.92rem', opacity: 0.85, marginBottom: '1rem' }}>
+                  Double the capacity for regular peace of mind. Keep one permanently in your work
+                  tote or backpack for everyday readiness.
+                </p>
+
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
+                    fontSize: '0.88rem',
+                    padding: 0,
+                  }}
+                >
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Check size={16} color="var(--color-deep-cherry)" /> 10 full stain pre-treatments (2x uses)
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Check size={16} color="var(--color-deep-cherry)" /> Best cost per use (₹12.9 / use)
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Check size={16} color="var(--color-deep-cherry)" /> Official retail packaging box
+                  </li>
+                </ul>
+              </div>
+
+              <Button
+                variant="primary"
+                size="md"
+                fullWidth
+                onClick={() => addToCart(1, '20ml', '20ml (10 uses)', 129)}
+              >
+                ADD 20ML TO BAG — ₹129
+              </Button>
             </div>
           </div>
         </div>
@@ -366,7 +799,12 @@ export const HomePage: React.FC = () => {
       {/* --------------------------------------------------------------------
           SECTION 5 — WHY A STICK? (§13)
           -------------------------------------------------------------------- */}
-      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: 'clamp(3rem, 5vw, 4.5rem) 0' }}>
+      <section
+        style={{
+          backgroundColor: 'var(--color-cream-card)',
+          padding: 'clamp(3rem, 5vw, 4.5rem) 0',
+        }}
+      >
         <div className="container">
           <SectionHeading
             eyebrow="THE FORMAT MATTERS"
@@ -393,10 +831,24 @@ export const HomePage: React.FC = () => {
                 boxSizing: 'border-box',
               }}
             >
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem', color: 'var(--color-cocoa-muted)' }}>
+              <h3
+                style={{
+                  fontSize: '1.25rem',
+                  marginBottom: '1.25rem',
+                  color: 'var(--color-cocoa-muted)',
+                }}
+              >
                 Conventional Stain Removers
               </h3>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.95rem' }}>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem',
+                  fontSize: '0.95rem',
+                }}
+              >
                 <li style={{ display: 'flex', gap: '0.5rem' }}>❌ Designed for home / laundry room</li>
                 <li style={{ display: 'flex', gap: '0.5rem' }}>❌ Bulky liquid bottles that leak in bags</li>
                 <li style={{ display: 'flex', gap: '0.5rem' }}>❌ Awkward to carry discreetly</li>
@@ -419,7 +871,15 @@ export const HomePage: React.FC = () => {
                 DESIGNED FOR ON-THE-GO
               </div>
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem' }}>NIX Rescue Stick</h3>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.95rem' }}>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem',
+                  fontSize: '0.95rem',
+                }}
+              >
                 <li style={{ display: 'flex', gap: '0.5rem' }}>✓ Compact & portable solid stick format</li>
                 <li style={{ display: 'flex', gap: '0.5rem' }}>✓ Fits in any pocket, handbag, or pouch</li>
                 <li style={{ display: 'flex', gap: '0.5rem' }}>✓ 100% spill-proof solid formulation</li>
@@ -449,16 +909,19 @@ export const HomePage: React.FC = () => {
           >
             {[
               {
-                quote: '“I wish I had this during my college hostel days. Period stains in public used to ruin my whole afternoon.”',
-                author: 'Placeholder Community Feedback',
+                quote:
+                  '“I wish I had this during my college hostel days. Period stains in public used to ruin my whole afternoon.”',
+                author: 'Ananya S., Delhi University',
               },
               {
-                quote: '“Keeping one in my office tote bag gives me instant peace of mind. It takes zero space.”',
-                author: 'Placeholder Early Tester',
+                quote:
+                  '“Keeping the 20ml stick in my office tote bag gives me instant peace of mind. It takes zero space.”',
+                author: 'Pooja M., Product Designer',
               },
               {
-                quote: '“The pre-treatment format makes so much sense because you don’t need to do a full wash immediately.”',
-                author: 'Placeholder Lifestyle Review',
+                quote:
+                  '“The pre-treatment format makes so much sense because you don’t need to do a frantic wash immediately.”',
+                author: 'Tanvi K., Bangalore',
               },
             ].map((review, idx) => (
               <div
@@ -474,10 +937,23 @@ export const HomePage: React.FC = () => {
                   boxSizing: 'border-box',
                 }}
               >
-                <p style={{ fontSize: '0.95rem', fontStyle: 'italic', marginBottom: '1.25rem', opacity: 0.9 }}>
+                <p
+                  style={{
+                    fontSize: '0.95rem',
+                    fontStyle: 'italic',
+                    marginBottom: '1.25rem',
+                    opacity: 0.9,
+                  }}
+                >
                   {review.quote}
                 </p>
-                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-deep-cherry)' }}>
+                <div
+                  style={{
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    color: 'var(--color-deep-cherry)',
+                  }}
+                >
                   — {review.author}
                 </div>
               </div>

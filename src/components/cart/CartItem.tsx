@@ -14,6 +14,11 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const itemPrice = item.price ?? product.price ?? 79;
   const lineTotal = item.quantity * itemPrice;
 
+  const imageSrc =
+    item.variant_id === '20ml'
+      ? '/images/20ml-without-packaging.jpg'
+      : '/images/10ml-without-packaging.jpg';
+
   return (
     <div
       style={{
@@ -25,7 +30,13 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         borderBottom: '1px solid var(--color-cocoa-light)',
       }}
     >
-      <ProductImage alt={product.name} aspectRatio="1 / 1" style={{ borderRadius: 'var(--radius-md)' }} />
+      <ProductImage
+        src={imageSrc}
+        alt={item.variant_name ? `${product.name} (${item.variant_name})` : product.name}
+        aspectRatio="1 / 1"
+        style={{ borderRadius: 'var(--radius-md)', padding: '4px' }}
+        showZoomOnHover={false}
+      />
 
       <div>
         <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-soft-cocoa)', marginBottom: '0.2rem' }}>

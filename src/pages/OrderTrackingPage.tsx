@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { OrderTimeline } from '../components/checkout/OrderTimeline';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
 import { Modal } from '../components/common/Modal';
 import { useApp } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 import { api } from '../api/client';
 import type { Order } from '../api/types';
-import { Ban, AlertTriangle, CalendarDays, MapPin, Package, IndianRupee } from 'lucide-react';
+import { Ban, AlertTriangle, CalendarDays, MapPin, Package, IndianRupee, Lock } from 'lucide-react';
 
 /** Format ISO date string → "Sep 19, 2026" */
 function formatDate(iso: string) {
@@ -38,10 +39,20 @@ const META_VALUE: React.CSSProperties = {
 
 export const OrderTrackingPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { orders, cancelOrder } = useApp();
+  const { orders, cancelOrder, showToast } = useApp();
+  const { user, profile, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
+
   const [order, setOrder] = useState<Order | null>(null);
   const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+
+  // Security guard: redirect unauthenticated users away immediately
+  useEffect(() => {
+    if (!authLoading && !user && !profile) {
+      navigate('/account');
+    }
+  }, [user, profile, authLoading, navigate]);
 
   useEffect(() => {
     if (!id) return;
@@ -54,6 +65,11 @@ export const OrderTrackingPage: React.FC = () => {
   }, [id, orders]);
 
   const handleCancel = async () => {
+    if (!user && !profile) {
+      showToast('Authentication required to cancel this order.');
+      navigate('/account');
+      return;
+    }
     if (!order) return;
     setCancelling(true);
     await cancelOrder(order.id);
@@ -80,6 +96,40 @@ export const OrderTrackingPage: React.FC = () => {
         : null
     );
   };
+
+  if (!authLoading && !user && !profile) {
+    return (
+      <div style={{ padding: '6rem 0', textAlign: 'center' }}>
+        <div className="container" style={{ maxWidth: '500px' }}>
+          <div
+            style={{
+              width: '64px',
+              height: '64px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--color-cream-card)',
+              color: 'var(--color-deep-cherry)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem auto',
+              border: '1px solid var(--color-cocoa-light)',
+            }}
+          >
+            <Lock size={28} />
+          </div>
+          <h2 style={{ marginBottom: '0.75rem' }}>Authentication Required</h2>
+          <p style={{ opacity: 0.85, marginBottom: '2rem' }}>
+            Please sign in to view and manage order tracking.
+          </p>
+          <Link to="/account">
+            <Button variant="primary" size="lg">
+              GO TO SIGN IN
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const isCancellable = order && order.status !== 'Cancelled' && order.status !== 'Delivered';
   const totalQty = order?.items.reduce((s, i) => s + i.quantity, 0) ?? 0;
@@ -224,15 +274,17 @@ export const OrderTrackingPage: React.FC = () => {
                         width: '54px',
                         height: '54px',
                         borderRadius: 'var(--radius-md)',
-                        backgroundColor: 'var(--color-blush-soft)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        overflow: 'hidden',
                         flexShrink: 0,
-                        fontSize: '1.5rem',
+                        border: '1px solid var(--color-cocoa-light)',
+                        backgroundColor: 'var(--color-warm-cream)',
                       }}
                     >
-                      🩹
+                      <img
+                        src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.jpg' : '/images/10ml-without-packaging.jpg'}
+                        alt="NIX Stick"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
                     </div>
 
                     {/* Info */}
@@ -368,18 +420,24 @@ export const OrderTrackingPage: React.FC = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                 <div
                   style={{
-                    width: '40px',
-                    height: '40px',
+                    width: '44px',
+                    height: '44px',
                     borderRadius: 'var(--radius-md)',
-                    backgroundColor: 'var(--color-blush-soft)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '1.2rem',
+                    overflow: 'hidden',
                     flexShrink: 0,
+                    border: '1px solid var(--color-cocoa-light)',
+                    backgroundColor: 'var(--color-warm-cream)',
                   }}
                 >
-                  🩹
+                  <img
+                    src={
+                      order.items[0]?.variant_id === '20ml'
+                        ? '/images/20ml-without-packaging.jpg'
+                        : '/images/10ml-without-packaging.jpg'
+                    }
+                    alt="NIX Rescue Stick"
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  />
                 </div>
                 <div>
                   <div style={{ fontWeight: 700 }}>NIX Period Rescue Stick</div>

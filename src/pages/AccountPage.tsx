@@ -286,22 +286,28 @@ export const AccountPage: React.FC = () => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <div
                           style={{
-                            width: '40px',
-                            height: '40px',
+                            width: '46px',
+                            height: '46px',
                             borderRadius: 'var(--radius-md)',
-                            backgroundColor: 'var(--color-blush-soft)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '1.1rem',
+                            overflow: 'hidden',
                             flexShrink: 0,
+                            border: '1px solid var(--color-cocoa-light)',
+                            backgroundColor: 'var(--color-warm-cream)',
                           }}
                         >
-                          🩹
+                          <img
+                            src={
+                              ord.items?.[0]?.variant_id === '20ml'
+                                ? '/images/20ml-without-packaging.jpg'
+                                : '/images/10ml-without-packaging.jpg'
+                            }
+                            alt="NIX Stick"
+                            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                          />
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ fontWeight: 600, fontSize: '0.88rem', marginBottom: '0.15rem' }}>
-                            NIX Period Rescue Stick
+                            NIX Period Rescue Stick {ord.items?.[0]?.variant_name ? `(${ord.items[0].variant_name})` : ''}
                           </div>
                           <div style={{ fontSize: '0.78rem', opacity: 0.65, display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                             <span>Qty: {totalQty}</span>

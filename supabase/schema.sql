@@ -51,3 +51,42 @@ DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- Create public orders table linked to auth.users and profiles
+CREATE TABLE IF NOT EXISTS public.orders (
+  id TEXT PRIMARY KEY,
+  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  user_email TEXT,
+  items JSONB NOT NULL,
+  address JSONB NOT NULL,
+  total NUMERIC NOT NULL,
+  currency TEXT DEFAULT '₹',
+  status TEXT DEFAULT 'Confirmed',
+  delivery_estimate TEXT,
+  timeline JSONB NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Row Level Security (RLS) on orders
+ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view orders" ON public.orders;
+CREATE POLICY "Users can view orders"
+  ON public.orders FOR SELECT
+  USING (true);
+
+DROP POLICY IF EXISTS "Users can insert orders" ON public.orders;
+CREATE POLICY "Users can insert orders"
+  ON public.orders FOR INSERT
+  WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Users can update orders" ON public.orders;
+CREATE POLICY "Users can update orders"
+  ON public.orders FOR UPDATE
+  USING (true);
+
+CREATE INDEX IF NOT EXISTS idx_orders_user_id ON public.orders(user_id);
+CREATE INDEX IF NOT EXISTS idx_orders_user_email ON public.orders(user_email);
+CREATE INDEX IF NOT EXISTS idx_orders_created_at ON public.orders(created_at DESC);
+

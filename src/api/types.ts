@@ -6,6 +6,8 @@ export interface ProductVariant {
   price: number;
   original_price?: number;
   in_stock: boolean;
+  image?: string;
+  packaging_image?: string;
 }
 
 export interface ProductDetail {
@@ -56,6 +58,8 @@ export interface AddressInfo {
 export interface OrderCreate {
   items: CartItem[];
   address: AddressInfo;
+  user_id?: string;
+  user_email?: string;
 }
 
 export interface OrderTimelineStep {
@@ -66,6 +70,8 @@ export interface OrderTimelineStep {
 
 export interface Order {
   id: string;
+  user_id?: string;
+  user_email?: string;
   items: CartItem[];
   address: AddressInfo;
   total: number;
