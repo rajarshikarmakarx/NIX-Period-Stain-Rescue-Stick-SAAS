@@ -3,11 +3,11 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Install deps first (layer cache)
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY app/ ./app/
+COPY backend/app/ ./app/
 
 EXPOSE 8000
 
