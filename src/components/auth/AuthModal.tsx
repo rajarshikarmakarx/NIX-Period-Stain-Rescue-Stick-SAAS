@@ -363,7 +363,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultTa
             <form onSubmit={handleSignUp} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
               <div>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
-                  Full Name
+                  Full Name <span style={{ color: 'var(--color-cherry-red)' }}>*</span>
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -388,7 +388,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultTa
 
               <div>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
-                  Email Address
+                  Email Address <span style={{ color: 'var(--color-cherry-red)' }}>*</span>
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -413,7 +413,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultTa
 
               <div>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
-                  Phone Number
+                  Phone Number <span style={{ color: 'var(--color-cherry-red)' }}>*</span>
                 </label>
                 <div style={{ position: 'relative' }}>
                   <input
@@ -439,7 +439,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultTa
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                 <div>
                   <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
-                    Password
+                    Password <span style={{ color: 'var(--color-cherry-red)' }}>*</span>
                   </label>
                   <input
                     type="password"
@@ -461,7 +461,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultTa
 
                 <div>
                   <label style={{ fontSize: '0.85rem', fontWeight: 600, display: 'block', marginBottom: '0.3rem' }}>
-                    Confirm
+                    Confirm Password <span style={{ color: 'var(--color-cherry-red)' }}>*</span>
                   </label>
                   <input
                     type="password"
