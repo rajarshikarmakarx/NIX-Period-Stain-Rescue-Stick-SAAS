@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { CartItem, Order, RewardsAccount, AddressInfo, Product } from '../api/types';
+import type { CartItem, Order, RewardsAccount, AddressInfo, Product, ProductVariant } from '../api/types';
 import { api } from '../api/client';
 import { defaultProductData } from '../data/product';
 import { trackEvent } from '../hooks/useAnalytics';
@@ -12,7 +12,7 @@ interface ToastState {
 interface AppContextType {
   product: Product;
   cart: CartItem[];
-  addToCart: (quantity?: number) => void;
+  addToCart: (quantity?: number, variant?: ProductVariant | string) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -99,18 +99,48 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setToast((prev) => ({ ...prev, visible: false }));
   };
 
-  const addToCart = (quantity = 1) => {
+  const addToCart = (quantity = 1, variant?: ProductVariant | string) => {
+    // Resolve variant
+    let selectedVariant: ProductVariant | undefined;
+    if (typeof variant === 'object' && variant !== null) {
+      selectedVariant = variant;
+    } else if (typeof variant === 'string') {
+      selectedVariant = product.variants?.find((v) => v.id === variant);
+    } else {
+      selectedVariant = product.variants?.[0];
+    }
+
+    const variantId = selectedVariant?.id || '10ml';
+    const variantName = selectedVariant?.name || '10ml (5 uses)';
+    const itemPrice = selectedVariant?.price ?? product.price ?? 79;
+    const cartItemId = `${product.id}-${variantId}`;
+
     setCart((prev) => {
-      const existing = prev.find((item) => item.product_id === product.id);
-      if (existing) {
-        return prev.map((item) =>
-          item.product_id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+      const existingIndex = prev.findIndex(
+        (item) => item.product_id === cartItemId || (item.product_id === product.id && item.variant_id === variantId)
+      );
+
+      if (existingIndex > -1) {
+        return prev.map((item, idx) =>
+          idx === existingIndex
+            ? { ...item, quantity: item.quantity + quantity, price: itemPrice, variant_name: variantName }
+            : item
         );
       }
-      return [...prev, { product_id: product.id, quantity }];
+      return [
+        ...prev,
+        {
+          product_id: cartItemId,
+          variant_id: variantId,
+          variant_name: variantName,
+          price: itemPrice,
+          quantity,
+        },
+      ];
     });
-    showToast('NIX added to your bag.');
-    trackEvent('add_to_cart', { quantity, product_id: product.id });
+
+    showToast(`NIX ${variantName} added to your bag.`);
+    trackEvent('add_to_cart', { quantity, product_id: cartItemId, variant: variantName, price: itemPrice });
   };
 
   const removeFromCart = (productId: string) => {
@@ -131,7 +161,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const cartSubtotal = cart.reduce((sum, item) => sum + item.quantity * product.price, 0);
+  const cartSubtotal = cart.reduce((sum, item) => sum + item.quantity * (item.price ?? product.price), 0);
 
   const addOrder = (order: Order) => {
     setOrders((prev) => [order, ...prev]);

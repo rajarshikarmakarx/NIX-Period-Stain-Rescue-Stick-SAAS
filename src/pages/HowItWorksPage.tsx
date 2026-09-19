@@ -46,13 +46,14 @@ export const HowItWorksPage: React.FC = () => {
               key={idx}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '3rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                gap: 'clamp(1.5rem, 3vw, 3rem)',
                 alignItems: 'center',
                 backgroundColor: 'var(--color-cream-card)',
                 borderRadius: 'var(--radius-xl)',
-                padding: '2.5rem',
+                padding: 'clamp(1.25rem, 3vw, 2.5rem)',
                 border: '1px solid var(--color-cocoa-light)',
+                boxSizing: 'border-box',
               }}
             >
               <div>

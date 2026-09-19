@@ -23,23 +23,23 @@ export const EmergencyKitPage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '4rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: 'clamp(2rem, 4vw, 4rem)',
             alignItems: 'center',
-            marginBottom: '5rem',
+            marginBottom: '4rem',
           }}
         >
-          <div>
+          <div style={{ minWidth: 0, width: '100%' }}>
             <ProductImage alt="NIX Emergency Kit Teaser" label="Emergency Kit Conceptual Prototype" />
           </div>
 
-          <div>
+          <div style={{ minWidth: 0, width: '100%' }}>
             <span className="eyebrow">WHAT'S INSIDE THE KIT</span>
-            <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>Complete emergency care on-the-go.</h2>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2rem)', marginBottom: '1.5rem' }}>Complete emergency care on-the-go.</h2>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2.5rem' }}>
               {[
-                { title: 'NIX Stain Rescue Stick', desc: '15g pre-treatment stick for immediate stain care.' },
+                { title: 'NIX Stain Rescue Stick', desc: '10ml & 20ml pre-treatment sticks for immediate stain care.' },
                 { title: 'Biodegradable Disposal Bags', desc: 'Discreet, opaque disposal pouches for emergencies.' },
                 { title: 'Intimate Care Cleansing Wipes', desc: 'Gentle, pH-balanced individually wrapped wipes.' },
                 { title: 'Emergency Backup Essentials', desc: 'Emergency period pads + compact carry pouch.' },

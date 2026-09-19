@@ -11,7 +11,8 @@ interface CartItemProps {
 
 export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { product, updateQuantity, removeFromCart } = useApp();
-  const lineTotal = item.quantity * product.price;
+  const itemPrice = item.price ?? product.price ?? 79;
+  const lineTotal = item.quantity * itemPrice;
 
   return (
     <div
@@ -30,8 +31,25 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-soft-cocoa)', marginBottom: '0.2rem' }}>
           {product.name}
         </h4>
+        {item.variant_name && (
+          <div style={{ marginBottom: '0.35rem' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                backgroundColor: 'var(--color-blush-soft)',
+                color: 'var(--color-deep-cherry)',
+                padding: '2px 8px',
+                borderRadius: 'var(--radius-pill)',
+              }}
+            >
+              {item.variant_name}
+            </span>
+          </div>
+        )}
         <p style={{ fontSize: '0.85rem', opacity: 0.7, marginBottom: '0.5rem' }}>
-          {product.currency}{product.price} each
+          {product.currency}{itemPrice} each
         </p>
 
         <QuantitySelector
@@ -53,6 +71,8 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
             gap: '0.25rem',
             fontSize: '0.8rem',
             cursor: 'pointer',
+            backgroundColor: 'transparent',
+            border: 'none',
           }}
           title="Remove from bag"
         >

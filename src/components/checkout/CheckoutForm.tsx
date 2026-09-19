@@ -53,7 +53,7 @@ export const CheckoutForm: React.FC = () => {
         id: `NIX-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
         items: cart,
         address: form,
-        total: cart.reduce((acc, item) => acc + item.quantity * product.price, 0),
+        total: cart.reduce((acc, item) => acc + item.quantity * (item.price ?? product.price ?? 79), 0),
         currency: product.currency,
         status: 'Confirmed',
         delivery_estimate: '3 Days',

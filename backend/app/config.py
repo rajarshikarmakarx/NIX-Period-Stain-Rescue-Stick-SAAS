@@ -29,7 +29,7 @@ class Settings(BaseSettings):
         return v
 
     # Store settings
-    default_product_price: int = 349
+    default_product_price: int = 79
     currency_symbol: str = "₹"
     points_per_purchase: int = 100
 

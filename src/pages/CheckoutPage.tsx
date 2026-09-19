@@ -23,8 +23,8 @@ export const CheckoutPage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '4rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: 'clamp(2rem, 4vw, 4rem)',
             alignItems: 'flex-start',
           }}
         >
@@ -45,12 +45,27 @@ export const CheckoutPage: React.FC = () => {
             <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem' }}>Your Items ({cart.length})</h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
-              {cart.map((item) => (
-                <div key={item.product_id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.95rem' }}>
-                  <span>{product.name} × {item.quantity}</span>
-                  <span style={{ fontWeight: 600 }}>{product.currency}{item.quantity * product.price}</span>
-                </div>
-              ))}
+              {cart.map((item) => {
+                const itemPrice = item.price ?? product.price ?? 79;
+                return (
+                  <div key={item.product_id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.95rem' }}>
+                    <div>
+                      <div style={{ fontWeight: 600 }}>{product.name}</div>
+                      {item.variant_name && (
+                        <div style={{ fontSize: '0.8rem', color: 'var(--color-deep-cherry)', fontWeight: 600 }}>
+                          {item.variant_name} × {item.quantity}
+                        </div>
+                      )}
+                      {!item.variant_name && (
+                        <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+                          Qty: {item.quantity}
+                        </div>
+                      )}
+                    </div>
+                    <span style={{ fontWeight: 600 }}>{product.currency}{item.quantity * itemPrice}</span>
+                  </div>
+                );
+              })}
             </div>
 
             <hr style={{ border: 'none', borderTop: '1px solid var(--color-cocoa-light)', marginBottom: '1rem' }} />

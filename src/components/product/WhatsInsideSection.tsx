@@ -53,16 +53,20 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
 
   return (
     <section
+      className="whats-inside-section"
       style={{
         backgroundColor: 'var(--color-warm-cream)',
         borderRadius: 'var(--radius-xl)',
-        padding: '4.5rem 2rem',
+        padding: 'clamp(2rem, 5vw, 4.5rem) clamp(1rem, 3vw, 2rem)',
         border: '1px solid var(--color-cocoa-light)',
         boxShadow: 'var(--shadow-subtle)',
+        width: '100%',
+        boxBox: 'border-box',
+        overflow: 'hidden',
         ...style,
       }}
     >
-      <div className="container" style={{ maxWidth: '1080px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', width: '100%' }}>
         <SectionHeading
           eyebrow="CLEAN & CONSCIOUS FORMULATION"
           title="What's inside"
@@ -74,9 +78,9 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
           style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '1.25rem',
+            gap: '0.75rem',
             flexWrap: 'wrap',
-            marginBottom: '3.5rem',
+            marginBottom: '2.5rem',
           }}
         >
           {[
@@ -93,16 +97,17 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
                   backgroundColor: 'var(--color-cream-card)',
                   color: 'var(--color-deep-cherry)',
                   border: '1px solid var(--color-cocoa-light)',
-                  padding: '0.45rem 1rem',
+                  padding: '0.4rem 0.85rem',
                   borderRadius: 'var(--radius-pill)',
-                  fontSize: '0.85rem',
+                  fontSize: '0.82rem',
                   fontWeight: 600,
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
+                  textAlign: 'center',
                 }}
               >
-                <Icon size={16} /> {badge.label}
+                <Icon size={15} style={{ flexShrink: 0 }} /> {badge.label}
               </span>
             );
           })}
@@ -112,15 +117,15 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '2.5rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: '2rem',
             alignItems: 'stretch',
-            marginBottom: '3.5rem',
+            marginBottom: '3rem',
           }}
         >
           {/* Left Column — Interactive Ingredient Selector */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--color-soft-cocoa)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.25rem', color: 'var(--color-soft-cocoa)' }}>
               Core Active Ingredients
             </h3>
             {ingredientsList.map((item) => {
@@ -135,33 +140,36 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
                     backgroundColor: isSelected ? 'var(--color-cream-card)' : 'var(--color-cream-light)',
                     border: isSelected ? '2px solid var(--color-deep-cherry)' : '1px solid var(--color-cocoa-light)',
                     borderRadius: 'var(--radius-lg)',
-                    padding: '1.25rem',
+                    padding: '1rem 1.15rem',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '1rem',
+                    gap: '0.85rem',
+                    width: '100%',
+                    boxSizing: 'border-box',
                   }}
                 >
                   <div
                     style={{
                       backgroundColor: isSelected ? 'var(--color-deep-cherry)' : 'var(--color-blush-soft)',
                       color: isSelected ? 'var(--color-warm-cream)' : 'var(--color-deep-cherry)',
-                      padding: '0.75rem',
+                      padding: '0.65rem',
                       borderRadius: '50%',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                      flexShrink: 0,
                     }}
                   >
-                    <Icon size={20} />
+                    <Icon size={18} />
                   </div>
 
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-soft-cocoa)' }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-soft-cocoa)', wordBreak: 'break-word' }}>
                       {item.name}
                     </div>
-                    <div style={{ fontSize: '0.8rem', opacity: 0.75, marginTop: '0.1rem' }}>
+                    <div style={{ fontSize: '0.78rem', opacity: 0.75, marginTop: '0.1rem' }}>
                       Source: {item.source} &bull; {item.purpose}
                     </div>
                   </div>
@@ -175,25 +183,27 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
             style={{
               backgroundColor: 'var(--color-cream-card)',
               borderRadius: 'var(--radius-xl)',
-              padding: '2.25rem',
+              padding: 'clamp(1.25rem, 3vw, 2.25rem)',
               border: '2px solid var(--color-deep-cherry)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               boxShadow: 'var(--shadow-card)',
+              boxSizing: 'border-box',
+              minWidth: 0,
             }}
           >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
                 <span className="badge badge-cherry">INGREDIENT FOCUS</span>
                 <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>Derived from {selected.source}</span>
               </div>
 
-              <h3 style={{ fontSize: '1.75rem', marginBottom: '0.75rem', color: 'var(--color-deep-cherry)' }}>
+              <h3 style={{ fontSize: 'clamp(1.35rem, 3vw, 1.75rem)', marginBottom: '0.75rem', color: 'var(--color-deep-cherry)' }}>
                 {selected.name}
               </h3>
 
-              <p style={{ fontSize: '1.05rem', lineHeight: 1.6, opacity: 0.9, marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, marginBottom: '1.5rem' }}>
                 {selected.gentleDetail}
               </p>
 
@@ -201,7 +211,7 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
                 style={{
                   backgroundColor: 'var(--color-warm-cream)',
                   borderRadius: 'var(--radius-md)',
-                  padding: '1rem 1.25rem',
+                  padding: '1rem 1.15rem',
                   border: '1px solid var(--color-cocoa-light)',
                   fontSize: '0.88rem',
                   display: 'flex',
@@ -209,7 +219,7 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
                   gap: '0.75rem',
                 }}
               >
-                <Info size={20} color="var(--color-deep-cherry)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <Info size={18} color="var(--color-deep-cherry)" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
                   <strong>Why Gentle Matters:</strong> Intimate garments stay close to your skin all day. NIX leaves no toxic chemical residue, keeping both your skin and clothing safe.
                 </div>
@@ -218,8 +228,8 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
 
             <div
               style={{
-                marginTop: '2rem',
-                paddingTop: '1.25rem',
+                marginTop: '1.75rem',
+                paddingTop: '1.15rem',
                 borderTop: '1px solid var(--color-cocoa-light)',
                 display: 'flex',
                 alignItems: 'center',
@@ -229,7 +239,7 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
                 color: 'var(--color-deep-cherry)',
               }}
             >
-              <CheckCircle2 size={16} /> 100% Biodegradable & Water-Soluble Pre-Wash Formula
+              <CheckCircle2 size={16} style={{ flexShrink: 0 }} /> 100% Biodegradable & Water-Soluble Pre-Wash Formula
             </div>
           </div>
         </div>
@@ -239,8 +249,9 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
           style={{
             backgroundColor: 'var(--color-cream-card)',
             borderRadius: 'var(--radius-xl)',
-            padding: '2rem 2.5rem',
+            padding: 'clamp(1.25rem, 3vw, 2rem) clamp(1rem, 3vw, 2.5rem)',
             border: '1px solid var(--color-cocoa-light)',
+            boxSizing: 'border-box',
           }}
         >
           <h4 style={{ fontSize: '1.15rem', marginBottom: '1.25rem', textAlign: 'center' }}>
@@ -250,8 +261,8 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))',
+              gap: '1.25rem',
             }}
           >
             {/* Always Included */}
@@ -259,14 +270,14 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
               style={{
                 backgroundColor: 'var(--color-warm-cream)',
                 borderRadius: 'var(--radius-lg)',
-                padding: '1.5rem',
+                padding: '1.25rem',
                 border: '1px solid rgba(46, 125, 50, 0.3)',
               }}
             >
-              <h5 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2e7d32', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <h5 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2e7d32', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <CheckCircle2 size={18} color="#2e7d32" /> ALWAYS IN NIX
               </h5>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.88rem' }}>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>✓ Targeted Bio-Protease Enzymes</li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>✓ Coconut-based Glucoside Surfactants</li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>✓ Hypoallergenic Fragrance-Free Core</li>
@@ -279,14 +290,14 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
               style={{
                 backgroundColor: 'var(--color-warm-cream)',
                 borderRadius: 'var(--radius-lg)',
-                padding: '1.5rem',
+                padding: '1.25rem',
                 border: '1px solid rgba(168, 58, 75, 0.3)',
               }}
             >
-              <h5 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-cherry-red)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <h5 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-cherry-red)', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <XCircle size={18} color="var(--color-cherry-red)" /> NEVER IN NIX
               </h5>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.88rem' }}>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>❌ 0% Chlorine or Optical Bleach</li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>❌ 0% Artificial Dyes or Fragrance</li>
                 <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>❌ 0% Harsh Parabens or Phthalates</li>

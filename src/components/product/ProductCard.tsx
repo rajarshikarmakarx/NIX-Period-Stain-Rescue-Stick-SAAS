@@ -27,7 +27,7 @@ export const ProductCard: React.FC = () => {
         <h3 style={{ fontSize: '1.35rem', marginBottom: '0.25rem' }}>{product.name}</h3>
         <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '0.75rem' }}>{product.short_description}</p>
         <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-deep-cherry)' }}>
-          {product.currency}{product.price}
+          from {product.currency}{product.price} <span style={{ fontSize: '0.85rem', fontWeight: 400, opacity: 0.75 }}>(10ml / 20ml)</span>
         </div>
       </div>
 

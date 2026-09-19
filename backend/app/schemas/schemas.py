@@ -11,6 +11,16 @@ from pydantic import BaseModel, EmailStr, Field
 # Product
 # ---------------------------------------------------------------------------
 
+class ProductVariant(BaseModel):
+    id: str
+    name: str
+    size: str
+    uses: str
+    price: int
+    original_price: Optional[int] = None
+    in_stock: bool = True
+
+
 class ProductDetail(BaseModel):
     title: str
     content: str
@@ -31,6 +41,7 @@ class ProductResponse(BaseModel):
     long_description: str
     price: int
     currency: str
+    variants: list[ProductVariant] = []
     images: list[str]
     features: list[str]
     details: list[ProductDetail]
@@ -43,6 +54,9 @@ class ProductResponse(BaseModel):
 
 class CartItem(BaseModel):
     product_id: str
+    variant_id: Optional[str] = None
+    variant_name: Optional[str] = None
+    price: Optional[int] = None
     quantity: int = Field(ge=1)
 
 

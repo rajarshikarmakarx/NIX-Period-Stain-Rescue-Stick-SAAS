@@ -1,4 +1,25 @@
-import type { Product } from '../api/types';
+import type { Product, ProductVariant } from '../api/types';
+
+export const defaultVariants: ProductVariant[] = [
+  {
+    id: '10ml',
+    name: '10ml (5 uses)',
+    size: '10ml',
+    uses: '5 uses',
+    price: 79,
+    original_price: 99,
+    in_stock: true,
+  },
+  {
+    id: '20ml',
+    name: '20ml (10 uses)',
+    size: '20ml',
+    uses: '10 uses',
+    price: 129,
+    original_price: 159,
+    in_stock: true,
+  },
+];
 
 /**
  * Centralized product configuration data structure (PRD §30).
@@ -10,8 +31,9 @@ export const defaultProductData: Product = {
   short_description: 'Portable pre-treatment care for fresh menstrual stains.',
   long_description:
     'A compact stain-treatment stick made to live in your everyday bag. NIX is designed for the moment a stain happens — not for the laundry room.',
-  price: 349,
+  price: 79,
   currency: '₹',
+  variants: defaultVariants,
   images: [
     '/images/product-hero.png',
     '/images/product-closeup.png',
@@ -25,6 +47,7 @@ export const defaultProductData: Product = {
     'Pre-treatment format',
     'Targeted at fresh menstrual stains',
     'Treat now, wash when home',
+    'Available in 10ml (5 uses) & 20ml (10 uses)',
   ],
   details: [
     {
@@ -48,8 +71,8 @@ export const defaultProductData: Product = {
         'NIX is designed to fit seamlessly inside a college bag, handbag, gym pouch, or travel pocket. Keep it close like your favourite lip balm.',
     },
     {
-      title: 'Product details',
-      content: 'Compact pre-treatment stick format. Net wt. 15g.',
+      title: 'Product details & sizes',
+      content: 'Compact pre-treatment stick format. Available in 10ml (5 uses) for ₹79 and 20ml (10 uses) for ₹129.',
     },
     {
       title: 'Shipping & returns',
@@ -58,22 +81,29 @@ export const defaultProductData: Product = {
   ],
   bundles: [
     {
-      id: 'single',
-      name: 'Single Stick',
-      description: '1 NIX Rescue Stick',
-      price: 349,
+      id: 'single-10ml',
+      name: 'Starter Pocket Stick (10ml)',
+      description: '1x 10ml NIX Stick (5 emergency uses)',
+      price: 79,
+      available: true,
+    },
+    {
+      id: 'single-20ml',
+      name: 'Standard Care Stick (20ml)',
+      description: '1x 20ml NIX Stick (10 emergency uses)',
+      price: 129,
       available: true,
     },
     {
       id: 'duo',
-      name: 'Duo Pack',
-      description: '2 NIX Sticks (Bag + Desk)',
-      price: null,
-      available: false,
+      name: 'Duo Pack (2x 20ml)',
+      description: '2 NIX 20ml Sticks (Bag + Desk)',
+      price: 229,
+      available: true,
     },
     {
       id: 'campus-pack',
-      name: 'Campus Pack',
+      name: 'Campus Pack (3x 20ml)',
       description: '3 Sticks for group backup',
       price: null,
       available: false,

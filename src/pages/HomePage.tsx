@@ -12,17 +12,17 @@ export const HomePage: React.FC = () => {
   const { product } = useApp();
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '5rem', paddingBottom: '5rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4rem', paddingBottom: '5rem', width: '100%', overflowX: 'hidden' }}>
       {/* --------------------------------------------------------------------
           SECTION 1 — HERO (§10)
           -------------------------------------------------------------------- */}
-      <section style={{ paddingTop: '2.5rem' }}>
+      <section style={{ paddingTop: '2rem' }}>
         <div className="container">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '4rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+              gap: 'clamp(2rem, 4vw, 4rem)',
               alignItems: 'center',
             }}
           >
@@ -38,7 +38,7 @@ export const HomePage: React.FC = () => {
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Link to="/shop">
                   <Button variant="primary" size="lg">
-                    SHOP NIX — {product.currency}{product.price} <ArrowRight size={18} />
+                    SHOP NIX — from {product.currency}{product.price} <ArrowRight size={18} />
                   </Button>
                 </Link>
                 <Link to="/how-it-works">
@@ -57,20 +57,21 @@ export const HomePage: React.FC = () => {
                   fontSize: '0.85rem',
                   fontWeight: 600,
                   opacity: 0.85,
+                  flexWrap: 'wrap',
                 }}
               >
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                   <ShieldCheck size={16} color="var(--color-deep-cherry)" /> Pre-treatment formula
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Zap size={16} color="var(--color-deep-cherry)" /> Portable stick format
+                  <Zap size={16} color="var(--color-deep-cherry)" /> 10ml &amp; 20ml portable sticks
                 </span>
               </div>
             </div>
 
             {/* Right Hero Product Image */}
             <div>
-              <ProductImage alt="NIX Rescue Stick Hero" label="Portable 15g Pre-Treatment Stick" aspectRatio="1 / 1" />
+              <ProductImage alt="NIX Rescue Stick Hero" label="Portable Pre-Treatment Stick (10ml &amp; 20ml)" aspectRatio="1 / 1" />
             </div>
           </div>
         </div>
@@ -82,7 +83,7 @@ export const HomePage: React.FC = () => {
       <section
         style={{
           backgroundColor: 'var(--color-cream-card)',
-          padding: '4.5rem 0',
+          padding: 'clamp(3rem, 5vw, 4.5rem) 0',
           borderTop: '1px solid var(--color-cocoa-light)',
           borderBottom: '1px solid var(--color-cocoa-light)',
         }}
@@ -97,8 +98,8 @@ export const HomePage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '1.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
+              gap: '1.25rem',
             }}
           >
             {[
@@ -113,8 +114,9 @@ export const HomePage: React.FC = () => {
                 style={{
                   backgroundColor: 'var(--color-warm-cream)',
                   borderRadius: 'var(--radius-lg)',
-                  padding: '1.75rem',
+                  padding: '1.5rem',
                   border: '1px solid var(--color-cocoa-light)',
+                  boxSizing: 'border-box',
                 }}
               >
                 <div
@@ -127,8 +129,8 @@ export const HomePage: React.FC = () => {
                 >
                   SCENARIO 0{idx + 1}
                 </div>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{scenario.title}</h3>
-                <p style={{ fontSize: '0.9rem', opacity: 0.85 }}>{scenario.text}</p>
+                <h3 style={{ fontSize: '1.15rem', marginBottom: '0.5rem' }}>{scenario.title}</h3>
+                <p style={{ fontSize: '0.88rem', opacity: 0.85 }}>{scenario.text}</p>
               </div>
             ))}
           </div>
@@ -142,17 +144,18 @@ export const HomePage: React.FC = () => {
         style={{
           backgroundColor: 'var(--color-deep-cherry)',
           color: 'var(--color-warm-cream)',
-          padding: '5rem 0',
+          padding: 'clamp(3rem, 6vw, 5rem) 0',
           borderRadius: 'var(--radius-xl)',
-          margin: '0 1.5rem',
+          margin: '0 clamp(0.5rem, 2vw, 1.5rem)',
+          boxSizing: 'border-box',
         }}
       >
         <div className="container">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '3.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: 'clamp(2rem, 4vw, 3.5rem)',
               alignItems: 'center',
             }}
           >
@@ -175,7 +178,7 @@ export const HomePage: React.FC = () => {
                 A compact stain-treatment stick made to live in your everyday bag. Keep it with you. Treat the stain. Deal with it later.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '0.85rem', marginBottom: '2rem' }}>
                 {[
                   'Discreet Carry',
                   'Fresh Stain Pre-Treatment',
@@ -183,7 +186,7 @@ export const HomePage: React.FC = () => {
                   'Safe Pre-Wash Care',
                 ].map((feat, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
-                    <CheckCircle2 size={18} color="var(--color-dusty-blush)" />
+                    <CheckCircle2 size={18} color="var(--color-dusty-blush)" style={{ flexShrink: 0 }} />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -212,26 +215,28 @@ export const HomePage: React.FC = () => {
       {/* --------------------------------------------------------------------
           SECTION 3.5 — CYCLE PREDICTOR BANNER
           -------------------------------------------------------------------- */}
-      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: '4rem 0', borderTop: '1px solid var(--color-cocoa-light)', borderBottom: '1px solid var(--color-cocoa-light)' }}>
+      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: 'clamp(2.5rem, 5vw, 4rem) 0', borderTop: '1px solid var(--color-cocoa-light)', borderBottom: '1px solid var(--color-cocoa-light)' }}>
         <div className="container">
           <div
             style={{
               backgroundColor: 'var(--color-warm-cream)',
               borderRadius: 'var(--radius-xl)',
-              padding: '3rem 2.5rem',
+              padding: 'clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 4vw, 2.5rem)',
               border: '2px solid var(--color-deep-cherry)',
               boxShadow: 'var(--shadow-card)',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: 'clamp(1.5rem, 4vw, 2.5rem)',
               alignItems: 'center',
+              boxSizing: 'border-box',
+              width: '100%',
             }}
           >
             <div>
-              <span className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <span className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
                 <Calendar size={14} color="var(--color-deep-cherry)" /> NEW FEATURE &bull; NIX CYCLE INTELLIGENCE
               </span>
-              <h2 style={{ marginBottom: '1rem' }}>Know your peak stain risk days in advance.</h2>
+              <h2 style={{ marginBottom: '1rem', fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)' }}>Know your peak stain risk days in advance.</h2>
               <p style={{ fontSize: '1.05rem', opacity: 0.9, marginBottom: '1.5rem' }}>
                 Use our built-in Cycle & Stain Preparedness Predictor to calculate your upcoming flow phases, set period reminders, and make sure your NIX Rescue Stick is packed before emergency strikes.
               </p>
@@ -246,15 +251,17 @@ export const HomePage: React.FC = () => {
               style={{
                 backgroundColor: 'var(--color-cream-card)',
                 borderRadius: 'var(--radius-lg)',
-                padding: '1.75rem',
+                padding: '1.5rem',
                 border: '1px solid var(--color-cocoa-light)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
+                boxSizing: 'border-box',
+                minWidth: 0,
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: '#fff', padding: '0.5rem', borderRadius: '50%', display: 'flex' }}>
+                <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: '#fff', padding: '0.5rem', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
                   <Calendar size={20} />
                 </div>
                 <div>
@@ -264,7 +271,7 @@ export const HomePage: React.FC = () => {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--color-blush-soft)', color: 'var(--color-deep-cherry)', padding: '0.5rem', borderRadius: '50%', display: 'flex' }}>
+                <div style={{ backgroundColor: 'var(--color-blush-soft)', color: 'var(--color-deep-cherry)', padding: '0.5rem', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
                   <Sparkles size={20} />
                 </div>
                 <div>
@@ -274,7 +281,7 @@ export const HomePage: React.FC = () => {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--color-warm-cream)', border: '1px solid var(--color-cocoa-light)', padding: '0.5rem', borderRadius: '50%', display: 'flex' }}>
+                <div style={{ backgroundColor: 'var(--color-warm-cream)', border: '1px solid var(--color-cocoa-light)', padding: '0.5rem', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
                   <Clock size={20} color="var(--color-deep-cherry)" />
                 </div>
                 <div>
@@ -301,8 +308,8 @@ export const HomePage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+              gap: '1.5rem',
             }}
           >
             {[
@@ -316,9 +323,10 @@ export const HomePage: React.FC = () => {
                 style={{
                   backgroundColor: 'var(--color-cream-card)',
                   borderRadius: 'var(--radius-lg)',
-                  padding: '2rem',
+                  padding: '1.75rem',
                   border: '1px solid var(--color-cocoa-light)',
                   position: 'relative',
+                  boxSizing: 'border-box',
                 }}
               >
                 <div
@@ -351,12 +359,14 @@ export const HomePage: React.FC = () => {
       {/* --------------------------------------------------------------------
           SECTION 4.5 — WHAT'S INSIDE: FORMULATED TO BE GENTLE WHERE IT MATTERS
           -------------------------------------------------------------------- */}
-      <WhatsInsideSection />
+      <div className="container">
+        <WhatsInsideSection />
+      </div>
 
       {/* --------------------------------------------------------------------
           SECTION 5 — WHY A STICK? (§13)
           -------------------------------------------------------------------- */}
-      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: '4.5rem 0' }}>
+      <section style={{ backgroundColor: 'var(--color-cream-card)', padding: 'clamp(3rem, 5vw, 4.5rem) 0' }}>
         <div className="container">
           <SectionHeading
             eyebrow="THE FORMAT MATTERS"
@@ -366,8 +376,8 @@ export const HomePage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: '2rem',
               maxWidth: '900px',
               margin: '0 auto',
             }}
@@ -377,9 +387,10 @@ export const HomePage: React.FC = () => {
               style={{
                 backgroundColor: 'var(--color-warm-cream)',
                 borderRadius: 'var(--radius-lg)',
-                padding: '2rem',
+                padding: '1.75rem',
                 border: '1px solid var(--color-cocoa-light)',
                 opacity: 0.8,
+                boxSizing: 'border-box',
               }}
             >
               <h3 style={{ fontSize: '1.25rem', marginBottom: '1.25rem', color: 'var(--color-cocoa-muted)' }}>
@@ -398,9 +409,10 @@ export const HomePage: React.FC = () => {
               style={{
                 backgroundColor: 'var(--color-warm-cream)',
                 borderRadius: 'var(--radius-lg)',
-                padding: '2rem',
+                padding: '1.75rem',
                 border: '2px solid var(--color-deep-cherry)',
                 boxShadow: 'var(--shadow-card)',
+                boxSizing: 'border-box',
               }}
             >
               <div className="badge badge-cherry" style={{ marginBottom: '1rem' }}>
@@ -431,8 +443,8 @@ export const HomePage: React.FC = () => {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))',
+              gap: '1.5rem',
             }}
           >
             {[
@@ -454,14 +466,15 @@ export const HomePage: React.FC = () => {
                 style={{
                   backgroundColor: 'var(--color-cream-card)',
                   borderRadius: 'var(--radius-lg)',
-                  padding: '2rem',
+                  padding: '1.75rem',
                   border: '1px solid var(--color-cocoa-light)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
+                  boxSizing: 'border-box',
                 }}
               >
-                <p style={{ fontSize: '1rem', fontStyle: 'italic', marginBottom: '1.5rem', opacity: 0.9 }}>
+                <p style={{ fontSize: '0.95rem', fontStyle: 'italic', marginBottom: '1.25rem', opacity: 0.9 }}>
                   {review.quote}
                 </p>
                 <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-deep-cherry)' }}>

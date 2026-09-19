@@ -27,9 +27,29 @@ class DemoStore:
             "id": "nix-rescue-stick-01",
             "name": "NIX Period Stain Rescue Stick",
             "tagline": "Instant, discreet emergency stain removal on the go.",
-            "price": 349,
-            "original_price": 449,
+            "price": 79,
+            "original_price": 99,
             "currency": "₹",
+            "variants": [
+                {
+                    "id": "10ml",
+                    "name": "10ml (5 uses)",
+                    "size": "10ml",
+                    "uses": "5 uses",
+                    "price": 79,
+                    "original_price": 99,
+                    "in_stock": True,
+                },
+                {
+                    "id": "20ml",
+                    "name": "20ml (10 uses)",
+                    "size": "20ml",
+                    "uses": "10 uses",
+                    "price": 129,
+                    "original_price": 159,
+                    "in_stock": True,
+                },
+            ],
             "rating": 4.9,
             "review_count": 1284,
             "in_stock": True,
@@ -62,31 +82,31 @@ class DemoStore:
             "bundles": [
                 {
                     "id": "bundle-1",
-                    "title": "Solo Rescue",
-                    "description": "1x NIX Period Stain Rescue Stick",
-                    "price": 349,
-                    "discount": "Save 22%"
+                    "title": "Starter Pocket Stick (10ml)",
+                    "description": "1x 10ml NIX Stick (5 emergency uses)",
+                    "price": 79,
+                    "discount": "Save 20%"
                 },
                 {
                     "id": "bundle-2",
-                    "title": "Handbag & Vanity Duo",
-                    "description": "2x NIX Sticks (1 Handbag + 1 Home Vanity)",
-                    "price": 599,
-                    "discount": "Most Popular — Save 33%"
+                    "title": "Standard Care Stick (20ml)",
+                    "description": "1x 20ml NIX Stick (10 emergency uses)",
+                    "price": 129,
+                    "discount": "Most Popular — Save 20%"
                 },
                 {
                     "id": "bundle-3",
-                    "title": "Trio Emergency Pack",
-                    "description": "3x NIX Sticks + Free Velvet Travel Pouch",
-                    "price": 849,
-                    "discount": "Best Value — Save 41%"
+                    "title": "Duo Pack (2x 20ml)",
+                    "description": "2x NIX 20ml Sticks (1 Handbag + 1 Desk)",
+                    "price": 229,
+                    "discount": "Best Value — Save 28%"
                 }
             ]
         }
         self.orders: List[Dict[str, Any]] = [
           {
             "id": "NIX-884201",
-            "items": [{"product_id": "nix-rescue-stick-01", "quantity": 2}],
+            "items": [{"product_id": "nix-rescue-stick-01-20ml", "variant_id": "20ml", "variant_name": "20ml (10 uses)", "price": 129, "quantity": 2}],
             "address": {
               "name": "Ananya Sharma",
               "email": "ananya@example.com",
@@ -96,7 +116,7 @@ class DemoStore:
               "state": "Delhi",
               "pincode": "110007"
             },
-            "total": 698,
+            "total": 258,
             "currency": "₹",
             "status": "In Transit",
             "delivery_estimate": "Tomorrow by 5 PM",

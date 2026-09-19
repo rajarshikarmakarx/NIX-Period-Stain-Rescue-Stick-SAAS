@@ -330,12 +330,12 @@ export const CyclePredictorPage: React.FC = () => {
       {/* --------------------------------------------------------------------
           MAIN CYCLE DASHBOARD (2 COLUMNS: CONFIG & CURRENT STATUS)
           -------------------------------------------------------------------- */}
-      <section style={{ paddingTop: '3rem' }}>
+      <section style={{ paddingTop: '2.5rem' }}>
         <div className="container">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
               gap: '2rem',
               marginBottom: '3rem',
             }}
@@ -345,9 +345,11 @@ export const CyclePredictorPage: React.FC = () => {
               style={{
                 backgroundColor: 'var(--color-warm-cream)',
                 borderRadius: 'var(--radius-xl)',
-                padding: '2rem',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
                 border: '1px solid var(--color-cocoa-light)',
                 boxShadow: 'var(--shadow-card)',
+                boxSizing: 'border-box',
+                minWidth: 0,
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
@@ -521,17 +523,19 @@ export const CyclePredictorPage: React.FC = () => {
                 backgroundColor: 'var(--color-deep-cherry)',
                 color: 'var(--color-warm-cream)',
                 borderRadius: 'var(--radius-xl)',
-                padding: '2.25rem',
+                padding: 'clamp(1.5rem, 4vw, 2.25rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 boxShadow: 'var(--shadow-card)',
                 position: 'relative',
                 overflow: 'hidden',
+                boxSizing: 'border-box',
+                minWidth: 0,
               }}
             >
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                   <span
                     style={{
                       fontSize: '0.75rem',
@@ -557,10 +561,10 @@ export const CyclePredictorPage: React.FC = () => {
                   </span>
                 </div>
 
-                <h2 style={{ color: 'var(--color-warm-cream)', fontSize: '2.2rem', marginBottom: '0.5rem' }}>
+                <h2 style={{ color: 'var(--color-warm-cream)', fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', marginBottom: '0.5rem' }}>
                   {currentPhase.name}
                 </h2>
-                <p style={{ color: 'var(--color-dusty-blush)', fontSize: '1.05rem', marginBottom: '2rem' }}>
+                <p style={{ color: 'var(--color-dusty-blush)', fontSize: '1.05rem', marginBottom: '1.75rem' }}>
                   {currentPhase.desc}
                 </p>
 
@@ -571,9 +575,10 @@ export const CyclePredictorPage: React.FC = () => {
                     borderRadius: 'var(--radius-lg)',
                     padding: '1.25rem',
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
                     gap: '1rem',
                     marginBottom: '1.5rem',
+                    boxSizing: 'border-box',
                   }}
                 >
                   <div>
@@ -603,6 +608,7 @@ export const CyclePredictorPage: React.FC = () => {
                     padding: '1rem 1.25rem',
                     borderRadius: 'var(--radius-md)',
                     marginBottom: '1.5rem',
+                    boxSizing: 'border-box',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.95rem' }}>
@@ -627,9 +633,10 @@ export const CyclePredictorPage: React.FC = () => {
                     backgroundColor: 'var(--color-warm-cream)',
                     color: 'var(--color-deep-cherry)',
                     flex: 1,
+                    minWidth: '180px',
                   }}
                 >
-                  <ShoppingBag size={16} /> PACK NIX STICK (₹349)
+                  <ShoppingBag size={16} /> PACK NIX STICK (FROM ₹79)
                 </Button>
                 <button
                   onClick={handleExportCalendar}
@@ -662,10 +669,12 @@ export const CyclePredictorPage: React.FC = () => {
             style={{
               backgroundColor: 'var(--color-cream-card)',
               borderRadius: 'var(--radius-xl)',
-              padding: '2.5rem',
+              padding: 'clamp(1rem, 3vw, 2.5rem)',
               border: '1px solid var(--color-cocoa-light)',
               boxShadow: 'var(--shadow-card)',
               marginBottom: '4rem',
+              boxSizing: 'border-box',
+              width: '100%',
             }}
           >
             {/* Calendar Header — title row */}
@@ -1038,26 +1047,27 @@ export const CyclePredictorPage: React.FC = () => {
               backgroundColor: 'var(--color-soft-cocoa)',
               color: 'var(--color-warm-cream)',
               borderRadius: 'var(--radius-xl)',
-              padding: '3rem 2.5rem',
+              padding: 'clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 4vw, 2.5rem)',
               marginBottom: '4rem',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: '2.5rem',
               alignItems: 'center',
+              boxSizing: 'border-box',
             }}
           >
             <div>
               <span className="eyebrow" style={{ color: 'var(--color-dusty-blush)' }}>
                 ANNUAL PREPAREDNESS CALCULATOR
               </span>
-              <h2 style={{ color: 'var(--color-warm-cream)', marginBottom: '1rem' }}>
+              <h2 style={{ color: 'var(--color-warm-cream)', marginBottom: '1rem', fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)' }}>
                 Your Stain Risk Footprint
               </h2>
               <p style={{ color: 'rgba(248, 240, 227, 0.85)', fontSize: '1.05rem', marginBottom: '1.75rem' }}>
                 Based on your {cycleLength}-day cycle and {periodLength}-day period, here is what your year looks like:
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
                 <div style={{ backgroundColor: 'rgba(248, 240, 227, 0.08)', padding: '1rem', borderRadius: 'var(--radius-lg)' }}>
                   <div style={{ fontSize: '2rem', fontFamily: 'var(--font-editorial)', color: 'var(--color-dusty-blush)' }}>
                     ~{Math.round(365 / cycleLength)}
@@ -1084,28 +1094,29 @@ export const CyclePredictorPage: React.FC = () => {
                 backgroundColor: 'var(--color-warm-cream)',
                 color: 'var(--color-soft-cocoa)',
                 borderRadius: 'var(--radius-lg)',
-                padding: '2rem',
+                padding: '1.75rem',
                 border: '2px solid var(--color-deep-cherry)',
+                boxSizing: 'border-box',
               }}
             >
               <span className="badge badge-cherry" style={{ marginBottom: '0.75rem' }}>
                 RECOMMENDED CYCLE BUNDLE
               </span>
               <h3 style={{ fontSize: '1.35rem', marginBottom: '0.5rem' }}>
-                NIX Duo Rescue Pack
+                NIX Duo Rescue Pack (2x 20ml)
               </h3>
               <p style={{ fontSize: '0.9rem', opacity: 0.85, marginBottom: '1.25rem' }}>
-                Includes 2x NIX 15g Pre-Treatment Sticks: 1 for your handbag/backpack + 1 for your office desk or car.
+                Includes 2x NIX 20ml (10 uses each) Pre-Treatment Sticks: 1 for your handbag/backpack + 1 for your office desk or car.
               </p>
 
               <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-deep-cherry)', marginBottom: '1.25rem' }}>
-                ₹599 <span style={{ fontSize: '0.85rem', color: 'var(--color-soft-cocoa)', textDecoration: 'line-through' }}>₹698</span>
+                ₹229 <span style={{ fontSize: '0.85rem', color: 'var(--color-soft-cocoa)', textDecoration: 'line-through' }}>₹258</span>
               </div>
 
               <Button
                 onClick={() => {
-                  addToCart(2);
-                  showToast('NIX Duo Rescue Pack added to your bag!');
+                  addToCart(2, '20ml');
+                  showToast('NIX Duo Rescue Pack (2x 20ml) added to your bag!');
                 }}
                 variant="primary"
                 style={{ width: '100%' }}
@@ -1122,8 +1133,9 @@ export const CyclePredictorPage: React.FC = () => {
             style={{
               backgroundColor: 'var(--color-warm-cream)',
               borderRadius: 'var(--radius-xl)',
-              padding: '2.5rem',
+              padding: 'clamp(1.25rem, 3vw, 2.5rem)',
               border: '1px solid var(--color-cocoa-light)',
+              boxSizing: 'border-box',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>

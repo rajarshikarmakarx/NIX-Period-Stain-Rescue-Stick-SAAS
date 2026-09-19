@@ -19,7 +19,7 @@ def create_order(order_data: OrderCreate):
     now = datetime.now()
     delivery_date = (now + timedelta(days=3)).strftime("%b %d, %Y")
 
-    total = sum(item.quantity * settings.default_product_price for item in order_data.items)
+    total = sum(item.quantity * (item.price if item.price is not None else settings.default_product_price) for item in order_data.items)
 
     timeline = [
         OrderTimelineStep(label="Order Confirmed", completed=True, timestamp=now.strftime("%I:%M %p, %b %d")),

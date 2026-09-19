@@ -151,24 +151,17 @@ export const Header: React.FC = () => {
         </nav>
 
         {/* Right Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div className="header-actions">
           {/* User Account / Auth Dropdown */}
           <div style={{ position: 'relative' }}>
             {profile ? (
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                className="header-user-btn"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
                   color: 'var(--color-soft-cocoa)',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
                   backgroundColor: 'var(--color-cream-card)',
-                  padding: '0.4rem 0.75rem',
-                  borderRadius: 'var(--radius-pill)',
                   border: '1px solid var(--color-cocoa-light)',
-                  cursor: 'pointer',
                 }}
               >
                 <User size={18} color="var(--color-deep-cherry)" />
@@ -178,22 +171,16 @@ export const Header: React.FC = () => {
             ) : (
               <button
                 onClick={() => setAuthModalOpen(true)}
+                className="header-auth-btn"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
                   color: 'var(--color-deep-cherry)',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
                   backgroundColor: 'transparent',
-                  padding: '0.4rem 0.75rem',
-                  borderRadius: 'var(--radius-pill)',
                   border: '1px solid var(--color-deep-cherry)',
-                  cursor: 'pointer',
                 }}
+                aria-label="Sign In"
               >
                 <User size={18} />
-                <span>Sign In</span>
+                <span className="header-auth-text">Sign In</span>
               </button>
             )}
 
@@ -292,20 +279,10 @@ export const Header: React.FC = () => {
 
           <Link
             to="/cart"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              backgroundColor: 'var(--color-deep-cherry)',
-              color: 'var(--color-warm-cream)',
-              padding: '0.45rem 0.9rem',
-              borderRadius: 'var(--radius-pill)',
-              fontWeight: 600,
-              fontSize: '0.9rem',
-            }}
+            className="header-cart-btn"
           >
             <ShoppingBag size={18} />
-            <span>Bag</span>
+            <span className="header-cart-text">Bag</span>
             <span
               style={{
                 backgroundColor: 'var(--color-warm-cream)',
@@ -318,6 +295,7 @@ export const Header: React.FC = () => {
                 justifyContent: 'center',
                 fontSize: '0.75rem',
                 fontWeight: 700,
+                flexShrink: 0,
               }}
             >
               {totalCartCount}
@@ -327,7 +305,7 @@ export const Header: React.FC = () => {
           {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{ color: 'var(--color-soft-cocoa)' }}
+            style={{ color: 'var(--color-soft-cocoa)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             className="mobile-toggle"
             aria-label="Toggle menu"
           >
@@ -411,8 +389,76 @@ export const Header: React.FC = () => {
 
       {/* Responsive Style Overrides */}
       <style>{`
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 1.25rem;
+        }
+        .header-auth-btn, .header-user-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
+          height: 38px;
+          padding: 0 0.85rem;
+          border-radius: var(--radius-pill);
+          font-weight: 600;
+          font-size: 0.88rem;
+          line-height: 1;
+          white-space: nowrap;
+          flex-shrink: 0;
+          box-sizing: border-box;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .header-cart-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          height: 38px;
+          padding: 0 0.9rem;
+          border-radius: var(--radius-pill);
+          font-weight: 600;
+          font-size: 0.88rem;
+          line-height: 1;
+          white-space: nowrap;
+          flex-shrink: 0;
+          box-sizing: border-box;
+          background-color: var(--color-deep-cherry);
+          color: var(--color-warm-cream);
+          transition: all 0.2s ease;
+        }
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
+          .header-actions {
+            gap: 0.65rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .header-actions {
+            gap: 0.45rem !important;
+          }
+          .header-auth-btn {
+            width: 36px;
+            height: 36px;
+            padding: 0 !important;
+            border-radius: 50% !important;
+          }
+          .header-auth-text {
+            display: none !important;
+          }
+          .header-user-btn {
+            padding: 0 0.55rem !important;
+            height: 36px !important;
+          }
+          .header-cart-btn {
+            height: 36px !important;
+            padding: 0 0.6rem !important;
+          }
+          .header-cart-text {
+            display: none !important;
+          }
         }
         @media (min-width: 769px) {
           .mobile-toggle { display: none !important; }

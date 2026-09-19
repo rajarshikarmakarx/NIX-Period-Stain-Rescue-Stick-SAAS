@@ -17,16 +17,16 @@ export const RewardsPage: React.FC = () => {
           subtitle="Earn points for purchases, referring friends, and engaging with NIX."
         />
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: 'clamp(1.5rem, 3vw, 3rem)', marginBottom: '4rem' }}>
           <RewardCard />
           <ReferralCard />
         </div>
 
         {/* How to Earn Points Breakdown */}
-        <div style={{ backgroundColor: 'var(--color-cream-card)', borderRadius: 'var(--radius-xl)', padding: '3rem', border: '1px solid var(--color-cocoa-light)', marginBottom: '4rem' }}>
+        <div style={{ backgroundColor: 'var(--color-cream-card)', borderRadius: 'var(--radius-xl)', padding: 'clamp(1.5rem, 4vw, 3rem)', border: '1px solid var(--color-cocoa-light)', marginBottom: '4rem', boxSizing: 'border-box' }}>
           <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem', textAlign: 'center' }}>How to Earn Points</h3>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '1.25rem' }}>
             {[
               { icon: ShoppingBag, pts: '100 PTS', title: 'Every Purchase', desc: 'Earn points every time you buy or reorder a NIX Stick.' },
               { icon: UserPlus, pts: '50 PTS', title: 'Refer a Friend', desc: 'When your friend uses your referral code for their first stick.' },

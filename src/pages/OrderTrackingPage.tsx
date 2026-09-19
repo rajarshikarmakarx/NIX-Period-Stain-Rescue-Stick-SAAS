@@ -241,7 +241,7 @@ export const OrderTrackingPage: React.FC = () => {
                         NIX Period Rescue Stick
                       </div>
                       <div style={{ fontSize: '0.8rem', opacity: 0.65 }}>
-                        Qty: {item.quantity} &nbsp;·&nbsp; {order.currency}349 each
+                        {item.variant_name ? `${item.variant_name} · ` : ''}Qty: {item.quantity} &nbsp;·&nbsp; {order.currency}{item.price ?? (order.total && item.quantity ? Math.round(order.total / item.quantity) : 79)} each
                       </div>
                     </div>
 
