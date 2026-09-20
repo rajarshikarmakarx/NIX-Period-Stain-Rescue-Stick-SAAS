@@ -255,8 +255,12 @@ export const AccountPage: React.FC = () => {
                   const firstItem = ord.items?.[0];
                   const itemImage =
                     firstItem?.image ||
-                    (firstItem?.variant_id?.startsWith('refill')
-                      ? '/images/refill-cartridge.png'
+                    (firstItem?.variant_id === 'refill-3pk'
+                      ? '/images/roller-head-3.png'
+                      : firstItem?.variant_id === 'refill-2pk'
+                      ? '/images/roller-head-2.png'
+                      : firstItem?.variant_id?.startsWith('refill')
+                      ? '/images/roller-head-1.png'
                       : firstItem?.variant_id === '20ml'
                       ? '/images/20ml-without-packaging.png'
                       : '/images/10ml-without-packaging.png');

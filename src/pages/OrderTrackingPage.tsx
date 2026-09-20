@@ -283,8 +283,12 @@ export const OrderTrackingPage: React.FC = () => {
                       <img
                         src={
                           item.image ||
-                          (item.variant_id?.startsWith('refill')
-                            ? '/images/refill-cartridge.png'
+                          (item.variant_id === 'refill-3pk'
+                            ? '/images/roller-head-3.png'
+                            : item.variant_id === 'refill-2pk'
+                            ? '/images/roller-head-2.png'
+                            : item.variant_id?.startsWith('refill')
+                            ? '/images/roller-head-1.png'
                             : item.variant_id === '20ml'
                             ? '/images/20ml-without-packaging.png'
                             : '/images/10ml-without-packaging.png')

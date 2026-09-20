@@ -256,8 +256,8 @@ export const FrequentlyBoughtTogether: React.FC<FrequentlyBoughtTogetherProps> =
                   }}
                 >
                   <img
-                    src="/images/refill-cartridge.png"
-                    alt="NIX Refill Cartridge"
+                    src={currentRefill.image || (currentRefill.count === 3 ? '/images/roller-head-3.png' : currentRefill.count === 2 ? '/images/roller-head-2.png' : '/images/roller-head-1.png')}
+                    alt={currentRefill.name}
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                   />
                 </div>

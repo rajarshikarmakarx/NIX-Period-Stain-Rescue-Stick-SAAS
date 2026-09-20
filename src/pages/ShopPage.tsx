@@ -302,8 +302,8 @@ export const ShopPage: React.FC = () => {
                 </span>
 
                 <ProductImage
-                  src="/images/refill-cartridge.png"
-                  alt="NIX Replaceable Roller-Ball Cartridges"
+                  src={selectedRefill.image || (selectedRefill.count === 3 ? '/images/roller-head-3.png' : selectedRefill.count === 2 ? '/images/roller-head-2.png' : '/images/roller-head-1.png')}
+                  alt={`NIX Replaceable Roller-Ball Cartridges (${selectedRefill.name})`}
                   aspectRatio="4 / 3"
                   objectFit="contain"
                   priority={true}

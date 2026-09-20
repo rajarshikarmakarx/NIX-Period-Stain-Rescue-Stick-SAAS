@@ -174,9 +174,9 @@ export const HowItWorksPage: React.FC = () => {
 
             <div>
               <ProductImage
-                src="/images/refill-cartridge.png"
-                alt="NIX Replaceable Roller-Ball Head Cartridge"
-                label="Snap-On Replaceable Roller Head"
+                src="/images/roller-head-3.png"
+                alt="NIX Replaceable Roller-Ball Head Cartridges"
+                label="Snap-On Replaceable Roller Heads (3-Pack)"
                 badge="Hygienic Care System"
                 aspectRatio="1 / 1"
                 objectFit="contain"

@@ -10,6 +10,7 @@ export interface RefillOption {
   per_unit: string;
   description: string;
   badge?: string;
+  image?: string;
 }
 
 export const refillVariants: RefillOption[] = [
@@ -22,6 +23,7 @@ export const refillVariants: RefillOption[] = [
     discount: 'Save ₹5',
     per_unit: '₹10 / unit',
     description: '1x Replaceable Roller-Ball Cartridge (5 fresh emergency uses)',
+    image: '/images/roller-head-1.png',
   },
   {
     id: 'refill-2pk',
@@ -33,6 +35,7 @@ export const refillVariants: RefillOption[] = [
     per_unit: '₹7.50 / unit',
     description: '2x Replaceable Roller-Ball Cartridges (10 fresh emergency uses)',
     badge: 'Most Popular',
+    image: '/images/roller-head-2.png',
   },
   {
     id: 'refill-3pk',
@@ -44,6 +47,7 @@ export const refillVariants: RefillOption[] = [
     per_unit: '₹6.67 / unit',
     description: '3x Replaceable Roller-Ball Cartridges (15 fresh emergency uses)',
     badge: 'Best Value',
+    image: '/images/roller-head-3.png',
   },
 ];
 
@@ -90,7 +94,9 @@ export const defaultProductData: Product = {
     '/images/10ml-without-packaging.png',
     '/images/20ml-with-packaging.png',
     '/images/20ml-without-packaging.png',
-    '/images/refill-cartridge.png',
+    '/images/roller-head-1.png',
+    '/images/roller-head-2.png',
+    '/images/roller-head-3.png',
   ],
   features: [
     'Portable & discreet',

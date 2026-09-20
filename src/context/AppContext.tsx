@@ -176,7 +176,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       variantName = refill.name;
       itemPrice = refill.price;
       productName = 'NIX Replaceable Roller-Ball Cartridge';
-      itemImage = '/images/refill-cartridge.png';
+      itemImage = refill.image || (refill.count === 3 ? '/images/roller-head-3.png' : refill.count === 2 ? '/images/roller-head-2.png' : '/images/roller-head-1.png');
     } else {
       // Resolve standard stick variant
       let selectedVariant: ProductVariant | undefined;

@@ -37,7 +37,9 @@ export const preloadCommonProductImages = () => {
     '/images/20ml-with-packaging.png',
     '/images/20ml-without-packaging.png',
     '/images/emergency_kit.png',
-    '/images/refill-cartridge.png',
+    '/images/roller-head-1.png',
+    '/images/roller-head-2.png',
+    '/images/roller-head-3.png',
   ];
   images.forEach(preloadProductImage);
 };

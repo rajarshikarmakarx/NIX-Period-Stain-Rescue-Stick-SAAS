@@ -99,15 +99,73 @@ export const RefillProductPage: React.FC = () => {
           {/* Left Column — Visual Showcase */}
           <div style={{ minWidth: 0, width: '100%', textAlign: 'center' }}>
             <ProductImage
-              src="/images/refill-cartridge.png"
-              alt="NIX Replaceable Roller-Ball Cartridge Head"
-              label="Snap-On Roller-Ball Replacement Head"
-              badge="Hygienic Care System"
+              src={selectedRefill.image || (selectedRefill.count === 3 ? '/images/roller-head-3.png' : selectedRefill.count === 2 ? '/images/roller-head-2.png' : '/images/roller-head-1.png')}
+              alt={selectedRefill.name}
+              label={`Snap-On Roller-Ball Replacement Head (${selectedRefill.count}-Pack)`}
+              badge={selectedRefill.badge || `${selectedRefill.count * 5} Emergency Uses`}
               aspectRatio="1 / 1"
               objectFit="contain"
               priority={true}
               style={{ maxHeight: '440px', margin: '0 auto' }}
             />
+
+            {/* Quick pack thumbnail preview buttons */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '0.75rem',
+                marginTop: '1.25rem',
+              }}
+            >
+              {refillVariants.map((r) => {
+                const isSelected = selectedRefill.id === r.id;
+                return (
+                  <button
+                    key={r.id}
+                    type="button"
+                    onClick={() => setSelectedRefill(r)}
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      padding: '4px',
+                      borderRadius: 'var(--radius-md)',
+                      border: isSelected ? '2px solid var(--color-deep-cherry)' : '1px solid var(--color-cocoa-light)',
+                      backgroundColor: isSelected ? 'var(--color-blush-soft)' : 'var(--color-cream-card)',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.2s ease',
+                      position: 'relative',
+                    }}
+                    title={r.name}
+                  >
+                    <img
+                      src={r.image || (r.count === 3 ? '/images/roller-head-3.png' : r.count === 2 ? '/images/roller-head-2.png' : '/images/roller-head-1.png')}
+                      alt={r.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                    <span
+                      style={{
+                        position: 'absolute',
+                        bottom: '2px',
+                        fontSize: '0.6rem',
+                        fontWeight: 700,
+                        backgroundColor: isSelected ? 'var(--color-deep-cherry)' : 'rgba(0,0,0,0.55)',
+                        color: '#fff',
+                        padding: '0 4px',
+                        borderRadius: 'var(--radius-pill)',
+                      }}
+                    >
+                      {r.count}pk
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
             <div
               style={{
                 display: 'inline-flex',

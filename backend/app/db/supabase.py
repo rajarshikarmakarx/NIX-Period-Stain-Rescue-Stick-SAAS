@@ -63,7 +63,9 @@ class DemoStore:
                 "/images/10ml-without-packaging.png",
                 "/images/20ml-with-packaging.png",
                 "/images/20ml-without-packaging.png",
-                "/images/refill-cartridge.png"
+                "/images/roller-head-1.png",
+                "/images/roller-head-2.png",
+                "/images/roller-head-3.png"
             ],
             "highlights": [
                 "Plant-Based Enzyme Formula",
