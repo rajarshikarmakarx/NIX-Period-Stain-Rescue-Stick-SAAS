@@ -99,13 +99,37 @@ export const Footer: React.FC = () => {
             <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.25rem', opacity: 0.9 }}>
               Support
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', opacity: 0.85 }}>
-              <li>Contact & Support</li>
-              <li>Shipping & Delivery</li>
-              <li>Returns & Refunds</li>
-              <li>Frequently Asked Questions</li>
-              <li>Privacy Policy</li>
-              <li>Terms of Service</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <li>
+                <Link to="/contact" style={{ color: 'rgba(248, 240, 227, 0.85)', textDecoration: 'none' }}>
+                  Contact & Support
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact?tab=shipping" style={{ color: 'rgba(248, 240, 227, 0.85)', textDecoration: 'none' }}>
+                  Shipping & Delivery
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact?tab=returns" style={{ color: 'rgba(248, 240, 227, 0.85)', textDecoration: 'none' }}>
+                  Returns & Refunds
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact?tab=faq" style={{ color: 'rgba(248, 240, 227, 0.85)', textDecoration: 'none' }}>
+                  Frequently Asked Questions
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact?tab=privacy" style={{ color: 'rgba(248, 240, 227, 0.85)', textDecoration: 'none' }}>
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact?tab=terms" style={{ color: 'rgba(248, 240, 227, 0.85)', textDecoration: 'none' }}>
+                  Terms of Service
+                </Link>
+              </li>
             </ul>
           </div>
 

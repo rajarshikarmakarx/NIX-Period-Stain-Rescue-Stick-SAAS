@@ -24,6 +24,7 @@ import { EmergencyKitPage } from './pages/EmergencyKitPage';
 import { NotesPage } from './pages/NotesPage';
 import { AboutPage } from './pages/AboutPage';
 import { CyclePredictorPage } from './pages/CyclePredictorPage';
+import { ContactPage } from './pages/ContactPage';
 
 export const App: React.FC = () => {
   useEffect(() => {
@@ -69,6 +70,8 @@ export const App: React.FC = () => {
                 <Route path="/notes" element={<NotesPage />} />
                 <Route path="/cycle-predictor" element={<CyclePredictorPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/support" element={<ContactPage />} />
               </Routes>
             </main>
             <Footer />
