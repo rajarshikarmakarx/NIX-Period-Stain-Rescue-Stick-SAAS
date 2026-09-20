@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingBag, User, Menu, X, LogOut, Award, Package, ChevronDown, Calendar } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
@@ -13,6 +13,7 @@ export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const userDropdownRef = useRef<HTMLDivElement>(null);
 
   const location = useLocation();
 
@@ -28,6 +29,20 @@ export const Header: React.FC = () => {
     setMobileMenuOpen(false);
     setUserDropdownOpen(false);
   }, [location]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+        setUserDropdownOpen(false);
+      }
+    };
+    if (userDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [userDropdownOpen]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -160,7 +175,7 @@ export const Header: React.FC = () => {
         {/* Right Actions */}
         <div className="header-actions">
           {/* User Account / Auth Dropdown */}
-          <div style={{ position: 'relative' }}>
+          <div ref={userDropdownRef} style={{ position: 'relative' }}>
             {profile ? (
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
@@ -198,20 +213,59 @@ export const Header: React.FC = () => {
                   position: 'absolute',
                   top: 'calc(100% + 8px)',
                   right: 0,
-                  width: '200px',
+                  minWidth: '240px',
+                  maxWidth: 'min(320px, calc(100vw - 2rem))',
+                  width: 'max-content',
                   backgroundColor: 'var(--color-warm-cream)',
                   borderRadius: 'var(--radius-lg)',
                   boxShadow: 'var(--shadow-card)',
                   border: '1px solid var(--color-cocoa-light)',
                   padding: '0.5rem 0',
                   zIndex: 1100,
+                  boxSizing: 'border-box',
                 }}
               >
-                <div style={{ padding: '0.75rem 1rem', borderBottom: '1px solid var(--color-cocoa-light)' }}>
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>{profile.full_name}</div>
-                  <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{profile.email}</div>
+                <div style={{ padding: '0.75rem 1rem', borderBottom: '1px solid var(--color-cocoa-light)', overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      color: 'var(--color-soft-cocoa)',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                    title={profile.full_name}
+                  >
+                    {profile.full_name}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '0.75rem',
+                      opacity: 0.75,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      marginTop: '0.15rem',
+                    }}
+                    title={profile.email}
+                  >
+                    {profile.email}
+                  </div>
                   {profile.phone_number && (
-                    <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{profile.phone_number}</div>
+                    <div
+                      style={{
+                        fontSize: '0.75rem',
+                        opacity: 0.75,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        marginTop: '0.1rem',
+                      }}
+                      title={profile.phone_number}
+                    >
+                      {profile.phone_number}
+                    </div>
                   )}
                 </div>
 

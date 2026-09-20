@@ -7,6 +7,13 @@ function fmtDate(iso: string) {
     return new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   } catch { return iso; }
 }
+
+function formatVariantLabel(name?: string) {
+  if (!name) return '';
+  // Convert inner parentheses e.g. "20ml (10 uses)" -> "20ml - 10 uses"
+  const cleaned = name.replace(/\(([^)]+)\)/g, '- $1').replace(/\s+/g, ' ').trim();
+  return `(${cleaned})`;
+}
 import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
 import { RewardCard } from '../components/rewards/RewardCard';
@@ -245,6 +252,22 @@ export const AccountPage: React.FC = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {orders.map((ord) => {
                   const totalQty = ord.items.reduce((s, i) => s + i.quantity, 0);
+                  const firstItem = ord.items?.[0];
+                  const itemImage =
+                    firstItem?.image ||
+                    (firstItem?.variant_id?.startsWith('refill')
+                      ? '/images/refill-cartridge.png'
+                      : firstItem?.variant_id === '20ml'
+                      ? '/images/20ml-without-packaging.png'
+                      : '/images/10ml-without-packaging.png');
+                  const productName =
+                    firstItem?.product_name ||
+                    (firstItem?.variant_id?.startsWith('refill')
+                      ? 'NIX Replacement Cartridge'
+                      : 'NIX Period Rescue Stick');
+                  const variantText = formatVariantLabel(firstItem?.variant_name);
+                  const additionalItemsSuffix = ord.items && ord.items.length > 1 ? ` +${ord.items.length - 1} more` : '';
+
                   return (
                     <div
                       key={ord.id}
@@ -296,18 +319,14 @@ export const AccountPage: React.FC = () => {
                           }}
                         >
                           <img
-                            src={
-                              ord.items?.[0]?.variant_id === '20ml'
-                                ? '/images/20ml-without-packaging.png'
-                                : '/images/10ml-without-packaging.png'
-                            }
-                            alt="NIX Stick"
+                            src={itemImage}
+                            alt={productName}
                             style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                           />
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ fontWeight: 600, fontSize: '0.88rem', marginBottom: '0.15rem' }}>
-                            NIX Period Rescue Stick {ord.items?.[0]?.variant_name ? `(${ord.items[0].variant_name})` : ''}
+                            {productName} {variantText}{additionalItemsSuffix}
                           </div>
                           <div style={{ fontSize: '0.78rem', opacity: 0.65, display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                             <span>Qty: {totalQty}</span>
