@@ -1,21 +1,14 @@
 import React from 'react';
-import { Award, Gift, Sparkles } from 'lucide-react';
-import { Button } from '../common/Button';
+import { Award } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { api } from '../../api/client';
 
 export const RewardCard: React.FC = () => {
-  const { rewards, showToast } = useApp();
+  const { rewards, redeemReward } = useApp();
   const nextTarget = 250;
   const progressPercent = Math.min(100, Math.round((rewards.points / nextTarget) * 100));
 
   const handleRedeem = async (rewardId: string) => {
-    try {
-      const res = await api.redeemReward(rewardId);
-      showToast(res.message);
-    } catch {
-      showToast('Perk claimed for your next order!');
-    }
+    await redeemReward(rewardId);
   };
 
   return (

@@ -30,24 +30,61 @@ class ProductDetail(BaseModel):
 
 class BundleOption(BaseModel):
     id: str
-    name: str
+    name: Optional[str] = None
+    title: Optional[str] = None
     description: str
     price: Optional[int] = None
-    available: bool = False
+    discount: Optional[str] = None
+    available: bool = True
+
+    def model_post_init(self, __context):
+        if not self.name and self.title:
+            self.name = self.title
+        elif not self.title and self.name:
+            self.title = self.name
 
 
 class ProductResponse(BaseModel):
     id: str
     name: str
-    short_description: str
-    long_description: str
+    short_description: Optional[str] = None
+    tagline: Optional[str] = None
+    long_description: Optional[str] = None
+    description: Optional[str] = None
     price: int
+    original_price: Optional[int] = None
     currency: str
     variants: list[ProductVariant] = []
     images: list[str]
-    features: list[str]
-    details: list[ProductDetail]
-    bundles: list[BundleOption]
+    features: list[str] = []
+    highlights: list[str] = []
+    details: list[ProductDetail] = []
+    details_accordion: list[ProductDetail] = []
+    bundles: list[BundleOption] = []
+    rating: Optional[float] = None
+    review_count: Optional[int] = None
+    in_stock: bool = True
+
+    def model_post_init(self, __context):
+        if not self.short_description and self.tagline:
+            self.short_description = self.tagline
+        elif not self.tagline and self.short_description:
+            self.tagline = self.short_description
+
+        if not self.long_description and self.description:
+            self.long_description = self.description
+        elif not self.description and self.long_description:
+            self.description = self.long_description
+
+        if not self.features and self.highlights:
+            self.features = self.highlights
+        elif not self.highlights and self.features:
+            self.highlights = self.features
+
+        if not self.details and self.details_accordion:
+            self.details = self.details_accordion
+        elif not self.details_accordion and self.details:
+            self.details_accordion = self.details
 
 
 # ---------------------------------------------------------------------------
@@ -56,10 +93,12 @@ class ProductResponse(BaseModel):
 
 class CartItem(BaseModel):
     product_id: str
+    product_name: Optional[str] = None
     variant_id: Optional[str] = None
     variant_name: Optional[str] = None
     price: Optional[int] = None
     quantity: int = Field(ge=1)
+    image: Optional[str] = None
 
 
 class AddressInfo(BaseModel):

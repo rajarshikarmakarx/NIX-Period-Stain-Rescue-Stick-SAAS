@@ -15,9 +15,21 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const lineTotal = item.quantity * itemPrice;
 
   const imageSrc =
-    item.variant_id === '20ml'
+    item.image ||
+    (item.variant_id === 'refill-3pk'
+      ? '/images/roller-head-3.png'
+      : item.variant_id === 'refill-2pk'
+      ? '/images/roller-head-2.png'
+      : item.variant_id?.startsWith('refill')
+      ? '/images/roller-head-1.png'
+      : item.variant_id === 'emergency-kit' || item.product_id === 'nix-emergency-kit'
+      ? '/images/emergency-kit.png'
+      : item.variant_id === '20ml'
       ? '/images/20ml-without-packaging.png'
-      : '/images/10ml-without-packaging.png';
+      : '/images/10ml-without-packaging.png');
+
+  const displayName = item.product_name || product.name;
+  const currency = product.currency || '₹';
 
   return (
     <div
@@ -32,7 +44,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
     >
       <ProductImage
         src={imageSrc}
-        alt={item.variant_name ? `${product.name} (${item.variant_name})` : product.name}
+        alt={item.variant_name ? `${displayName} (${item.variant_name})` : displayName}
         aspectRatio="1 / 1"
         style={{ borderRadius: 'var(--radius-md)', padding: '4px' }}
         showZoomOnHover={false}
@@ -40,7 +52,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
       <div>
         <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-soft-cocoa)', marginBottom: '0.2rem' }}>
-          {product.name}
+          {displayName}
         </h4>
         {item.variant_name && (
           <div style={{ marginBottom: '0.35rem' }}>
@@ -60,7 +72,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
           </div>
         )}
         <p style={{ fontSize: '0.85rem', opacity: 0.7, marginBottom: '0.5rem' }}>
-          {product.currency}{itemPrice} each
+          {currency}{itemPrice} each
         </p>
 
         <QuantitySelector
@@ -71,7 +83,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
       <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.75rem' }}>
         <span style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-deep-cherry)' }}>
-          {product.currency}{lineTotal}
+          {currency}{lineTotal}
         </span>
         <button
           onClick={() => removeFromCart(item.product_id)}

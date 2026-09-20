@@ -40,8 +40,10 @@ export const api = {
     const response = await apiClient.get<RewardsAccount>('/rewards');
     return response.data;
   },
-  redeemReward: async (rewardId: string): Promise<{ success: boolean; message: string }> => {
-    const response = await apiClient.post<{ success: boolean; message: string }>(`/rewards/redeem/${rewardId}`);
+  redeemReward: async (rewardId: string): Promise<{ success: boolean; message: string; remaining_points?: number }> => {
+    const response = await apiClient.post<{ success: boolean; message: string; remaining_points?: number }>('/rewards/redeem', {
+      reward_id: rewardId,
+    });
     return response.data;
   },
 

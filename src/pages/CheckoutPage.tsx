@@ -5,6 +5,8 @@ import { useApp } from '../context/AppContext';
 
 export const CheckoutPage: React.FC = () => {
   const { cart, cartSubtotal, product } = useApp();
+  const shippingFee = cartSubtotal > 499 || cartSubtotal === 0 ? 0 : 49;
+  const grandTotal = cartSubtotal + shippingFee;
 
   return (
     <div style={{ padding: '3rem 0 5rem 0' }}>
@@ -90,11 +92,22 @@ export const CheckoutPage: React.FC = () => {
               })}
             </div>
 
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.9rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ opacity: 0.8 }}>Subtotal</span>
+                <span style={{ fontWeight: 600 }}>{product.currency}{cartSubtotal}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ opacity: 0.8 }}>Shipping</span>
+                <span>{shippingFee === 0 ? <strong style={{ color: 'var(--color-deep-cherry)' }}>FREE</strong> : `${product.currency}${shippingFee}`}</span>
+              </div>
+            </div>
+
             <hr style={{ border: 'none', borderTop: '1px solid var(--color-cocoa-light)', marginBottom: '1rem' }} />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-deep-cherry)' }}>
               <span>Total</span>
-              <span>{product.currency}{cartSubtotal}</span>
+              <span>{product.currency}{grandTotal}</span>
             </div>
           </div>
         </div>

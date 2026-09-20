@@ -58,6 +58,8 @@ class DemoStore:
             "review_count": 1284,
             "in_stock": True,
             "description": "NIX is a compact, handbag-ready period stain emergency rescue stick formulated with active plant enzymes to instantly dissolve fresh or set-in period blood stains without water rinsing required.",
+            "short_description": "Instant, discreet emergency stain removal on the go.",
+            "long_description": "NIX is a compact, handbag-ready period stain emergency rescue stick formulated with active plant enzymes to instantly dissolve fresh or set-in period blood stains without water rinsing required.",
             "images": [
                 "/images/10ml-with-packaging.png",
                 "/images/10ml-without-packaging.png",
@@ -67,12 +69,37 @@ class DemoStore:
                 "/images/roller-head-2.png",
                 "/images/roller-head-3.png"
             ],
+            "features": [
+                "Plant-Based Enzyme Formula",
+                "Color-Safe on All Fabrics",
+                "Replaceable Roll-On Heads (Zero Cross-Contamination)",
+                "Pocket-Sized Handbag Companion",
+                "Zero Water Rinsing Required"
+            ],
             "highlights": [
                 "Plant-Based Enzyme Formula",
                 "Color-Safe on All Fabrics",
                 "Replaceable Roll-On Heads (Zero Cross-Contamination)",
                 "Pocket-Sized Handbag Companion",
                 "Zero Water Rinsing Required"
+            ],
+            "details": [
+                {
+                    "title": "How to Use",
+                    "content": "Dab NIX directly onto stain with the roller-ball applicator. Massage gently for 15-30 seconds. Blot with dry tissue. No water required."
+                },
+                {
+                    "title": "Hygienic Replaceable Roll-On System",
+                    "content": "The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge (from ₹10) rather than repeatedly putting a used applicator back against fresh garments."
+                },
+                {
+                    "title": "Clean Ingredients",
+                    "content": "Water, Plant-derived Protease Enzymes, Coconut Surfactant, Botanical Fragrance, Preservative System."
+                },
+                {
+                    "title": "Fabric Compatibility",
+                    "content": "Safe on cotton, linen, denim, polyester, silk, and activewear. Test on a hidden area for delicate fabrics."
+                }
             ],
             "details_accordion": [
                 {
@@ -95,34 +122,80 @@ class DemoStore:
             "bundles": [
                 {
                     "id": "bundle-1",
+                    "name": "Starter Pocket Stick (10ml)",
                     "title": "Starter Pocket Stick (10ml)",
                     "description": "1x 10ml NIX Stick (5 emergency uses)",
                     "price": 79,
-                    "discount": "Save 20%"
+                    "discount": "Save 20%",
+                    "available": True
                 },
                 {
                     "id": "bundle-2",
+                    "name": "Standard Care Stick (20ml)",
                     "title": "Standard Care Stick (20ml)",
                     "description": "1x 20ml NIX Stick (10 emergency uses)",
                     "price": 129,
-                    "discount": "Most Popular — Save 20%"
+                    "discount": "Most Popular — Save 20%",
+                    "available": True
                 },
                 {
                     "id": "bundle-3",
+                    "name": "Duo Pack (2x 20ml)",
                     "title": "Duo Pack (2x 20ml)",
                     "description": "2x NIX 20ml Sticks (1 Handbag + 1 Desk)",
                     "price": 229,
-                    "discount": "Best Value — Save 28%"
+                    "discount": "Best Value — Save 28%",
+                    "available": True
                 },
                 {
                     "id": "bundle-4",
+                    "name": "Replaceable Roll-On Triple Pack (3x Refills)",
                     "title": "Replaceable Roll-On Triple Pack (3x Refills)",
                     "description": "3x Snap-On Roller Heads for zero cross-contamination",
                     "price": 20,
-                    "discount": "Save 33%"
+                    "discount": "Save 33%",
+                    "available": True
                 }
             ]
         }
+        self.notes: List[Dict[str, Any]] = [
+            {
+                "id": "note-1",
+                "title": "What to Do When You Get a Period Stain in Public",
+                "excerpt": "It happens to almost everyone. Here’s how to handle it calmly and effectively.",
+                "image": "",
+                "category": "Tips",
+                "read_time": "3 min",
+                "featured": True,
+            },
+            {
+                "id": "note-2",
+                "title": "Why Fresh Stains Are Easier to Treat",
+                "excerpt": "The science behind why acting quickly makes all the difference for fabric fibers.",
+                "image": "",
+                "category": "Science",
+                "read_time": "4 min",
+                "featured": False,
+            },
+            {
+                "id": "note-3",
+                "title": "What to Keep in Your Period Emergency Pouch",
+                "excerpt": "A simple checklist for being prepared wherever your day takes you.",
+                "image": "",
+                "category": "Essentials",
+                "read_time": "2 min",
+                "featured": False,
+            },
+            {
+                "id": "note-4",
+                "title": "Period Essentials for Your College Bag",
+                "excerpt": "Campus life doesn’t stop for periods. Here’s what smart students carry.",
+                "image": "",
+                "category": "College",
+                "read_time": "3 min",
+                "featured": False,
+            },
+        ]
         self.orders: List[Dict[str, Any]] = [
           {
             "id": "NIX-884201",

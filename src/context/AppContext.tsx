@@ -25,6 +25,7 @@ interface AppContextType {
   rewards: RewardsAccount;
   addOrder: (order: Order) => void;
   cancelOrder: (orderId: string) => Promise<boolean>;
+  redeemReward: (rewardId: string) => Promise<{ success: boolean; message: string }>;
   waitlistEmail: string | null;
   submitWaitlist: (email: string) => Promise<{ success: boolean; message: string; already_registered?: boolean }>;
   resetDemoState: () => Promise<void>;
@@ -358,6 +359,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return true;
   };
 
+  const redeemReward = async (rewardId: string): Promise<{ success: boolean; message: string }> => {
+    const pointCosts: Record<string, { points: number; label: string; defaultMsg: string }> = {
+      'discount-250': { points: 250, label: 'Redeemed ₹50 Discount', defaultMsg: '₹50 Discount Code: NIX50OFF applied!' },
+      'free-nix-500': { points: 500, label: 'Redeemed Free NIX Stick', defaultMsg: 'Free NIX Stick added to your account!' },
+      'kit-benefit-750': { points: 750, label: 'Redeemed Emergency Kit VIP Pass', defaultMsg: 'VIP Early Access Pass claimed for Emergency Kit launch!' },
+    };
+
+    const target = pointCosts[rewardId] || { points: 250, label: 'Redeemed Reward', defaultMsg: 'Reward claimed!' };
+
+    if (rewards.points < target.points) {
+      const err = `Insufficient points! You need ${target.points} points.`;
+      showToast(err);
+      return { success: false, message: err };
+    }
+
+    let successMessage = target.defaultMsg;
+    try {
+      const res = await api.redeemReward(rewardId);
+      if (res.message) successMessage = res.message;
+    } catch {}
+
+    const now = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    setRewards((prev) => ({
+      ...prev,
+      points: Math.max(0, prev.points - target.points),
+      history: [
+        { action: target.label, points: -target.points, timestamp: now },
+        ...prev.history,
+      ],
+    }));
+
+    showToast(successMessage);
+    trackEvent('redeem_reward', { reward_id: rewardId, points_spent: target.points });
+    return { success: true, message: successMessage };
+  };
+
   const submitWaitlist = async (email: string) => {
     try {
       const res = await api.joinWaitlist(email);
@@ -413,6 +450,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         rewards,
         addOrder,
         cancelOrder,
+        redeemReward,
         waitlistEmail,
         submitWaitlist,
         resetDemoState,

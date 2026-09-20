@@ -374,6 +374,7 @@ export const CyclePredictorPage: React.FC = () => {
                   <input
                     type="date"
                     value={lastPeriodDate}
+                    max={new Date().toISOString().split('T')[0]}
                     onChange={(e) => setLastPeriodDate(e.target.value)}
                     style={{
                       width: '100%',

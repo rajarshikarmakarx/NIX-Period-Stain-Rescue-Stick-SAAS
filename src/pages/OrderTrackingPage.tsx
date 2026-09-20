@@ -442,16 +442,27 @@ export const OrderTrackingPage: React.FC = () => {
                 >
                   <img
                     src={
-                      order.items[0]?.variant_id === '20ml'
+                      order.items[0]?.image ||
+                      (order.items[0]?.variant_id === 'refill-3pk'
+                        ? '/images/roller-head-3.png'
+                        : order.items[0]?.variant_id === 'refill-2pk'
+                        ? '/images/roller-head-2.png'
+                        : order.items[0]?.variant_id?.startsWith('refill')
+                        ? '/images/roller-head-1.png'
+                        : order.items[0]?.variant_id === 'emergency-kit' || order.items[0]?.product_id === 'nix-emergency-kit'
+                        ? '/images/emergency-kit.png'
+                        : order.items[0]?.variant_id === '20ml'
                         ? '/images/20ml-without-packaging.png'
-                        : '/images/10ml-without-packaging.png'
+                        : '/images/10ml-without-packaging.png')
                     }
-                    alt="NIX Rescue Stick"
+                    alt={order.items[0]?.product_name || 'NIX Product'}
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                   />
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700 }}>NIX Period Rescue Stick</div>
+                  <div style={{ fontWeight: 700 }}>
+                    {order.items[0]?.product_name || (order.items[0]?.variant_id?.startsWith('refill') ? 'NIX Replacement Cartridge' : 'NIX Period Rescue Stick')}
+                  </div>
                   <div style={{ opacity: 0.65, fontSize: '0.8rem' }}>
                     Qty: {totalQty} &nbsp;·&nbsp; {order.currency}{order.total}
                   </div>
