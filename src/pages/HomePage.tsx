@@ -606,7 +606,7 @@ export const HomePage: React.FC = () => {
                 variant="primary"
                 size="md"
                 fullWidth
-                onClick={() => addToCart(1, '10ml', '10ml (5 uses)', 79)}
+                onClick={() => addToCart(1, '10ml')}
               >
                 ADD 10ML TO BAG — ₹79
               </Button>
@@ -719,7 +719,7 @@ export const HomePage: React.FC = () => {
                 variant="primary"
                 size="md"
                 fullWidth
-                onClick={() => addToCart(1, '20ml', '20ml (10 uses)', 129)}
+                onClick={() => addToCart(1, '20ml')}
               >
                 ADD 20ML TO BAG — ₹129
               </Button>

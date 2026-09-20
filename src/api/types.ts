@@ -39,10 +39,12 @@ export interface Product {
 
 export interface CartItem {
   product_id: string;
+  product_name?: string;
   variant_id?: string;
   variant_name?: string;
   price?: number;
   quantity: number;
+  image?: string;
 }
 
 export interface AddressInfo {

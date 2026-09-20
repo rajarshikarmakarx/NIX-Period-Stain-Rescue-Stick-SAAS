@@ -59,7 +59,6 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
   onSelectVariant,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [filterType, setFilterType] = useState<'all' | '10ml' | '20ml' | 'packaging' | 'stick'>('all');
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   // Sync selected index when user changes variant outside gallery
@@ -73,14 +72,6 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
   }, [selectedVariantId]);
 
   const currentItem = galleryItems[selectedIndex] || galleryItems[0];
-
-  const filteredItems = galleryItems.filter((item) => {
-    if (filterType === '10ml') return item.variantId === '10ml';
-    if (filterType === '20ml') return item.variantId === '20ml';
-    if (filterType === 'packaging') return item.type === 'packaging';
-    if (filterType === 'stick') return item.type === 'stick';
-    return true;
-  });
 
   const handleSelectThumbnail = (index: number) => {
     setSelectedIndex(index);
@@ -101,48 +92,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {/* Quick Visual Filter Tabs */}
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.4rem',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          fontSize: '0.8rem',
-        }}
-      >
-        {[
-          { id: 'all', label: 'All Photos (4)' },
-          { id: '10ml', label: '10ml Pocket' },
-          { id: '20ml', label: '20ml Best Value' },
-          { id: 'packaging', label: 'With Box' },
-          { id: 'stick', label: 'Stick Only' },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setFilterType(tab.id as any)}
-            style={{
-              padding: '0.35rem 0.75rem',
-              borderRadius: 'var(--radius-pill)',
-              border:
-                filterType === tab.id
-                  ? '1px solid var(--color-deep-cherry)'
-                  : '1px solid var(--color-cocoa-light)',
-              backgroundColor:
-                filterType === tab.id ? 'var(--color-deep-cherry)' : 'var(--color-cream-card)',
-              color: filterType === tab.id ? 'var(--color-warm-cream)' : 'var(--color-soft-cocoa)',
-              fontWeight: filterType === tab.id ? 700 : 500,
-              cursor: 'pointer',
-              fontSize: '0.75rem',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {/* Main High-Res Display */}
       <div style={{ position: 'relative' }}>
         <ProductImage
@@ -237,7 +187,6 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
       >
         {galleryItems.map((item, idx) => {
           const isSelected = selectedIndex === idx;
-          const isDimmed = filterType !== 'all' && !filteredItems.some((fi) => fi.src === item.src);
 
           return (
             <button
@@ -254,48 +203,38 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
                 overflow: 'hidden',
                 padding: '0.25rem',
                 cursor: 'pointer',
-                opacity: isDimmed ? 0.35 : isSelected ? 1 : 0.75,
+                opacity: isSelected ? 1 : 0.75,
                 transition: 'all 0.2s ease',
                 boxShadow: isSelected ? '0 4px 12px rgba(123, 38, 56, 0.15)' : 'none',
               }}
             >
-              <div
-                style={{
-                  width: '100%',
-                  aspectRatio: '1 / 1',
-                  borderRadius: 'var(--radius-md)',
-                  overflow: 'hidden',
-                  position: 'relative',
-                }}
-              >
+              <div style={{ aspectRatio: '1 / 1', overflow: 'hidden', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-warm-cream)' }}>
                 <img
                   src={item.src}
-                  alt={item.shortLabel}
-                  loading="eager"
-                  decoding="async"
+                  alt={item.label}
                   style={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'contain',
-                    display: 'block',
+                    transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                    transition: 'transform 0.2s ease',
                   }}
                 />
               </div>
-              <span
+              <div
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: '0.68rem',
                   fontWeight: isSelected ? 700 : 500,
                   color: isSelected ? 'var(--color-deep-cherry)' : 'var(--color-soft-cocoa)',
-                  marginTop: '0.25rem',
                   textAlign: 'center',
+                  padding: '4px 2px 2px 2px',
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  width: '100%',
                 }}
               >
                 {item.shortLabel}
-              </span>
+              </div>
             </button>
           );
         })}

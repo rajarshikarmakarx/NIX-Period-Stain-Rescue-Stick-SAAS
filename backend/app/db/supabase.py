@@ -62,18 +62,24 @@ class DemoStore:
                 "/images/10ml-with-packaging.png",
                 "/images/10ml-without-packaging.png",
                 "/images/20ml-with-packaging.png",
-                "/images/20ml-without-packaging.png"
+                "/images/20ml-without-packaging.png",
+                "/images/refill-cartridge.png"
             ],
             "highlights": [
                 "Plant-Based Enzyme Formula",
                 "Color-Safe on All Fabrics",
+                "Replaceable Roll-On Heads (Zero Cross-Contamination)",
                 "Pocket-Sized Handbag Companion",
                 "Zero Water Rinsing Required"
             ],
             "details_accordion": [
                 {
                     "title": "How to Use",
-                    "content": "Dab NIX directly onto stain. Massage gently for 15-30 seconds. Blot with dry tissue. No water required."
+                    "content": "Dab NIX directly onto stain with the roller-ball applicator. Massage gently for 15-30 seconds. Blot with dry tissue. No water required."
+                },
+                {
+                    "title": "Hygienic Replaceable Roll-On System",
+                    "content": "The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge (from ₹10) rather than repeatedly putting a used applicator back against fresh garments."
                 },
                 {
                     "title": "Clean Ingredients",
@@ -105,6 +111,13 @@ class DemoStore:
                     "description": "2x NIX 20ml Sticks (1 Handbag + 1 Desk)",
                     "price": 229,
                     "discount": "Best Value — Save 28%"
+                },
+                {
+                    "id": "bundle-4",
+                    "title": "Replaceable Roll-On Triple Pack (3x Refills)",
+                    "description": "3x Snap-On Roller Heads for zero cross-contamination",
+                    "price": 20,
+                    "discount": "Save 33%"
                 }
             ]
         }

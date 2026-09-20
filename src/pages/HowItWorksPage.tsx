@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { SectionHeading } from '../components/common/SectionHeading';
 import { Button } from '../components/common/Button';
 import { ProductImage } from '../components/product/ProductImage';
+import { RefreshCw, ShieldCheck, Check, Sparkles } from 'lucide-react';
 
 export const HowItWorksPage: React.FC = () => {
   return (
@@ -114,6 +115,75 @@ export const HowItWorksPage: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* --------------------------------------------------------------------
+            HYGIENE & ZERO CROSS-CONTAMINATION PROTOCOL
+            -------------------------------------------------------------------- */}
+        <div
+          style={{
+            backgroundColor: 'var(--color-cream-card)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'clamp(2rem, 4vw, 3.5rem)',
+            border: '2px solid var(--color-deep-cherry)',
+            margin: '4rem 0',
+            boxShadow: 'var(--shadow-card)',
+          }}
+        >
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+              gap: 'clamp(2rem, 4vw, 3.5rem)',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <span
+                className="eyebrow"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+              >
+                <RefreshCw size={14} color="var(--color-deep-cherry)" /> HYGIENIC ROLL-ON DESIGN
+              </span>
+              <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', marginBottom: '1rem' }}>
+                Why Replaceable Roller Heads Matter
+              </h2>
+              <p style={{ fontSize: '1.05rem', opacity: 0.9, marginBottom: '1.25rem', lineHeight: 1.6 }}>
+                The roller-ball is the only part that comes into direct contact with stained fabric. After ~5 emergency uses, snap on a fresh replacement cartridge head (priced from ₹10) rather than repeatedly putting a used applicator back against fresh garments.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: 'var(--color-warm-cream)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.75rem', fontWeight: 700, marginTop: '2px' }}>✓</div>
+                  <div style={{ fontSize: '0.95rem' }}><strong>Zero Cross-Contamination:</strong> Keeps the formulation inside pristine and prevents residue buildup.</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: 'var(--color-warm-cream)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.75rem', fontWeight: 700, marginTop: '2px' }}>✓</div>
+                  <div style={{ fontSize: '0.95rem' }}><strong>Ultra-Affordable Packs:</strong> ₹10 for 1-pack, ₹15 for 2-pack, and ₹20 for 3-pack.</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <div style={{ backgroundColor: 'var(--color-deep-cherry)', color: 'var(--color-warm-cream)', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.75rem', fontWeight: 700, marginTop: '2px' }}>✓</div>
+                  <div style={{ fontSize: '0.95rem' }}><strong>Universal Snap-On:</strong> Fits seamlessly on both 10ml and 20ml stick bodies.</div>
+                </div>
+              </div>
+              <Link to="/shop/refill">
+                <Button variant="primary" size="md">
+                  EXPLORE REFILL HEADS →
+                </Button>
+              </Link>
+            </div>
+
+            <div>
+              <ProductImage
+                src="/images/refill-cartridge.png"
+                alt="NIX Replaceable Roller-Ball Head Cartridge"
+                label="Snap-On Replaceable Roller Head"
+                badge="Hygienic Care System"
+                aspectRatio="1 / 1"
+                objectFit="contain"
+                style={{ maxHeight: '320px', margin: '0 auto' }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* CTA Banner */}

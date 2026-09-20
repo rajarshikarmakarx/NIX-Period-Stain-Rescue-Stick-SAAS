@@ -47,18 +47,27 @@ export const CheckoutPage: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
               {cart.map((item) => {
                 const itemPrice = item.price ?? product.price ?? 79;
+                const itemImage =
+                  item.image ||
+                  (item.variant_id?.startsWith('refill')
+                    ? '/images/refill-cartridge.png'
+                    : item.variant_id === '20ml'
+                    ? '/images/20ml-without-packaging.png'
+                    : '/images/10ml-without-packaging.png');
+                const itemName = item.product_name || (item.variant_id?.startsWith('refill') ? 'NIX Replacement Cartridge' : product.name);
+
                 return (
                   <div key={item.product_id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.95rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{ width: '42px', height: '42px', borderRadius: 'var(--radius-md)', overflow: 'hidden', flexShrink: 0, border: '1px solid var(--color-cocoa-light)' }}>
                         <img
-                          src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.png' : '/images/10ml-without-packaging.png'}
-                          alt={product.name}
+                          src={itemImage}
+                          alt={itemName}
                           style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: 'var(--color-warm-cream)' }}
                         />
                       </div>
                       <div>
-                        <div style={{ fontWeight: 600 }}>{product.name}</div>
+                        <div style={{ fontWeight: 600 }}>{itemName}</div>
                         {item.variant_name && (
                           <div style={{ fontSize: '0.8rem', color: 'var(--color-deep-cherry)', fontWeight: 600 }}>
                             {item.variant_name} × {item.quantity}

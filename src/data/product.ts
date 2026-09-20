@@ -1,5 +1,52 @@
 import type { Product, ProductVariant } from '../api/types';
 
+export interface RefillOption {
+  id: string;
+  name: string;
+  count: number;
+  price: number;
+  original_price: number;
+  discount: string;
+  per_unit: string;
+  description: string;
+  badge?: string;
+}
+
+export const refillVariants: RefillOption[] = [
+  {
+    id: 'refill-1pk',
+    name: 'Single Replacement Head (1-Pack)',
+    count: 1,
+    price: 10,
+    original_price: 15,
+    discount: 'Save ₹5',
+    per_unit: '₹10 / unit',
+    description: '1x Replaceable Roller-Ball Cartridge (5 fresh emergency uses)',
+  },
+  {
+    id: 'refill-2pk',
+    name: 'Care Duo Pack (2-Pack)',
+    count: 2,
+    price: 15,
+    original_price: 20,
+    discount: 'Save 25%',
+    per_unit: '₹7.50 / unit',
+    description: '2x Replaceable Roller-Ball Cartridges (10 fresh emergency uses)',
+    badge: 'Most Popular',
+  },
+  {
+    id: 'refill-3pk',
+    name: 'Triple Value Pack (3-Pack)',
+    count: 3,
+    price: 20,
+    original_price: 30,
+    discount: 'Save 33%',
+    per_unit: '₹6.67 / unit',
+    description: '3x Replaceable Roller-Ball Cartridges (15 fresh emergency uses)',
+    badge: 'Best Value',
+  },
+];
+
 export const defaultVariants: ProductVariant[] = [
   {
     id: '10ml',
@@ -43,6 +90,7 @@ export const defaultProductData: Product = {
     '/images/10ml-without-packaging.png',
     '/images/20ml-with-packaging.png',
     '/images/20ml-without-packaging.png',
+    '/images/refill-cartridge.png',
   ],
   features: [
     'Portable & discreet',
@@ -50,6 +98,7 @@ export const defaultProductData: Product = {
     'Pre-treatment format',
     'Targeted at fresh menstrual stains',
     'Treat now, wash when home',
+    'Replaceable Roll-On Cartridges for zero cross-contamination',
     'Available in 10ml (5 uses) & 20ml (10 uses)',
   ],
   details: [
@@ -61,7 +110,12 @@ export const defaultProductData: Product = {
     {
       title: 'How does it work?',
       content:
-        'Blot excess moisture, apply NIX directly to the stain, gently work it into the fabric, and wash normally when you get home.',
+        'Blot excess moisture, apply NIX directly to the stain with the smooth roller-ball, gently work it into the fabric, and wash normally when you get home.',
+    },
+    {
+      title: 'Hygienic Replaceable Roll-On System',
+      content:
+        'The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge (priced from ₹10) rather than repeatedly putting a used applicator back against fresh garments.',
     },
     {
       title: 'When should I use it?',
@@ -75,7 +129,7 @@ export const defaultProductData: Product = {
     },
     {
       title: 'Product details & sizes',
-      content: 'Compact pre-treatment stick format. Available in 10ml (5 uses) for ₹79 and 20ml (10 uses) for ₹129.',
+      content: 'Compact pre-treatment stick format. Available in 10ml (5 uses) for ₹79 and 20ml (10 uses) for ₹129. Replacement roll-on cartridges from ₹10.',
     },
     {
       title: 'Shipping & returns',
@@ -102,6 +156,13 @@ export const defaultProductData: Product = {
       name: 'Duo Pack (2x 20ml)',
       description: '2 NIX 20ml Sticks (Bag + Desk)',
       price: 229,
+      available: true,
+    },
+    {
+      id: 'refill-3pk-bundle',
+      name: 'Replaceable Roll-On Triple Pack (3x Refills)',
+      description: '3x Snap-On Roller Heads for zero cross-contamination',
+      price: 20,
       available: true,
     },
     {

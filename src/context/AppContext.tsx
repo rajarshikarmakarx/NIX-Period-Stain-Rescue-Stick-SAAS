@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { CartItem, Order, RewardsAccount, AddressInfo, Product, ProductVariant } from '../api/types';
 import { api } from '../api/client';
-import { defaultProductData } from '../data/product';
+import { defaultProductData, refillVariants, type RefillOption } from '../data/product';
 import { trackEvent } from '../hooks/useAnalytics';
 import { useAuth } from './AuthContext';
 import { supabase } from '@/lib/supabase';
@@ -13,8 +13,9 @@ interface ToastState {
 
 interface AppContextType {
   product: Product;
+  refillOptions: RefillOption[];
   cart: CartItem[];
-  addToCart: (quantity?: number, variant?: ProductVariant | string) => void;
+  addToCart: (quantity?: number, variant?: ProductVariant | RefillOption | string) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -147,31 +148,70 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setToast((prev) => ({ ...prev, visible: false }));
   };
 
-  const addToCart = (quantity = 1, variant?: ProductVariant | string) => {
-    // Resolve variant
-    let selectedVariant: ProductVariant | undefined;
-    if (typeof variant === 'object' && variant !== null) {
-      selectedVariant = variant;
-    } else if (typeof variant === 'string') {
-      selectedVariant = product.variants?.find((v) => v.id === variant);
-    } else {
-      selectedVariant = product.variants?.[0];
-    }
+  const addToCart = (quantity = 1, variant?: ProductVariant | RefillOption | string) => {
+    let cartItemId: string;
+    let variantId: string;
+    let variantName: string;
+    let itemPrice: number;
+    let productName: string;
+    let itemImage: string;
 
-    const variantId = selectedVariant?.id || '10ml';
-    const variantName = selectedVariant?.name || '10ml (5 uses)';
-    const itemPrice = selectedVariant?.price ?? product.price ?? 79;
-    const cartItemId = `${product.id}-${variantId}`;
+    // Check if variant is a RefillOption or string starting with 'refill'
+    const isRefill =
+      (typeof variant === 'object' && variant !== null && ('count' in variant || variant.id.startsWith('refill'))) ||
+      (typeof variant === 'string' && (variant.startsWith('refill') || refillVariants.some((r) => r.id === variant)));
+
+    if (isRefill) {
+      let refill: RefillOption | undefined;
+      if (typeof variant === 'object' && variant !== null) {
+        refill = variant as RefillOption;
+      } else if (typeof variant === 'string') {
+        refill = refillVariants.find((r) => r.id === variant) || refillVariants[0];
+      } else {
+        refill = refillVariants[0];
+      }
+
+      cartItemId = refill.id;
+      variantId = refill.id;
+      variantName = refill.name;
+      itemPrice = refill.price;
+      productName = 'NIX Replaceable Roller-Ball Cartridge';
+      itemImage = '/images/refill-cartridge.png';
+    } else {
+      // Resolve standard stick variant
+      let selectedVariant: ProductVariant | undefined;
+      if (typeof variant === 'object' && variant !== null) {
+        selectedVariant = variant as ProductVariant;
+      } else if (typeof variant === 'string') {
+        selectedVariant = product.variants?.find((v) => v.id === variant);
+      } else {
+        selectedVariant = product.variants?.[0];
+      }
+
+      variantId = selectedVariant?.id || '10ml';
+      variantName = selectedVariant?.name || '10ml (5 uses)';
+      itemPrice = selectedVariant?.price ?? product.price ?? 79;
+      productName = product.name;
+      cartItemId = `${product.id}-${variantId}`;
+      itemImage = selectedVariant?.image || selectedVariant?.packaging_image || '/images/10ml-without-packaging.png';
+    }
 
     setCart((prev) => {
       const existingIndex = prev.findIndex(
-        (item) => item.product_id === cartItemId || (item.product_id === product.id && item.variant_id === variantId)
+        (item) => item.product_id === cartItemId || (item.variant_id === variantId)
       );
 
       if (existingIndex > -1) {
         return prev.map((item, idx) =>
           idx === existingIndex
-            ? { ...item, quantity: item.quantity + quantity, price: itemPrice, variant_name: variantName }
+            ? {
+                ...item,
+                quantity: item.quantity + quantity,
+                price: itemPrice,
+                variant_name: variantName,
+                product_name: productName,
+                image: itemImage,
+              }
             : item
         );
       }
@@ -179,15 +219,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         ...prev,
         {
           product_id: cartItemId,
+          product_name: productName,
           variant_id: variantId,
           variant_name: variantName,
           price: itemPrice,
           quantity,
+          image: itemImage,
         },
       ];
     });
 
-    showToast(`NIX ${variantName} added to your bag.`);
+    showToast(`${variantName} added to your bag.`);
     trackEvent('add_to_cart', { quantity, product_id: cartItemId, variant: variantName, price: itemPrice });
   };
 
@@ -359,6 +401,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     <AppContext.Provider
       value={{
         product,
+        refillOptions: refillVariants,
         cart,
         addToCart,
         removeFromCart,

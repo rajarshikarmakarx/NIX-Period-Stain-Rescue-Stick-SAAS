@@ -11,6 +11,8 @@ import { preloadCommonProductImages } from './components/product/ProductImage';
 
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
+import { StickProductPage } from './pages/StickProductPage';
+import { RefillProductPage } from './pages/RefillProductPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { CartPage } from './pages/CartPage';
 import { CheckoutPage } from './pages/CheckoutPage';
@@ -38,6 +40,10 @@ export const App: React.FC = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/shop" element={<ShopPage />} />
+                <Route path="/shop/stick" element={<StickProductPage />} />
+                <Route path="/shop/refill" element={<RefillProductPage />} />
+                <Route path="/product/nix-rescue-stick" element={<StickProductPage />} />
+                <Route path="/product/refill-cartridges" element={<RefillProductPage />} />
                 <Route path="/how-it-works" element={<HowItWorksPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />

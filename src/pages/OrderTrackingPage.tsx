@@ -281,8 +281,15 @@ export const OrderTrackingPage: React.FC = () => {
                       }}
                     >
                       <img
-                        src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.png' : '/images/10ml-without-packaging.png'}
-                        alt="NIX Stick"
+                        src={
+                          item.image ||
+                          (item.variant_id?.startsWith('refill')
+                            ? '/images/refill-cartridge.png'
+                            : item.variant_id === '20ml'
+                            ? '/images/20ml-without-packaging.png'
+                            : '/images/10ml-without-packaging.png')
+                        }
+                        alt={item.product_name || 'NIX Product'}
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                       />
                     </div>
@@ -290,7 +297,7 @@ export const OrderTrackingPage: React.FC = () => {
                     {/* Info */}
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.2rem' }}>
-                        NIX Period Rescue Stick
+                        {item.product_name || (item.variant_id?.startsWith('refill') ? 'NIX Replacement Cartridge' : 'NIX Period Rescue Stick')}
                       </div>
                       <div style={{ fontSize: '0.8rem', opacity: 0.65 }}>
                         {item.variant_name ? `${item.variant_name} · ` : ''}Qty: {item.quantity} &nbsp;·&nbsp; {order.currency}{item.price ?? (order.total && item.quantity ? Math.round(order.total / item.quantity) : 79)} each

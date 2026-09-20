@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Product, Order, RewardsAccount, WaitlistResponse, Article, DemoResetResponse } from './types';
+import type { Product, Order, OrderCreate, RewardsAccount, WaitlistResponse, Article, DemoResetResponse } from './types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
 
@@ -18,7 +18,7 @@ export const api = {
   },
 
   // Orders endpoints
-  createOrder: async (payload: { items: any[]; address: any }): Promise<Order> => {
+  createOrder: async (payload: OrderCreate): Promise<Order> => {
     const response = await apiClient.post<Order>('/orders', payload);
     return response.data;
   },

@@ -61,7 +61,7 @@ export const WhatsInsideSection: React.FC<{ style?: React.CSSProperties }> = ({ 
         border: '1px solid var(--color-cocoa-light)',
         boxShadow: 'var(--shadow-subtle)',
         width: '100%',
-        boxBox: 'border-box',
+        boxSizing: 'border-box',
         overflow: 'hidden',
         ...style,
       }}

@@ -137,14 +137,7 @@ export const ProductCard: React.FC = () => {
           variant="primary"
           size="md"
           fullWidth
-          onClick={() =>
-            addToCart(
-              1,
-              selectedVariant.id,
-              selectedVariant.name,
-              selectedVariant.price
-            )
-          }
+          onClick={() => addToCart(1, selectedVariant)}
         >
           ADD TO BAG
         </Button>

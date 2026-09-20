@@ -37,6 +37,7 @@ export const preloadCommonProductImages = () => {
     '/images/20ml-with-packaging.png',
     '/images/20ml-without-packaging.png',
     '/images/emergency_kit.png',
+    '/images/refill-cartridge.png',
   ];
   images.forEach(preloadProductImage);
 };
