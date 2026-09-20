@@ -20,7 +20,7 @@ interface ProductGalleryProps {
 
 export const galleryItems: GalleryItem[] = [
   {
-    src: '/images/10ml-with-packaging.jpg',
+    src: '/images/10ml-with-packaging.png',
     label: '10ml Pocket Stick • Official Box Packaging',
     shortLabel: '10ml Box',
     variantId: '10ml',
@@ -28,7 +28,7 @@ export const galleryItems: GalleryItem[] = [
     badge: '10ml • Boxed',
   },
   {
-    src: '/images/10ml-without-packaging.jpg',
+    src: '/images/10ml-without-packaging.png',
     label: '10ml Pocket Stick • Handbag-Ready Stick',
     shortLabel: '10ml Stick',
     variantId: '10ml',
@@ -36,7 +36,7 @@ export const galleryItems: GalleryItem[] = [
     badge: '10ml • Stick',
   },
   {
-    src: '/images/20ml-with-packaging.jpg',
+    src: '/images/20ml-with-packaging.png',
     label: '20ml Value Stick • Official Box Packaging',
     shortLabel: '20ml Box',
     variantId: '20ml',
@@ -44,7 +44,7 @@ export const galleryItems: GalleryItem[] = [
     badge: '20ml • Boxed',
   },
   {
-    src: '/images/20ml-without-packaging.jpg',
+    src: '/images/20ml-without-packaging.png',
     label: '20ml Value Stick • Generous 10 Uses Care Stick',
     shortLabel: '20ml Stick',
     variantId: '20ml',
@@ -152,6 +152,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
           badge={currentItem.badge}
           aspectRatio="3 / 4"
           objectFit="contain"
+          priority={true}
           style={{
             maxHeight: '480px',
             cursor: 'zoom-in',
@@ -270,6 +271,8 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
                 <img
                   src={item.src}
                   alt={item.shortLabel}
+                  loading="eager"
+                  decoding="async"
                   style={{
                     width: '100%',
                     height: '100%',

@@ -22,11 +22,11 @@ export const ProductCard: React.FC = () => {
   const imageSrc =
     selectedVariantId === '20ml'
       ? viewPackaging
-        ? '/images/20ml-with-packaging.jpg'
-        : '/images/20ml-without-packaging.jpg'
+        ? '/images/20ml-with-packaging.png'
+        : '/images/20ml-without-packaging.png'
       : viewPackaging
-      ? '/images/10ml-with-packaging.jpg'
-      : '/images/10ml-without-packaging.jpg';
+      ? '/images/10ml-with-packaging.png'
+      : '/images/10ml-without-packaging.png';
 
   const badgeText = selectedVariantId === '20ml' ? '20ml • Best Value' : '10ml • Starter';
 

@@ -298,8 +298,8 @@ export const AccountPage: React.FC = () => {
                           <img
                             src={
                               ord.items?.[0]?.variant_id === '20ml'
-                                ? '/images/20ml-without-packaging.jpg'
-                                : '/images/10ml-without-packaging.jpg'
+                                ? '/images/20ml-without-packaging.png'
+                                : '/images/10ml-without-packaging.png'
                             }
                             alt="NIX Stick"
                             style={{ width: '100%', height: '100%', objectFit: 'contain' }}

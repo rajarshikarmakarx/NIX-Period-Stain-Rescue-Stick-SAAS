@@ -39,8 +39,8 @@ class DemoStore:
                     "price": 79,
                     "original_price": 99,
                     "in_stock": True,
-                    "image": "/images/10ml-without-packaging.jpg",
-                    "packaging_image": "/images/10ml-with-packaging.jpg",
+                    "image": "/images/10ml-without-packaging.png",
+                    "packaging_image": "/images/10ml-with-packaging.png",
                 },
                 {
                     "id": "20ml",
@@ -50,8 +50,8 @@ class DemoStore:
                     "price": 129,
                     "original_price": 159,
                     "in_stock": True,
-                    "image": "/images/20ml-without-packaging.jpg",
-                    "packaging_image": "/images/20ml-with-packaging.jpg",
+                    "image": "/images/20ml-without-packaging.png",
+                    "packaging_image": "/images/20ml-with-packaging.png",
                 },
             ],
             "rating": 4.9,
@@ -59,10 +59,10 @@ class DemoStore:
             "in_stock": True,
             "description": "NIX is a compact, handbag-ready period stain emergency rescue stick formulated with active plant enzymes to instantly dissolve fresh or set-in period blood stains without water rinsing required.",
             "images": [
-                "/images/10ml-with-packaging.jpg",
-                "/images/10ml-without-packaging.jpg",
-                "/images/20ml-with-packaging.jpg",
-                "/images/20ml-without-packaging.jpg"
+                "/images/10ml-with-packaging.png",
+                "/images/10ml-without-packaging.png",
+                "/images/20ml-with-packaging.png",
+                "/images/20ml-without-packaging.png"
             ],
             "highlights": [
                 "Plant-Based Enzyme Formula",

@@ -22,8 +22,8 @@ export const HomePage: React.FC = () => {
 
   const heroImageSrc =
     heroVariant === '10ml'
-      ? '/images/10ml-with-packaging.jpg'
-      : '/images/20ml-with-packaging.jpg';
+      ? '/images/10ml-with-packaging.png'
+      : '/images/20ml-with-packaging.png';
 
   return (
     <div
@@ -120,6 +120,7 @@ export const HomePage: React.FC = () => {
                 badge={heroVariant === '10ml' ? '10ml • ₹79' : '20ml • ₹129'}
                 aspectRatio="3 / 4"
                 objectFit="contain"
+                priority={true}
                 style={{ maxHeight: '460px', margin: '0 auto', width: '100%' }}
               />
 
@@ -351,8 +352,8 @@ export const HomePage: React.FC = () => {
 
             <div>
               <ProductImage
-                src="/images/10ml-without-packaging.jpg"
-                alt="Meet NIX - Handbag Ready Stick"
+                src="/images/10ml-with-packaging.png"
+                alt="Meet NIX - Handbag Ready Stick with Packaging"
                 label="Pocket & Handbag Companion (10ml & 20ml)"
                 badge="Discreet & Portable"
                 aspectRatio="3 / 4"
@@ -533,7 +534,7 @@ export const HomePage: React.FC = () => {
             >
               <div style={{ position: 'relative', marginBottom: '1.25rem' }}>
                 <ProductImage
-                  src="/images/10ml-with-packaging.jpg"
+                  src="/images/10ml-with-packaging.png"
                   alt="NIX 10ml Starter Stick"
                   aspectRatio="4 / 3"
                   objectFit="contain"
@@ -646,7 +647,7 @@ export const HomePage: React.FC = () => {
 
               <div style={{ position: 'relative', marginBottom: '1.25rem' }}>
                 <ProductImage
-                  src="/images/20ml-with-packaging.jpg"
+                  src="/images/20ml-with-packaging.png"
                   alt="NIX 20ml Value Stick"
                   aspectRatio="4 / 3"
                   objectFit="contain"

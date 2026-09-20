@@ -50,7 +50,7 @@ export const AboutPage: React.FC = () => {
             </div>
             <div>
               <ProductImage
-                src="/images/10ml-without-packaging.jpg"
+                src="/images/10ml-without-packaging.png"
                 alt="NIX Pocket Stick Story"
                 label="Discreet 10ml Pocket Pre-Treatment Stick"
                 aspectRatio="3 / 4"
@@ -75,7 +75,7 @@ export const AboutPage: React.FC = () => {
           >
             <div>
               <ProductImage
-                src="/images/20ml-with-packaging.jpg"
+                src="/images/20ml-with-packaging.png"
                 alt="NIX 20ml Standard Stick in Packaging"
                 label="Official Retail Presentation • 20ml Format"
                 badge="Premium Formulation"

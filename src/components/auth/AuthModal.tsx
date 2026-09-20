@@ -105,6 +105,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, defaultTa
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div style={{ padding: '0.5rem 0' }}>
+        {/* Brand Logo */}
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <img
+            src="/images/logo.png"
+            alt="NIX & CO."
+            style={{ height: '30px', width: 'auto', margin: '0 auto', display: 'block' }}
+          />
+        </div>
+
         {/* Tab Selector: Sign In vs Sign Up */}
         <div
           style={{

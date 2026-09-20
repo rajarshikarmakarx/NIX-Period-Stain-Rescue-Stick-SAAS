@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
@@ -7,6 +7,7 @@ import { Footer } from './components/common/Footer';
 import { Toast } from './components/common/Toast';
 import { DemoResetButton } from './components/common/DemoResetButton';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { preloadCommonProductImages } from './components/product/ProductImage';
 
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
@@ -23,6 +24,10 @@ import { AboutPage } from './pages/AboutPage';
 import { CyclePredictorPage } from './pages/CyclePredictorPage';
 
 export const App: React.FC = () => {
+  useEffect(() => {
+    preloadCommonProductImages();
+  }, []);
+
   return (
     <AuthProvider>
       <AppProvider>

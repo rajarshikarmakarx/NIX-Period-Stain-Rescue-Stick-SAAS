@@ -52,7 +52,7 @@ export const CheckoutPage: React.FC = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{ width: '42px', height: '42px', borderRadius: 'var(--radius-md)', overflow: 'hidden', flexShrink: 0, border: '1px solid var(--color-cocoa-light)' }}>
                         <img
-                          src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.jpg' : '/images/10ml-without-packaging.jpg'}
+                          src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.png' : '/images/10ml-without-packaging.png'}
                           alt={product.name}
                           style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: 'var(--color-warm-cream)' }}
                         />

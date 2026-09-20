@@ -281,7 +281,7 @@ export const OrderTrackingPage: React.FC = () => {
                       }}
                     >
                       <img
-                        src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.jpg' : '/images/10ml-without-packaging.jpg'}
+                        src={item.variant_id === '20ml' ? '/images/20ml-without-packaging.png' : '/images/10ml-without-packaging.png'}
                         alt="NIX Stick"
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                       />
@@ -432,8 +432,8 @@ export const OrderTrackingPage: React.FC = () => {
                   <img
                     src={
                       order.items[0]?.variant_id === '20ml'
-                        ? '/images/20ml-without-packaging.jpg'
-                        : '/images/10ml-without-packaging.jpg'
+                        ? '/images/20ml-without-packaging.png'
+                        : '/images/10ml-without-packaging.png'
                     }
                     alt="NIX Rescue Stick"
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}

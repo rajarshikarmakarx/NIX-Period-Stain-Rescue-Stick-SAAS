@@ -9,22 +9,22 @@ export const EmergencyKitPage: React.FC = () => {
 
   const kitImages = [
     {
-      src: '/images/20ml-with-packaging.jpg',
+      src: '/images/20ml-with-packaging.png',
       label: '20ml Value Stick with Packaging Box',
       badge: 'Core Hero Essential',
     },
     {
-      src: '/images/10ml-without-packaging.jpg',
+      src: '/images/10ml-without-packaging.png',
       label: '10ml Pocket Companion Stick',
       badge: 'Discreet Carry',
     },
     {
-      src: '/images/20ml-without-packaging.jpg',
+      src: '/images/20ml-without-packaging.png',
       label: '20ml Pre-Treatment Formulation Stick',
       badge: 'High Capacity',
     },
     {
-      src: '/images/10ml-with-packaging.jpg',
+      src: '/images/10ml-with-packaging.png',
       label: '10ml Starter Stick in Custom Retail Box',
       badge: 'Starter Pack',
     },

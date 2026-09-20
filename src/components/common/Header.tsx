@@ -64,17 +64,24 @@ export const Header: React.FC = () => {
         <Link
           to="/"
           style={{
-            fontFamily: 'var(--font-editorial)',
-            fontSize: '1.75rem',
-            fontWeight: 700,
-            letterSpacing: '0.05em',
-            color: 'var(--color-deep-cherry)',
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.25rem',
+            textDecoration: 'none',
           }}
+          aria-label="NIX & CO. Home"
         >
-          NIX <span style={{ fontSize: '0.9rem', fontFamily: 'var(--font-body)', fontWeight: 600 }}>& CO.</span>
+          <img
+            src="/images/logo.png"
+            alt="NIX & CO."
+            className="header-brand-logo"
+            style={{
+              height: '34px',
+              width: 'auto',
+              maxHeight: '36px',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
         </Link>
 
         {/* Desktop Nav Links */}
@@ -436,6 +443,9 @@ export const Header: React.FC = () => {
           }
         }
         @media (max-width: 480px) {
+          .header-brand-logo {
+            height: 28px !important;
+          }
           .header-actions {
             gap: 0.45rem !important;
           }

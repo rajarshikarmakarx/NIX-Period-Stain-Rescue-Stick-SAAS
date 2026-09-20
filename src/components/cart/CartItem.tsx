@@ -16,8 +16,8 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
   const imageSrc =
     item.variant_id === '20ml'
-      ? '/images/20ml-without-packaging.jpg'
-      : '/images/10ml-without-packaging.jpg';
+      ? '/images/20ml-without-packaging.png'
+      : '/images/10ml-without-packaging.png';
 
   return (
     <div

@@ -1,6 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-interface ProductImageProps {
+// Global cache of URLs that have already been loaded or preloaded in this session
+const loadedImageCache = new Set<string>();
+
+/**
+ * Preloads a single image and caches its status in memory.
+ */
+export const preloadProductImage = (src: string): Promise<void> => {
+  return new Promise((resolve) => {
+    if (!src || loadedImageCache.has(src)) {
+      resolve();
+      return;
+    }
+    const img = new Image();
+    img.onload = () => {
+      loadedImageCache.add(src);
+      resolve();
+    };
+    img.onerror = () => resolve();
+    img.src = src;
+    if (img.complete && img.naturalWidth > 0) {
+      loadedImageCache.add(src);
+      resolve();
+    }
+  });
+};
+
+/**
+ * Preloads all standard product image variants to ensure instant 0ms switching.
+ */
+export const preloadCommonProductImages = () => {
+  const images = [
+    '/images/10ml-with-packaging.png',
+    '/images/10ml-without-packaging.png',
+    '/images/20ml-with-packaging.png',
+    '/images/20ml-without-packaging.png',
+  ];
+  images.forEach(preloadProductImage);
+};
+
+export interface ProductImageProps {
   src?: string;
   alt: string;
   className?: string;
@@ -11,6 +50,8 @@ interface ProductImageProps {
   badge?: string;
   objectFit?: 'cover' | 'contain';
   showZoomOnHover?: boolean;
+  priority?: boolean;
+  loading?: 'lazy' | 'eager';
   onClick?: () => void;
 }
 
@@ -25,14 +66,62 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   badge,
   objectFit = 'contain',
   showZoomOnHover = true,
+  priority = false,
+  loading,
   onClick,
 }) => {
+  const imageSource = src || '/images/10ml-with-packaging.png';
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  // Synchronously initialize isLoaded to true if the URL is in our session cache
+  const [isLoaded, setIsLoaded] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return loadedImageCache.has(imageSource);
+  });
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Default to primary product image if src not provided
-  const imageSource = src || '/images/10ml-with-packaging.jpg';
+  useEffect(() => {
+    setImageError(false);
+
+    if (loadedImageCache.has(imageSource)) {
+      setIsLoaded(true);
+      return;
+    }
+
+    if (imgRef.current && imgRef.current.complete && imgRef.current.naturalWidth > 0) {
+      loadedImageCache.add(imageSource);
+      setIsLoaded(true);
+      return;
+    }
+
+    // Background preload check
+    const tempImg = new Image();
+    tempImg.onload = () => {
+      loadedImageCache.add(imageSource);
+      setIsLoaded(true);
+    };
+    tempImg.onerror = () => {
+      setImageError(true);
+    };
+    tempImg.src = imageSource;
+    if (tempImg.complete && tempImg.naturalWidth > 0) {
+      loadedImageCache.add(imageSource);
+      setIsLoaded(true);
+    }
+  }, [imageSource]);
+
+  const handleImgLoad = () => {
+    loadedImageCache.add(imageSource);
+    setIsLoaded(true);
+  };
+
+  const handleImgError = () => {
+    setImageError(true);
+  };
+
+  const effectiveLoading = priority ? 'eager' : (loading || 'lazy');
+  const fetchPriorityAttr = priority ? 'high' : 'auto';
 
   return (
     <div
@@ -71,23 +160,27 @@ export const ProductImage: React.FC<ProductImageProps> = ({
             overflow: 'hidden',
           }}
         >
-          {/* Skeleton / Ambient backdrop during load */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundColor: 'var(--color-cream-card)',
-              opacity: isLoaded ? 0 : 1,
-              transition: 'opacity 0.4s ease',
-              pointerEvents: 'none',
-            }}
-          />
+          {/* Skeleton / Ambient backdrop during initial load */}
+          {!isLoaded && (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundColor: 'var(--color-cream-card)',
+                pointerEvents: 'none',
+              }}
+            />
+          )}
           <img
+            ref={imgRef}
             src={imageSource}
             alt={alt}
-            loading="lazy"
-            onLoad={() => setIsLoaded(true)}
-            onError={() => setImageError(true)}
+            loading={effectiveLoading}
+            // @ts-ignore fetchPriority is a valid standard HTML attribute in modern browsers
+            fetchpriority={fetchPriorityAttr}
+            decoding={priority ? 'sync' : 'async'}
+            onLoad={handleImgLoad}
+            onError={handleImgError}
             style={{
               maxWidth: '100%',
               maxHeight: '100%',
@@ -97,8 +190,8 @@ export const ProductImage: React.FC<ProductImageProps> = ({
               objectPosition: 'center',
               display: 'block',
               transition: showZoomOnHover
-                ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease'
-                : 'none',
+                ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease, opacity 0.2s ease'
+                : 'opacity 0.2s ease',
               transform: isHovered && showZoomOnHover ? 'scale(1.03)' : 'scale(1)',
               opacity: isLoaded ? 1 : 0,
               ...imgStyle,

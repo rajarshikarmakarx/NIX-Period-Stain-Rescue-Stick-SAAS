@@ -40,15 +40,22 @@ export const Footer: React.FC = () => {
             <Link
               to="/"
               style={{
-                fontFamily: 'var(--font-editorial)',
-                fontSize: '1.75rem',
-                fontWeight: 700,
-                color: 'var(--color-warm-cream)',
                 display: 'inline-block',
-                marginBottom: '1rem',
+                marginBottom: '1.25rem',
+                textDecoration: 'none',
               }}
+              aria-label="NIX & CO. Home"
             >
-              NIX & CO.
+              <img
+                src="/images/logo-light.png"
+                alt="NIX & CO."
+                style={{
+                  height: '34px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
             </Link>
             <p style={{ color: 'rgba(248, 240, 227, 0.75)', fontSize: '0.95rem', marginBottom: '1.5rem' }}>
               Portable care for unpredictable moments. Designed for life outside the laundry room.

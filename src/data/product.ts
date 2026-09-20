@@ -9,8 +9,8 @@ export const defaultVariants: ProductVariant[] = [
     price: 79,
     original_price: 99,
     in_stock: true,
-    image: '/images/10ml-without-packaging.jpg',
-    packaging_image: '/images/10ml-with-packaging.jpg',
+    image: '/images/10ml-without-packaging.png',
+    packaging_image: '/images/10ml-with-packaging.png',
   },
   {
     id: '20ml',
@@ -20,8 +20,8 @@ export const defaultVariants: ProductVariant[] = [
     price: 129,
     original_price: 159,
     in_stock: true,
-    image: '/images/20ml-without-packaging.jpg',
-    packaging_image: '/images/20ml-with-packaging.jpg',
+    image: '/images/20ml-without-packaging.png',
+    packaging_image: '/images/20ml-with-packaging.png',
   },
 ];
 
@@ -39,10 +39,10 @@ export const defaultProductData: Product = {
   currency: '₹',
   variants: defaultVariants,
   images: [
-    '/images/10ml-with-packaging.jpg',
-    '/images/10ml-without-packaging.jpg',
-    '/images/20ml-with-packaging.jpg',
-    '/images/20ml-without-packaging.jpg',
+    '/images/10ml-with-packaging.png',
+    '/images/10ml-without-packaging.png',
+    '/images/20ml-with-packaging.png',
+    '/images/20ml-without-packaging.png',
   ],
   features: [
     'Portable & discreet',
