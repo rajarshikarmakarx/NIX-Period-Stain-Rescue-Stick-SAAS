@@ -1,26 +1,60 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CheckoutForm } from '../components/checkout/CheckoutForm';
 import { SectionHeading } from '../components/common/SectionHeading';
+import { Button } from '../components/common/Button';
 import { useApp } from '../context/AppContext';
+import { ShoppingBag, ArrowRight } from 'lucide-react';
 
 export const CheckoutPage: React.FC = () => {
   const { cart, cartSubtotal, product } = useApp();
   const shippingFee = cartSubtotal > 499 || cartSubtotal === 0 ? 0 : 49;
   const grandTotal = cartSubtotal + shippingFee;
 
+  if (cart.length === 0) {
+    return (
+      <div style={{ padding: '6rem 0', textAlign: 'center' }}>
+        <div className="container" style={{ maxWidth: '500px' }}>
+          <div
+            style={{
+              width: '72px',
+              height: '72px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--color-cream-card)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem auto',
+              color: 'var(--color-deep-cherry)',
+            }}
+          >
+            <ShoppingBag size={32} />
+          </div>
+          <h2 style={{ marginBottom: '0.75rem' }}>Your bag is empty</h2>
+          <p style={{ opacity: 0.85, marginBottom: '2rem' }}>
+            Add a NIX Period Stain Rescue Stick or Refill Cartridge to your bag before checking out.
+          </p>
+          <Link to="/shop">
+            <Button variant="primary" size="lg">
+              EXPLORE SHOP <ArrowRight size={18} />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ padding: '3rem 0 5rem 0' }}>
       <div className="container">
         {/* Checkout Progress Bar */}
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '3rem', fontSize: '0.85rem', fontWeight: 600 }}>
-          <span style={{ color: 'var(--color-deep-cherry)' }}>1. Information</span>
+          <span style={{ color: 'var(--color-deep-cherry)' }}>1. Information & Delivery</span>
           <span style={{ opacity: 0.4 }}>→</span>
-          <span style={{ opacity: 0.4 }}>2. Delivery</span>
-          <span style={{ opacity: 0.4 }}>→</span>
-          <span style={{ opacity: 0.4 }}>3. Confirmation</span>
+          <span style={{ opacity: 0.4 }}>2. Confirmation</span>
         </div>
 
-        <SectionHeading title="Demo Checkout" align="left" subtitle="Fast, simulated order submission for presentation." />
+        <SectionHeading title="Order Checkout" align="left" subtitle="Fast, authenticated order submission & live tracking." />
 
         <div
           style={{

@@ -18,6 +18,10 @@ def create_order(order_data: OrderCreate):
     """Create a new demo order and earn rewards points."""
     settings = get_settings()
 
+    user_identifier = order_data.user_id or order_data.user_email or (order_data.address.email if order_data.address else None)
+    if not user_identifier:
+        raise HTTPException(status_code=401, detail="Authentication required. Please log in to your NIX account to place an order.")
+
     order_id = f"NIX-{uuid.uuid4().hex[:6].upper()}"
     now = datetime.now()
     delivery_date = (now + timedelta(days=3)).strftime("%b %d, %Y")

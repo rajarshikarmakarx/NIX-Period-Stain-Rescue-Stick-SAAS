@@ -83,7 +83,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Sync orders with Supabase database whenever user auth changes
   useEffect(() => {
-    if (!user && !profile) return;
+    if (!user && !profile) {
+      setOrders([]);
+      return;
+    }
 
     const syncUserOrders = async () => {
       try {

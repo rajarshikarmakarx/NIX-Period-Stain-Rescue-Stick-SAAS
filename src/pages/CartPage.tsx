@@ -1,15 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingBag, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingBag, ArrowRight, Lock, UserCheck } from 'lucide-react';
 import { CartItem } from '../components/cart/CartItem';
 import { Button } from '../components/common/Button';
 import { SectionHeading } from '../components/common/SectionHeading';
+import { AuthModal } from '../components/auth/AuthModal';
 import { useApp } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 
 export const CartPage: React.FC = () => {
   const { cart, cartSubtotal, product } = useApp();
+  const { user, profile } = useAuth();
+  const navigate = useNavigate();
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+
   const shippingFee = cartSubtotal > 499 || cartSubtotal === 0 ? 0 : 49;
   const grandTotal = cartSubtotal + shippingFee;
+
+  const isUserAuthenticated = Boolean(user || profile);
+
+  const handleCheckoutClick = () => {
+    if (!isUserAuthenticated) {
+      setAuthModalOpen(true);
+    } else {
+      navigate('/checkout');
+    }
+  };
 
   if (cart.length === 0) {
     return (
@@ -101,18 +117,36 @@ export const CartPage: React.FC = () => {
               </div>
             </div>
 
-            <Link to="/checkout" style={{ display: 'block', width: '100%' }}>
-              <Button variant="primary" size="lg" fullWidth>
-                PROCEED TO CHECKOUT →
-              </Button>
-            </Link>
+            <Button variant="primary" size="lg" fullWidth onClick={handleCheckoutClick}>
+              PROCEED TO CHECKOUT →
+            </Button>
 
-            <p style={{ fontSize: '0.8rem', opacity: 0.7, textAlign: 'center', marginTop: '1rem' }}>
+            {!isUserAuthenticated ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--color-deep-cherry)', marginTop: '0.85rem', fontWeight: 600 }}>
+                <Lock size={13} /> Sign in required to place order
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', fontSize: '0.8rem', opacity: 0.75, marginTop: '0.85rem' }}>
+                <UserCheck size={13} color="var(--color-deep-cherry)" /> Signed in as {profile?.full_name?.split(' ')[0] || 'Customer'}
+              </div>
+            )}
+
+            <p style={{ fontSize: '0.8rem', opacity: 0.7, textAlign: 'center', marginTop: '0.75rem' }}>
               Taxes calculated during checkout. Simulated demo payment.
             </p>
           </div>
         </div>
       </div>
+
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => {
+          setAuthModalOpen(false);
+          if (user || profile) {
+            navigate('/checkout');
+          }
+        }}
+      />
     </div>
   );
 };

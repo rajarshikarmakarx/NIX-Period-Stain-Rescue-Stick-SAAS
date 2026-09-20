@@ -47,8 +47,30 @@ export const App: React.FC = () => {
                 <Route path="/product/refill-cartridges" element={<RefillProductPage />} />
                 <Route path="/how-it-works" element={<HowItWorksPage />} />
                 <Route path="/cart" element={<CartPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+                <Route
+                  path="/checkout"
+                  element={
+                    <ProtectedRoute
+                      title="Sign In to Complete Your Order"
+                      subtitle="Please log in to your NIX account or create a new one to complete checkout, secure your shipment, and track delivery."
+                      badge="CHECKOUT AUTHENTICATION"
+                      buttonText="SIGN IN TO PLACE ORDER"
+                    >
+                      <CheckoutPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/order-confirmation"
+                  element={
+                    <ProtectedRoute
+                      title="Sign In Required"
+                      subtitle="Please sign in to your account to view your confirmed order details."
+                    >
+                      <OrderConfirmationPage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/account"
                   element={
