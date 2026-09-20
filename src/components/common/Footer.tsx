@@ -61,7 +61,15 @@ export const Footer: React.FC = () => {
               Portable care for unpredictable moments. Designed for life outside the laundry room.
             </p>
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <a href="#" style={{ color: 'var(--color-warm-cream)', opacity: 0.8 }} aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/nixindia.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--color-warm-cream)', opacity: 0.8, transition: 'opacity 0.2s ease' }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.8')}
+                aria-label="Instagram (@nixindia.co)"
+              >
                 <Instagram size={20} />
               </a>
               <a href="#" style={{ color: 'var(--color-warm-cream)', opacity: 0.8 }} aria-label="Twitter">
@@ -166,7 +174,7 @@ export const Footer: React.FC = () => {
             color: 'rgba(248, 240, 227, 0.6)',
           }}
         >
-          <div>© {new Date().getFullYear()} NIX & CO. All rights reserved. Pitch prototype build.</div>
+          <div>© {new Date().getFullYear()} NIX & CO. All rights reserved.</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
             Made with <Heart size={14} fill="var(--color-cherry-red)" color="var(--color-cherry-red)" /> for everyday emergencies.
           </div>

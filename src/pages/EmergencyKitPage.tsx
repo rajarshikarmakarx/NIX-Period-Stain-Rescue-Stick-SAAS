@@ -9,14 +9,19 @@ export const EmergencyKitPage: React.FC = () => {
 
   const kitImages = [
     {
+      src: '/images/emergency_kit.png',
+      label: 'The Complete NIX Period Stain Emergency Kit',
+      badge: 'Complete Kit Prototype',
+    },
+    {
       src: '/images/20ml-with-packaging.png',
       label: '20ml Value Stick with Packaging Box',
       badge: 'Core Hero Essential',
     },
     {
-      src: '/images/10ml-without-packaging.png',
-      label: '10ml Pocket Companion Stick',
-      badge: 'Discreet Carry',
+      src: '/images/10ml-with-packaging.png',
+      label: '10ml Starter Stick in Custom Retail Box',
+      badge: 'Starter Pack',
     },
     {
       src: '/images/20ml-without-packaging.png',
@@ -24,9 +29,9 @@ export const EmergencyKitPage: React.FC = () => {
       badge: 'High Capacity',
     },
     {
-      src: '/images/10ml-with-packaging.png',
-      label: '10ml Starter Stick in Custom Retail Box',
-      badge: 'Starter Pack',
+      src: '/images/10ml-without-packaging.png',
+      label: '10ml Pocket Companion Stick',
+      badge: 'Discreet Carry',
     },
   ];
 
@@ -61,8 +66,9 @@ export const EmergencyKitPage: React.FC = () => {
               alt="NIX Emergency Kit Visual Showcase"
               label={kitImages[selectedKitImage].label}
               badge={kitImages[selectedKitImage].badge}
-              aspectRatio="3 / 4"
+              aspectRatio="4 / 3"
               objectFit="contain"
+              priority={true}
               style={{ maxHeight: '460px', margin: '0 auto' }}
             />
 
@@ -70,7 +76,7 @@ export const EmergencyKitPage: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(54px, 1fr))',
                 gap: '0.5rem',
                 marginTop: '1rem',
               }}

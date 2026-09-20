@@ -31,10 +31,12 @@ export const preloadProductImage = (src: string): Promise<void> => {
  */
 export const preloadCommonProductImages = () => {
   const images = [
+    '/images/logo.png',
     '/images/10ml-with-packaging.png',
     '/images/10ml-without-packaging.png',
     '/images/20ml-with-packaging.png',
     '/images/20ml-without-packaging.png',
+    '/images/emergency_kit.png',
   ];
   images.forEach(preloadProductImage);
 };
