@@ -5,7 +5,6 @@ import { AuthProvider } from './context/AuthContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { Toast } from './components/common/Toast';
-import { DemoResetButton } from './components/common/DemoResetButton';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { preloadCommonProductImages } from './components/product/ProductImage';
 
@@ -98,7 +97,6 @@ export const App: React.FC = () => {
             </main>
             <Footer />
             <Toast />
-            <DemoResetButton />
           </div>
         </BrowserRouter>
       </AppProvider>
