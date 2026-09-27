@@ -116,7 +116,7 @@ export const HomePage: React.FC = () => {
             >
               <ProductImage
                 src={heroImageSrc}
-                alt={`NIX Period Stain Rescue Stick (${heroVariant})`}
+                alt={`NIX Period Stain Remover (${heroVariant})`}
                 badge={heroVariant === '10ml' ? '10ml • ₹79' : '20ml • ₹129'}
                 aspectRatio="3 / 4"
                 objectFit="contain"

@@ -299,7 +299,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
                   {currentItem.label}
                 </div>
                 <div style={{ fontSize: '0.85rem', opacity: 0.8 }}>
-                  NIX Period Stain Rescue Stick Prototype
+                  NIX Period Stain Remover Prototype
                 </div>
               </div>
               <button

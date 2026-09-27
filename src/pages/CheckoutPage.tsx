@@ -8,7 +8,7 @@ import { ShoppingBag, ArrowRight } from 'lucide-react';
 
 export const CheckoutPage: React.FC = () => {
   const { cart, cartSubtotal, product } = useApp();
-  const shippingFee = cartSubtotal > 499 || cartSubtotal === 0 ? 0 : 49;
+  const shippingFee = cartSubtotal > 150 || cartSubtotal === 0 ? 0 : 30;
   const grandTotal = cartSubtotal + shippingFee;
 
   if (cart.length === 0) {
@@ -32,7 +32,7 @@ export const CheckoutPage: React.FC = () => {
           </div>
           <h2 style={{ marginBottom: '0.75rem' }}>Your bag is empty</h2>
           <p style={{ opacity: 0.85, marginBottom: '2rem' }}>
-            Add a NIX Period Stain Rescue Stick or Refill Cartridge to your bag before checking out.
+            Add a NIX Period Stain Remover or Refill Cartridge to your bag before checking out.
           </p>
           <Link to="/shop">
             <Button variant="primary" size="lg">

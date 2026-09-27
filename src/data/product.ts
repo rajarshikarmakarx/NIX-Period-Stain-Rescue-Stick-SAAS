@@ -82,7 +82,7 @@ export const defaultVariants: ProductVariant[] = [
  */
 export const defaultProductData: Product = {
   id: 'nix-rescue-stick-01',
-  name: 'NIX Period Stain Rescue Stick',
+  name: 'NIX Period Stain Remover',
   short_description: 'Portable pre-treatment care for fresh menstrual stains.',
   long_description:
     'A compact stain-treatment stick made to live in your everyday bag. NIX is designed for the moment a stain happens — not for the laundry room.',

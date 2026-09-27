@@ -930,7 +930,7 @@ export const ContactPage: React.FC = () => {
                   1. Product Usage & Guidelines
                 </h4>
                 <p>
-                  NIX Period Stain Rescue Sticks and replaceable roller heads are external garment pre-treatment cosmetics. They are not intended for internal medical use or ingestion. Always cap the stick tightly after application.
+                  NIX Period Stain Removers and replaceable roller heads are external garment pre-treatment cosmetics. They are not intended for internal medical use or ingestion. Always cap the stick tightly after application.
                 </p>
               </div>
 

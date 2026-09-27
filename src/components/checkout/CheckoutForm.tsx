@@ -251,18 +251,9 @@ export const CheckoutForm: React.FC = () => {
         </div>
       </div>
 
-      <div style={{ backgroundColor: 'var(--color-blush-soft)', padding: '1.25rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--color-blush-border)' }}>
-        <div style={{ fontWeight: 600, color: 'var(--color-deep-cherry)', marginBottom: '0.25rem' }}>
-          ⚡ Pitch Demo Mode Active
-        </div>
-        <div style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-          Payment processing is simulated for this competition prototype. Clicking below will instantly record a confirmed order to your verified account.
-        </div>
-      </div>
-
       {isUserAuthenticated ? (
         <Button type="submit" variant="primary" size="lg" fullWidth disabled={submitting}>
-          {submitting ? 'PROCESSING ORDER...' : 'PLACE DEMO ORDER'}
+          {submitting ? 'PROCESSING ORDER...' : 'PLACE ORDER'}
         </Button>
       ) : (
         <Button type="button" variant="primary" size="lg" fullWidth onClick={() => setAuthModalOpen(true)}>

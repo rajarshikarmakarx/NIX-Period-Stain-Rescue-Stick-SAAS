@@ -14,7 +14,7 @@ export const CartPage: React.FC = () => {
   const navigate = useNavigate();
   const [authModalOpen, setAuthModalOpen] = useState(false);
 
-  const shippingFee = cartSubtotal > 499 || cartSubtotal === 0 ? 0 : 49;
+  const shippingFee = cartSubtotal > 150 || cartSubtotal === 0 ? 0 : 30;
   const grandTotal = cartSubtotal + shippingFee;
 
   const isUserAuthenticated = Boolean(user || profile);

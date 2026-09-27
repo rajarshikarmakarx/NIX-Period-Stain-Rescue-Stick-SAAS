@@ -71,7 +71,7 @@ export const StickProductPage: React.FC = () => {
           </Link>
           <ChevronRight size={14} />
           <span style={{ color: 'var(--color-deep-cherry)', fontWeight: 600 }}>
-            NIX Period Stain Rescue Stick
+            NIX Period Stain Remover
           </span>
         </nav>
 

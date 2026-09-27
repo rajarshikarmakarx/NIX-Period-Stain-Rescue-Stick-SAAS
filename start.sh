@@ -14,10 +14,12 @@ echo "▶ Starting FastAPI backend..."
 
 if [ ! -d "$VENV" ]; then
   echo "  Creating Python venv..."
-  python3 -m venv "$VENV"
+  python3.13 -m venv "$VENV"
 fi
 
 # Install/sync dependencies
+# Set PYO3_USE_ABI3_FORWARD_COMPATIBILITY for Python 3.14 compatibility with pydantic-core
+export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
 "$VENV/bin/pip" install -q -r "$BACKEND/requirements.txt"
 
 # Run uvicorn in the background

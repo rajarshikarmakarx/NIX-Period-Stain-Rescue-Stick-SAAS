@@ -137,7 +137,7 @@ export const ShopPage: React.FC = () => {
                       ? '/images/20ml-with-packaging.png'
                       : '/images/10ml-with-packaging.png'
                   }
-                  alt="NIX Period Stain Rescue Stick"
+                  alt="NIX Period Stain Remover"
                   aspectRatio="4 / 3"
                   objectFit="contain"
                   priority={true}
@@ -148,7 +148,7 @@ export const ShopPage: React.FC = () => {
               {/* Title & Description */}
               <Link to="/shop/stick" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.75rem)', marginBottom: '0.5rem' }}>
-                  NIX Period Stain Rescue Stick
+                  NIX Period Stain Remover
                 </h2>
               </Link>
               <p style={{ fontSize: '0.92rem', opacity: 0.85, marginBottom: '1.25rem', lineHeight: 1.5 }}>
