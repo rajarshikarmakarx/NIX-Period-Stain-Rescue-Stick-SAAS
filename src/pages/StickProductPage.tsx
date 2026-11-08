@@ -19,7 +19,7 @@ export const StickProductPage: React.FC = () => {
       name: '10ml (5 uses)',
       size: '10ml',
       uses: '5 uses',
-      price: 79,
+      price: 89,
       original_price: 99,
       in_stock: true,
     }
@@ -43,8 +43,8 @@ export const StickProductPage: React.FC = () => {
   };
 
   const variants = product.variants && product.variants.length > 0 ? product.variants : [
-    { id: '10ml', name: '10ml (5 uses)', size: '10ml', uses: '5 uses', price: 79, original_price: 99, in_stock: true },
-    { id: '20ml', name: '20ml (10 uses)', size: '20ml', uses: '10 uses', price: 129, original_price: 159, in_stock: true },
+    { id: '10ml', name: '10ml (5 uses)', size: '10ml', uses: '5 uses', price: 89, original_price: 99, in_stock: true },
+    { id: '20ml', name: '20ml (10 uses)', size: '20ml', uses: '10 uses', price: 149, original_price: 159, in_stock: true },
   ];
 
   return (
@@ -100,7 +100,27 @@ export const StickProductPage: React.FC = () => {
 
           {/* Right Column — Product Purchase Info */}
           <div style={{ minWidth: 0, width: '100%' }}>
-            <span className="eyebrow">PORTABLE STAIN CARE</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+              <span className="eyebrow" style={{ margin: 0 }}>PORTABLE STAIN CARE</span>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  backgroundColor: 'var(--color-blush-soft)',
+                  color: 'var(--color-deep-cherry)',
+                  border: '1px solid rgba(123, 38, 56, 0.18)',
+                  padding: '2px 9px',
+                  borderRadius: 'var(--radius-pill)',
+                  fontSize: '0.74rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.02em',
+                }}
+              >
+                <Sparkles size={12} color="var(--color-deep-cherry)" />
+                + Free Replaceable Roll-On System
+              </span>
+            </div>
             <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', marginBottom: '0.75rem' }}>
               {product.name}
             </h1>
@@ -219,7 +239,7 @@ export const StickProductPage: React.FC = () => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Truck size={18} color="var(--color-deep-cherry)" />
-                <span>Free shipping &gt; ₹499</span>
+                <span>Free shipping &gt; ₹150</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <RotateCcw size={18} color="var(--color-deep-cherry)" />

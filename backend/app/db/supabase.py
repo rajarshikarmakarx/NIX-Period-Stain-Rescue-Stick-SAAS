@@ -27,7 +27,7 @@ class DemoStore:
             "id": "nix-rescue-stick-01",
             "name": "NIX Period Stain Rescue Stick",
             "tagline": "Instant, discreet emergency stain removal on the go.",
-            "price": 79,
+            "price": 89,
             "original_price": 99,
             "currency": "₹",
             "variants": [
@@ -36,10 +36,10 @@ class DemoStore:
                     "name": "10ml (5 uses)",
                     "size": "10ml",
                     "uses": "5 uses",
-                    "price": 79,
+                    "price": 89,
                     "original_price": 99,
                     "in_stock": True,
-                    "image": "/images/10ml-without-packaging.png",
+                    "image": "/images/10ml-without-packaging-with-roller-heads.png",
                     "packaging_image": "/images/10ml-with-packaging.png",
                 },
                 {
@@ -47,10 +47,10 @@ class DemoStore:
                     "name": "20ml (10 uses)",
                     "size": "20ml",
                     "uses": "10 uses",
-                    "price": 129,
+                    "price": 149,
                     "original_price": 159,
                     "in_stock": True,
-                    "image": "/images/20ml-without-packaging.png",
+                    "image": "/images/20ml-without-packaging-with-roller-heads.png",
                     "packaging_image": "/images/20ml-with-packaging.png",
                 },
             ],
@@ -62,9 +62,9 @@ class DemoStore:
             "long_description": "NIX is a compact, handbag-ready period stain emergency rescue stick formulated with active plant enzymes to instantly dissolve fresh or set-in period blood stains without water rinsing required.",
             "images": [
                 "/images/10ml-with-packaging.png",
-                "/images/10ml-without-packaging.png",
+                "/images/10ml-without-packaging-with-roller-heads.png",
                 "/images/20ml-with-packaging.png",
-                "/images/20ml-without-packaging.png",
+                "/images/20ml-without-packaging-with-roller-heads.png",
                 "/images/roller-head-1.png",
                 "/images/roller-head-2.png",
                 "/images/roller-head-3.png"
@@ -90,7 +90,7 @@ class DemoStore:
                 },
                 {
                     "title": "Hygienic Replaceable Roll-On System",
-                    "content": "The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge (from ₹10) rather than repeatedly putting a used applicator back against fresh garments."
+                    "content": "The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge rather than repeatedly putting a used applicator back against fresh garments."
                 },
                 {
                     "title": "Clean Ingredients",
@@ -108,7 +108,7 @@ class DemoStore:
                 },
                 {
                     "title": "Hygienic Replaceable Roll-On System",
-                    "content": "The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge (from ₹10) rather than repeatedly putting a used applicator back against fresh garments."
+                    "content": "The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge rather than repeatedly putting a used applicator back against fresh garments."
                 },
                 {
                     "title": "Clean Ingredients",
@@ -125,8 +125,8 @@ class DemoStore:
                     "name": "Starter Pocket Stick (10ml)",
                     "title": "Starter Pocket Stick (10ml)",
                     "description": "1x 10ml NIX Stick (5 emergency uses)",
-                    "price": 79,
-                    "discount": "Save 20%",
+                    "price": 89,
+                    "discount": "Save 10%",
                     "available": True
                 },
                 {
@@ -134,8 +134,8 @@ class DemoStore:
                     "name": "Standard Care Stick (20ml)",
                     "title": "Standard Care Stick (20ml)",
                     "description": "1x 20ml NIX Stick (10 emergency uses)",
-                    "price": 129,
-                    "discount": "Most Popular — Save 20%",
+                    "price": 149,
+                    "discount": "Most Popular — Save 10%",
                     "available": True
                 },
                 {
@@ -199,7 +199,7 @@ class DemoStore:
         self.orders: List[Dict[str, Any]] = [
           {
             "id": "NIX-884201",
-            "items": [{"product_id": "nix-rescue-stick-01-20ml", "variant_id": "20ml", "variant_name": "20ml (10 uses)", "price": 129, "quantity": 2}],
+            "items": [{"product_id": "nix-rescue-stick-01-20ml", "variant_id": "20ml", "variant_name": "20ml (10 uses)", "price": 149, "quantity": 2}],
             "address": {
               "name": "Ananya Sharma",
               "email": "ananya@example.com",

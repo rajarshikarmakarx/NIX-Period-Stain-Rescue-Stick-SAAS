@@ -637,7 +637,7 @@ export const CyclePredictorPage: React.FC = () => {
                     minWidth: '180px',
                   }}
                 >
-                  <ShoppingBag size={16} /> PACK NIX STICK (FROM ₹79)
+                  <ShoppingBag size={16} /> PACK NIX STICK (FROM ₹89)
                 </Button>
                 <button
                   onClick={handleExportCalendar}

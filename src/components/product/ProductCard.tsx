@@ -8,25 +8,20 @@ import { Check } from 'lucide-react';
 export const ProductCard: React.FC = () => {
   const { product, addToCart } = useApp();
   const [selectedVariantId, setSelectedVariantId] = useState<string>('10ml');
-  const [viewPackaging, setViewPackaging] = useState<boolean>(false);
 
   const selectedVariant =
     product.variants?.find((v) => v.id === selectedVariantId) ||
     product.variants?.[0] || {
       id: '10ml',
       name: '10ml (5 uses)',
-      price: 79,
+      price: 89,
       original_price: 99,
     };
 
   const imageSrc =
     selectedVariantId === '20ml'
-      ? viewPackaging
-        ? '/images/20ml-with-packaging.png'
-        : '/images/20ml-without-packaging.png'
-      : viewPackaging
-      ? '/images/10ml-with-packaging.png'
-      : '/images/10ml-without-packaging.png';
+      ? '/images/20ml-without-packaging-with-roller-heads.png'
+      : '/images/10ml-without-packaging-with-roller-heads.png';
 
   const badgeText = selectedVariantId === '20ml' ? '20ml • Best Value' : '10ml • Starter';
 
@@ -51,29 +46,6 @@ export const ProductCard: React.FC = () => {
           aspectRatio="4 / 3"
           objectFit="contain"
         />
-
-        {/* Packaging / Stick Toggle Badge */}
-        <button
-          onClick={() => setViewPackaging(!viewPackaging)}
-          style={{
-            position: 'absolute',
-            bottom: '0.75rem',
-            right: '0.75rem',
-            backgroundColor: 'rgba(253, 246, 237, 0.9)',
-            backdropFilter: 'blur(4px)',
-            WebkitBackdropFilter: 'blur(4px)',
-            color: 'var(--color-deep-cherry)',
-            fontSize: '0.72rem',
-            fontWeight: 600,
-            padding: '0.2rem 0.6rem',
-            borderRadius: 'var(--radius-pill)',
-            border: '1px solid var(--color-cocoa-light)',
-            cursor: 'pointer',
-            zIndex: 2,
-          }}
-        >
-          {viewPackaging ? 'Show Stick' : 'Show Box'}
-        </button>
       </div>
 
       <div>

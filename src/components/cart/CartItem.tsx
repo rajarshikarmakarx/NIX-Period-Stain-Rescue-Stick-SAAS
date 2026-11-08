@@ -11,7 +11,7 @@ interface CartItemProps {
 
 export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { product, updateQuantity, removeFromCart } = useApp();
-  const itemPrice = item.price ?? product.price ?? 79;
+  const itemPrice = item.price ?? product.price ?? 89;
   const lineTotal = item.quantity * itemPrice;
 
   const imageSrc =
@@ -25,8 +25,8 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
       : item.variant_id === 'emergency-kit' || item.product_id === 'nix-emergency-kit'
       ? '/images/emergency-kit.png'
       : item.variant_id === '20ml'
-      ? '/images/20ml-without-packaging.png'
-      : '/images/10ml-without-packaging.png');
+      ? '/images/20ml-without-packaging-with-roller-heads.png'
+      : '/images/10ml-without-packaging-with-roller-heads.png');
 
   const displayName = item.product_name || product.name;
   const currency = product.currency || '₹';

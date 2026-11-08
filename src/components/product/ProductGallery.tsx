@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ProductImage } from './ProductImage';
-import { Sparkles, Package, Eye, ZoomIn } from 'lucide-react';
+import { Sparkles, ZoomIn } from 'lucide-react';
 
 interface GalleryItem {
   src: string;
@@ -28,7 +28,7 @@ export const galleryItems: GalleryItem[] = [
     badge: '10ml • Boxed',
   },
   {
-    src: '/images/10ml-without-packaging.png',
+    src: '/images/10ml-without-packaging-with-roller-heads.png',
     label: '10ml Pocket Stick • Handbag-Ready Stick',
     shortLabel: '10ml Stick',
     variantId: '10ml',
@@ -44,7 +44,7 @@ export const galleryItems: GalleryItem[] = [
     badge: '20ml • Boxed',
   },
   {
-    src: '/images/20ml-without-packaging.png',
+    src: '/images/20ml-without-packaging-with-roller-heads.png',
     label: '20ml Value Stick • Generous 10 Uses Care Stick',
     shortLabel: '20ml Stick',
     variantId: '20ml',
@@ -65,7 +65,7 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
   useEffect(() => {
     if (selectedVariantId) {
       const matchIdx = galleryItems.findIndex((item) => item.variantId === selectedVariantId);
-      if (matchIdx !== -1 && galleryItems[selectedIndex].variantId !== selectedVariantId) {
+      if (matchIdx !== -1 && galleryItems[selectedIndex]?.variantId !== selectedVariantId) {
         setSelectedIndex(matchIdx);
       }
     }
@@ -78,16 +78,6 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
     const item = galleryItems[index];
     if (item && onSelectVariant && selectedVariantId !== item.variantId) {
       onSelectVariant(item.variantId);
-    }
-  };
-
-  const handleTogglePackaging = () => {
-    const targetType = currentItem.type === 'packaging' ? 'stick' : 'packaging';
-    const matchIdx = galleryItems.findIndex(
-      (item) => item.variantId === currentItem.variantId && item.type === targetType
-    );
-    if (matchIdx !== -1) {
-      setSelectedIndex(matchIdx);
     }
   };
 
@@ -121,34 +111,6 @@ export const ProductGallery: React.FC<ProductGalleryProps> = ({
             zIndex: 3,
           }}
         >
-          {/* Flip Stick / Box Packaging */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleTogglePackaging();
-            }}
-            title="Toggle between Stick and Packaging Box"
-            style={{
-              backgroundColor: 'rgba(253, 246, 237, 0.9)',
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
-              color: 'var(--color-deep-cherry)',
-              border: '1px solid var(--color-cocoa-light)',
-              padding: '0.35rem 0.65rem',
-              borderRadius: 'var(--radius-pill)',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              cursor: 'pointer',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
-            }}
-          >
-            <Package size={13} />
-            {currentItem.type === 'packaging' ? 'View Stick' : 'View Box'}
-          </button>
-
           {/* Zoom Lightbox Trigger */}
           <button
             onClick={(e) => {

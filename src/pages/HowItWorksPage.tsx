@@ -23,7 +23,7 @@ export const HowItWorksPage: React.FC = () => {
               title: 'Blot Excess Moisture',
               desc: 'As soon as you notice a fresh stain, use a clean tissue or paper towel to gently blot any excess fluid. Do not rub vigorously across the fabric.',
               tip: 'Pro Tip: Always blot from the outer edge inward to prevent spreading.',
-              imageSrc: '/images/10ml-without-packaging.png',
+              imageSrc: '/images/10ml-without-packaging-with-roller-heads.png',
               imageLabel: 'NIX 10ml Pocket Stick • Handbag-Ready',
               badge: 'Step 01 • Blot',
             },
@@ -32,7 +32,7 @@ export const HowItWorksPage: React.FC = () => {
               title: 'Apply NIX Pre-Treatment Stick',
               desc: 'Uncap your NIX Stick (10ml or 20ml) and swipe the formulation generously over the affected stain area. Cover the entire spot thoroughly.',
               tip: 'Works on cotton, denim, canvas, activewear, and common fabric blends.',
-              imageSrc: '/images/20ml-without-packaging.png',
+              imageSrc: '/images/20ml-without-packaging-with-roller-heads.png',
               imageLabel: 'NIX 20ml Stick • Generous Targeted Coverage',
               badge: 'Step 02 • Apply',
             },
@@ -208,7 +208,7 @@ export const HowItWorksPage: React.FC = () => {
               margin: '0 auto 2rem auto',
             }}
           >
-            Never get caught unprepared again. Available in 10ml (₹79) and 20ml (₹129).
+            Never get caught unprepared again. Available in 10ml (₹89) and 20ml (₹149).
           </p>
           <Link to="/shop">
             <Button

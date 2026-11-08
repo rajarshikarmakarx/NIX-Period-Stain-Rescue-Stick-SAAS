@@ -84,7 +84,7 @@ export const CheckoutForm: React.FC = () => {
         user_email,
         items: cart,
         address: form,
-        total: cart.reduce((acc, item) => acc + item.quantity * (item.price ?? product.price ?? 79), 0),
+        total: cart.reduce((acc, item) => acc + item.quantity * (item.price ?? product.price ?? 89), 0),
         currency: product.currency,
         status: 'Confirmed',
         delivery_estimate: '3 Days',

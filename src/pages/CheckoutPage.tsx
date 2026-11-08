@@ -82,7 +82,7 @@ export const CheckoutPage: React.FC = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
               {cart.map((item) => {
-                const itemPrice = item.price ?? product.price ?? 79;
+                const itemPrice = item.price ?? product.price ?? 89;
                 const itemImage =
                   item.image ||
                   (item.variant_id === 'refill-3pk'
@@ -92,8 +92,8 @@ export const CheckoutPage: React.FC = () => {
                     : item.variant_id?.startsWith('refill')
                     ? '/images/roller-head-1.png'
                     : item.variant_id === '20ml'
-                    ? '/images/20ml-without-packaging.png'
-                    : '/images/10ml-without-packaging.png');
+                    ? '/images/20ml-without-packaging-with-roller-heads.png'
+                    : '/images/10ml-without-packaging-with-roller-heads.png');
                 const itemName = item.product_name || (item.variant_id?.startsWith('refill') ? 'NIX Replacement Cartridge' : product.name);
 
                 return (

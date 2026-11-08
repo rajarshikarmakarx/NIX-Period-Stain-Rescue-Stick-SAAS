@@ -24,12 +24,12 @@ export const EmergencyKitPage: React.FC = () => {
       badge: 'Starter Pack',
     },
     {
-      src: '/images/20ml-without-packaging.png',
+      src: '/images/20ml-without-packaging-with-roller-heads.png',
       label: '20ml Pre-Treatment Formulation Stick',
       badge: 'High Capacity',
     },
     {
-      src: '/images/10ml-without-packaging.png',
+      src: '/images/10ml-without-packaging-with-roller-heads.png',
       label: '10ml Pocket Companion Stick',
       badge: 'Discreet Carry',
     },

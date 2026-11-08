@@ -262,8 +262,8 @@ export const AccountPage: React.FC = () => {
                       : firstItem?.variant_id?.startsWith('refill')
                       ? '/images/roller-head-1.png'
                       : firstItem?.variant_id === '20ml'
-                      ? '/images/20ml-without-packaging.png'
-                      : '/images/10ml-without-packaging.png');
+                      ? '/images/20ml-without-packaging-with-roller-heads.png'
+                      : '/images/10ml-without-packaging-with-roller-heads.png');
                   const productName =
                     firstItem?.product_name ||
                     (firstItem?.variant_id?.startsWith('refill')

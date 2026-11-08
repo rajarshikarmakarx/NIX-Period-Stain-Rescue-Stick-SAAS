@@ -194,10 +194,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       variantId = selectedVariant?.id || '10ml';
       variantName = selectedVariant?.name || '10ml (5 uses)';
-      itemPrice = selectedVariant?.price ?? product.price ?? 79;
+      itemPrice = selectedVariant?.price ?? product.price ?? 89;
       productName = product.name;
       cartItemId = `${product.id}-${variantId}`;
-      itemImage = selectedVariant?.image || selectedVariant?.packaging_image || '/images/10ml-without-packaging.png';
+      itemImage = selectedVariant?.image || selectedVariant?.packaging_image || '/images/10ml-without-packaging-with-roller-heads.png';
     }
 
     setCart((prev) => {

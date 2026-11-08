@@ -33,9 +33,9 @@ export const preloadCommonProductImages = () => {
   const images = [
     '/images/logo.png',
     '/images/10ml-with-packaging.png',
-    '/images/10ml-without-packaging.png',
+    '/images/10ml-without-packaging-with-roller-heads.png',
     '/images/20ml-with-packaging.png',
-    '/images/20ml-without-packaging.png',
+    '/images/20ml-without-packaging-with-roller-heads.png',
     '/images/emergency_kit.png',
     '/images/roller-head-1.png',
     '/images/roller-head-2.png',

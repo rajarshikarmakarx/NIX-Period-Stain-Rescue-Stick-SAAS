@@ -30,14 +30,14 @@ export const FrequentlyBoughtTogether: React.FC<FrequentlyBoughtTogetherProps> =
     name: '20ml (10 uses)',
     size: '20ml',
     uses: '10 uses',
-    price: 129,
+    price: 149,
     original_price: 159,
     in_stock: true,
   };
 
   const currentRefill = refillOption || refillVariants[2] || refillVariants[0]; // 3-pack or 1st
 
-  const stickPrice = currentStick.price ?? 129;
+  const stickPrice = currentStick.price ?? 149;
   const refillPrice = currentRefill.price ?? 20;
 
   const totalPrice =

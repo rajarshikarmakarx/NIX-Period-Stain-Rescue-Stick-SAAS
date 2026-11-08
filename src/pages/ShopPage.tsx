@@ -36,7 +36,7 @@ export const ShopPage: React.FC = () => {
     name: '10ml (5 uses)',
     size: '10ml',
     uses: '5 uses',
-    price: 79,
+    price: 89,
     original_price: 99,
     in_stock: true,
   };
@@ -45,7 +45,7 @@ export const ShopPage: React.FC = () => {
     name: '20ml (10 uses)',
     size: '20ml',
     uses: '10 uses',
-    price: 129,
+    price: 149,
     original_price: 159,
     in_stock: true,
   };
@@ -112,25 +112,6 @@ export const ShopPage: React.FC = () => {
                   overflow: 'hidden',
                 }}
               >
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: '12px',
-                    backgroundColor: 'var(--color-deep-cherry)',
-                    color: 'var(--color-warm-cream)',
-                    fontSize: '0.68rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    padding: '3px 9px',
-                    borderRadius: 'var(--radius-pill)',
-                    zIndex: 2,
-                  }}
-                >
-                  Core Essential
-                </span>
-
                 <ProductImage
                   src={
                     activeStickVariant === '20ml'
@@ -145,6 +126,28 @@ export const ShopPage: React.FC = () => {
                 />
               </Link>
 
+              {/* Eyebrow & Free Offer Badge */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.45rem' }}>
+                <span className="eyebrow" style={{ margin: 0 }}>PORTABLE STAIN CARE</span>
+                <span
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.3rem',
+                    backgroundColor: 'var(--color-blush-soft)',
+                    color: 'var(--color-deep-cherry)',
+                    border: '1px solid rgba(123, 38, 56, 0.18)',
+                    padding: '2px 8px',
+                    borderRadius: 'var(--radius-pill)',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                  }}
+                >
+                  <Sparkles size={11} color="var(--color-deep-cherry)" />
+                  + Free Replaceable Roll-On System
+                </span>
+              </div>
+
               {/* Title & Description */}
               <Link to="/shop/stick" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.75rem)', marginBottom: '0.5rem' }}>
@@ -152,7 +155,7 @@ export const ShopPage: React.FC = () => {
                 </h2>
               </Link>
               <p style={{ fontSize: '0.92rem', opacity: 0.85, marginBottom: '1.25rem', lineHeight: 1.5 }}>
-                A compact stain-treatment stick made to live in your everyday bag. Treat the spot now, wash normally when home.
+                Instant, discreet emergency stain removal on the go. Treat the spot now, wash normally when home.
               </p>
 
               {/* Quick Size Switcher Pills */}
@@ -178,7 +181,7 @@ export const ShopPage: React.FC = () => {
                       10ml Pocket
                     </div>
                     <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-deep-cherry)', marginTop: '2px' }}>
-                      ₹79 <span style={{ fontSize: '0.72rem', opacity: 0.6, fontWeight: 400, textDecoration: 'line-through' }}>₹99</span>
+                      ₹89 <span style={{ fontSize: '0.72rem', opacity: 0.6, fontWeight: 400, textDecoration: 'line-through' }}>₹99</span>
                     </div>
                   </button>
 
@@ -216,7 +219,7 @@ export const ShopPage: React.FC = () => {
                       20ml Care
                     </div>
                     <div style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-deep-cherry)', marginTop: '2px' }}>
-                      ₹129 <span style={{ fontSize: '0.72rem', opacity: 0.6, fontWeight: 400, textDecoration: 'line-through' }}>₹159</span>
+                      ₹149 <span style={{ fontSize: '0.72rem', opacity: 0.6, fontWeight: 400, textDecoration: 'line-through' }}>₹159</span>
                     </div>
                   </button>
                 </div>
@@ -282,25 +285,6 @@ export const ShopPage: React.FC = () => {
                   overflow: 'hidden',
                 }}
               >
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: '12px',
-                    backgroundColor: 'var(--color-dusty-blush)',
-                    color: 'var(--color-soft-cocoa)',
-                    fontSize: '0.68rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    padding: '3px 9px',
-                    borderRadius: 'var(--radius-pill)',
-                    zIndex: 2,
-                  }}
-                >
-                  Hygienic System
-                </span>
-
                 <ProductImage
                   src={selectedRefill.image || (selectedRefill.count === 3 ? '/images/roller-head-3.png' : selectedRefill.count === 2 ? '/images/roller-head-2.png' : '/images/roller-head-1.png')}
                   alt={`NIX Replaceable Roller-Ball Cartridges (${selectedRefill.name})`}
@@ -310,6 +294,11 @@ export const ShopPage: React.FC = () => {
                   style={{ maxHeight: '260px', margin: '0 auto' }}
                 />
               </Link>
+
+              {/* Eyebrow */}
+              <div style={{ marginBottom: '0.45rem' }}>
+                <span className="eyebrow" style={{ margin: 0 }}>HYGIENIC REPLACEMENT</span>
+              </div>
 
               {/* Title & Description */}
               <Link to="/shop/refill" style={{ textDecoration: 'none', color: 'inherit' }}>

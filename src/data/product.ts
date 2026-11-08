@@ -57,10 +57,10 @@ export const defaultVariants: ProductVariant[] = [
     name: '10ml (5 uses)',
     size: '10ml',
     uses: '5 uses',
-    price: 79,
+    price: 89,
     original_price: 99,
     in_stock: true,
-    image: '/images/10ml-without-packaging.png',
+    image: '/images/10ml-without-packaging-with-roller-heads.png',
     packaging_image: '/images/10ml-with-packaging.png',
   },
   {
@@ -68,10 +68,10 @@ export const defaultVariants: ProductVariant[] = [
     name: '20ml (10 uses)',
     size: '20ml',
     uses: '10 uses',
-    price: 129,
+    price: 149,
     original_price: 159,
     in_stock: true,
-    image: '/images/20ml-without-packaging.png',
+    image: '/images/20ml-without-packaging-with-roller-heads.png',
     packaging_image: '/images/20ml-with-packaging.png',
   },
 ];
@@ -83,17 +83,17 @@ export const defaultVariants: ProductVariant[] = [
 export const defaultProductData: Product = {
   id: 'nix-rescue-stick-01',
   name: 'NIX Period Stain Remover',
-  short_description: 'Portable pre-treatment care for fresh menstrual stains.',
+  short_description: 'Instant, discreet emergency stain removal on the go.',
   long_description:
     'A compact stain-treatment stick made to live in your everyday bag. NIX is designed for the moment a stain happens — not for the laundry room.',
-  price: 79,
+  price: 89,
   currency: '₹',
   variants: defaultVariants,
   images: [
     '/images/10ml-with-packaging.png',
-    '/images/10ml-without-packaging.png',
+    '/images/10ml-without-packaging-with-roller-heads.png',
     '/images/20ml-with-packaging.png',
-    '/images/20ml-without-packaging.png',
+    '/images/20ml-without-packaging-with-roller-heads.png',
     '/images/roller-head-1.png',
     '/images/roller-head-2.png',
     '/images/roller-head-3.png',
@@ -121,7 +121,7 @@ export const defaultProductData: Product = {
     {
       title: 'Hygienic Replaceable Roll-On System',
       content:
-        'The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge (priced from ₹10) rather than repeatedly putting a used applicator back against fresh garments.',
+        'The roller-ball is the only part that touches stained fabric. After ~5 uses, snap on a fresh replacement cartridge rather than repeatedly putting a used applicator back against fresh garments.',
     },
     {
       title: 'When should I use it?',
@@ -135,11 +135,11 @@ export const defaultProductData: Product = {
     },
     {
       title: 'Product details & sizes',
-      content: 'Compact pre-treatment stick format. Available in 10ml (5 uses) for ₹79 and 20ml (10 uses) for ₹129. Replacement roll-on cartridges from ₹10.',
+      content: 'Compact pre-treatment stick format. Available in 10ml (5 uses) for ₹89 and 20ml (10 uses) for ₹149. Replacement roll-on cartridges from ₹10.',
     },
     {
       title: 'Shipping & returns',
-      content: 'Free standard shipping across India on orders over ₹499. Easy 7-day return policy.',
+      content: 'Free standard shipping across India on orders over ₹150. Easy 7-day return policy.',
     },
   ],
   bundles: [
@@ -147,14 +147,14 @@ export const defaultProductData: Product = {
       id: 'single-10ml',
       name: 'Starter Pocket Stick (10ml)',
       description: '1x 10ml NIX Stick (5 emergency uses)',
-      price: 79,
+      price: 89,
       available: true,
     },
     {
       id: 'single-20ml',
       name: 'Standard Care Stick (20ml)',
       description: '1x 20ml NIX Stick (10 emergency uses)',
-      price: 129,
+      price: 149,
       available: true,
     },
     {

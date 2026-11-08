@@ -772,7 +772,7 @@ export const ContactPage: React.FC = () => {
                   2. Shipping Fees & Free Thresholds
                 </h4>
                 <p style={{ opacity: 0.9 }}>
-                  We offer <strong>FREE Standard Shipping</strong> on all orders of ₹499 and above. For orders under ₹499, a flat shipping fee of <strong>₹49</strong> is applied at checkout.
+                  We offer <strong>FREE Standard Shipping</strong> on all orders of ₹150 and above. For orders under ₹150, a flat shipping fee of <strong>₹30</strong> is applied at checkout.
                 </p>
               </div>
 

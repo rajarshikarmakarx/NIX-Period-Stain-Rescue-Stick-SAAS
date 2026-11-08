@@ -290,8 +290,8 @@ export const OrderTrackingPage: React.FC = () => {
                             : item.variant_id?.startsWith('refill')
                             ? '/images/roller-head-1.png'
                             : item.variant_id === '20ml'
-                            ? '/images/20ml-without-packaging.png'
-                            : '/images/10ml-without-packaging.png')
+                            ? '/images/20ml-without-packaging-with-roller-heads.png'
+                            : '/images/10ml-without-packaging-with-roller-heads.png')
                         }
                         alt={item.product_name || 'NIX Product'}
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
@@ -304,7 +304,7 @@ export const OrderTrackingPage: React.FC = () => {
                         {item.product_name || (item.variant_id?.startsWith('refill') ? 'NIX Replacement Cartridge' : 'NIX Period Rescue Stick')}
                       </div>
                       <div style={{ fontSize: '0.8rem', opacity: 0.65 }}>
-                        {item.variant_name ? `${item.variant_name} · ` : ''}Qty: {item.quantity} &nbsp;·&nbsp; {order.currency}{item.price ?? (order.total && item.quantity ? Math.round(order.total / item.quantity) : 79)} each
+                        {item.variant_name ? `${item.variant_name} · ` : ''}Qty: {item.quantity} &nbsp;·&nbsp; {order.currency}{item.price ?? (order.total && item.quantity ? Math.round(order.total / item.quantity) : 89)} each
                       </div>
                     </div>
 
@@ -452,8 +452,8 @@ export const OrderTrackingPage: React.FC = () => {
                         : order.items[0]?.variant_id === 'emergency-kit' || order.items[0]?.product_id === 'nix-emergency-kit'
                         ? '/images/emergency-kit.png'
                         : order.items[0]?.variant_id === '20ml'
-                        ? '/images/20ml-without-packaging.png'
-                        : '/images/10ml-without-packaging.png')
+                        ? '/images/20ml-without-packaging-with-roller-heads.png'
+                        : '/images/10ml-without-packaging-with-roller-heads.png')
                     }
                     alt={order.items[0]?.product_name || 'NIX Product'}
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}

@@ -98,7 +98,7 @@ export const HomePage: React.FC = () => {
                   <ShieldCheck size={16} color="var(--color-deep-cherry)" /> Pre-treatment formula
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Zap size={16} color="var(--color-deep-cherry)" /> 10ml (₹79) &amp; 20ml (₹129) sticks
+                  <Zap size={16} color="var(--color-deep-cherry)" /> 10ml (₹89) &amp; 20ml (₹149) sticks
                 </span>
               </div>
             </div>
@@ -117,7 +117,7 @@ export const HomePage: React.FC = () => {
               <ProductImage
                 src={heroImageSrc}
                 alt={`NIX Period Stain Remover (${heroVariant})`}
-                badge={heroVariant === '10ml' ? '10ml • ₹79' : '20ml • ₹129'}
+                badge={heroVariant === '10ml' ? '10ml • ₹89' : '20ml • ₹149'}
                 aspectRatio="3 / 4"
                 objectFit="contain"
                 priority={true}
@@ -153,7 +153,7 @@ export const HomePage: React.FC = () => {
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  10ml (₹79)
+                  10ml (₹89)
                 </button>
                 <button
                   type="button"
@@ -170,7 +170,7 @@ export const HomePage: React.FC = () => {
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  20ml (₹129)
+                  20ml (₹149)
                 </button>
               </div>
             </div>
@@ -561,7 +561,7 @@ export const HomePage: React.FC = () => {
                         color: 'var(--color-deep-cherry)',
                       }}
                     >
-                      ₹79
+                      ₹89
                     </span>
                     <span
                       style={{
@@ -608,7 +608,7 @@ export const HomePage: React.FC = () => {
                 fullWidth
                 onClick={() => addToCart(1, '10ml')}
               >
-                ADD 10ML TO BAG — ₹79
+                ADD 10ML TO BAG — ₹89
               </Button>
             </div>
 
@@ -674,7 +674,7 @@ export const HomePage: React.FC = () => {
                         color: 'var(--color-deep-cherry)',
                       }}
                     >
-                      ₹129
+                      ₹149
                     </span>
                     <span
                       style={{
@@ -707,7 +707,7 @@ export const HomePage: React.FC = () => {
                     <Check size={16} color="var(--color-deep-cherry)" /> 10 full stain pre-treatments (2x uses)
                   </li>
                   <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Check size={16} color="var(--color-deep-cherry)" /> Best cost per use (₹12.9 / use)
+                    <Check size={16} color="var(--color-deep-cherry)" /> Best cost per use (₹14.9 / use)
                   </li>
                   <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Check size={16} color="var(--color-deep-cherry)" /> Official retail packaging box
@@ -721,7 +721,7 @@ export const HomePage: React.FC = () => {
                 fullWidth
                 onClick={() => addToCart(1, '20ml')}
               >
-                ADD 20ML TO BAG — ₹129
+                ADD 20ML TO BAG — ₹149
               </Button>
             </div>
           </div>

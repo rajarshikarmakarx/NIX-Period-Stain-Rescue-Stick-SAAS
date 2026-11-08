@@ -333,7 +333,7 @@ export const RefillProductPage: React.FC = () => {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Truck size={18} color="var(--color-deep-cherry)" />
-                <span>Free shipping &gt; ₹499</span>
+                <span>Free shipping &gt; ₹150</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <RotateCcw size={18} color="var(--color-deep-cherry)" />
